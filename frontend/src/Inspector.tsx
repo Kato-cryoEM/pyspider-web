@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Edge, Node } from "reactflow";
 import type { SpiderNodeData } from "./SpiderNode";
 import type { OutputPreview, EdgeInfo } from "./types";
 import Volume3D from "./Volume3D";
+import LinePlot from "./LinePlot";
 import FilterRing from "./FilterRing";
 import MaskProfile from "./MaskProfile";
 import SliceDiagram from "./SliceDiagram";
@@ -362,89 +363,15 @@ function OutputBlock({ name, out, savedPath }: {
   out: OutputPreview;
   savedPath?: string;
 }) {
-  // For stack outputs with per-frame thumbnails, remember which frame the
-  // user picked so the "big preview" tracks their filmstrip clicks.
-  const [selected, setSelected] = useState<number | null>(null);
-  const frames = out.frames ?? [];
-  const hasFrames = frames.length > 0;
-  // Position within the sampled `frames[]` array (not within the full stack
-  // when it's larger than max_frames and sparsely sampled). This keeps
-  // prev/next jumps aligned with the filmstrip thumbnails.
-  const defaultPos = hasFrames ? Math.floor(frames.length / 2) : 0;
-  const pos = (() => {
-    if (!hasFrames || selected == null) return defaultPos;
-    const i = frames.findIndex((f) => f.index === selected);
-    return i >= 0 ? i : defaultPos;
-  })();
-  const chosen = hasFrames && selected != null
-    ? frames.find((f) => f.index === selected) ?? null
-    : null;
-  const bigPng = chosen ? chosen.png : out.png;
-
-  const step = useCallback((delta: number) => {
-    if (!hasFrames) return;
-    const next = Math.max(0, Math.min(frames.length - 1, pos + delta));
-    setSelected(frames[next].index);
-  }, [hasFrames, frames, pos]);
-
-  // Auto-scroll the active filmstrip thumbnail into view.
-  const stripRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    if (!hasFrames || selected == null || !stripRef.current) return;
-    const el = stripRef.current.querySelector<HTMLButtonElement>(
-      `button[data-fidx="${selected}"]`);
-    el?.scrollIntoView({ behavior: "smooth", block: "nearest",
-                         inline: "nearest" });
-  }, [selected, hasFrames]);
-
-  // ←/→ frame navigation is scoped to this preview via keyboard focus:
-  // clicking the preview arms the keys, clicking a canvas node moves focus
-  // away so React Flow's own arrow-key node-nudging keeps working.
-  const previewRef = useRef<HTMLDivElement | null>(null);
+  // ndim-based preview: 1D → line plot, 2D → image, 3D → rotatable volume.
+  // No per-frame filmstrip or arrow navigation — use `stack.index` to peek
+  // at a specific slice when you need one.
 
   return (
-    <div
-      ref={previewRef}
-      className="preview"
-      tabIndex={hasFrames ? 0 : undefined}
-      onMouseDown={hasFrames ? () => {
-        // Grab focus on click so arrow keys route here instead of the
-        // canvas. Done on mousedown (not click) so the first keystroke
-        // after a pointerup is already captured.
-        previewRef.current?.focus();
-      } : undefined}
-      onKeyDown={hasFrames ? (e) => {
-        if (e.key === "ArrowLeft")  { e.preventDefault(); step(-1); }
-        if (e.key === "ArrowRight") { e.preventDefault(); step(+1); }
-      } : undefined}
-    >
+    <div className="preview">
       <div style={{ fontSize: 11, color: "var(--muted)",
                     display: "flex", alignItems: "center", gap: 6 }}>
         <span>{name}</span>
-        {hasFrames && (
-          <>
-            <button
-              type="button"
-              className="frame-nav"
-              onClick={() => step(-1)}
-              disabled={pos <= 0}
-              title="Previous frame (←)"
-              aria-label="previous frame"
-            >◀</button>
-            <span>
-              frame {chosen ? chosen.index : frames[defaultPos].index}
-              {" / "}{out.n_frames}
-            </span>
-            <button
-              type="button"
-              className="frame-nav"
-              onClick={() => step(+1)}
-              disabled={pos >= frames.length - 1}
-              title="Next frame (→)"
-              aria-label="next frame"
-            >▶</button>
-          </>
-        )}
       </div>
 
       {out.volume_u8 && out.volume_shape && out.volume_range ? (
@@ -453,27 +380,17 @@ function OutputBlock({ name, out, savedPath }: {
           shape={out.volume_shape as [number, number, number]}
           range={out.volume_range as [number, number]}
         />
-      ) : bigPng ? (
-        <img alt={name} src={`data:image/png;base64,${bigPng}`} />
+      ) : out.kind === "plot" && out.plot ? (
+        <LinePlot
+          x={out.plot.x}
+          y={out.plot.y}
+          nTotal={out.plot.n_total}
+          yRange={out.min != null && out.max != null
+            ? [out.min, out.max] : null}
+        />
+      ) : out.png ? (
+        <img alt={name} src={`data:image/png;base64,${out.png}`} />
       ) : null}
-
-      {hasFrames && (
-        <div className="filmstrip" ref={stripRef}>
-          {frames.map((f) => (
-            <button
-              key={f.index}
-              data-fidx={f.index}
-              className={"filmstrip-item" +
-                (selected === f.index ? " active" : "")}
-              onClick={() => setSelected(f.index === selected ? null : f.index)}
-              title={`frame ${f.index}`}
-            >
-              <img src={`data:image/png;base64,${f.png}`} alt={`f${f.index}`} />
-              <div className="filmstrip-idx">{f.index}</div>
-            </button>
-          ))}
-        </div>
-      )}
 
       {out.kind === "scalar" && (
         <div className="scalar">{String(out.value)}</div>

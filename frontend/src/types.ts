@@ -50,7 +50,7 @@ export interface StackFrame {
 }
 
 export interface OutputPreview {
-  kind: "image" | "array" | "scalar" | "doc" | "other";
+  kind: "image" | "volume" | "plot" | "array" | "scalar" | "doc" | "other";
   shape?: number[];
   dtype?: string;
   png?: string | null;
@@ -58,16 +58,19 @@ export interface OutputPreview {
   max?: number | null;
   value?: number | string | boolean;
   repr?: string;
+  /** 1D line-plot payload (downsampled). */
+  plot?: {
+    x: number[];
+    y: number[];
+    /** Total sample count before downsampling. */
+    n_total: number;
+  };
   /** Downsampled 3D volume (raw uint8 bytes, base64). */
   volume_u8?: string;
   /** Shape of the downsampled volume: [nz, ny, nx]. */
   volume_shape?: number[];
   /** Original value range [min, max] before uint8 normalisation. */
   volume_range?: number[];
-  /** Per-frame thumbnails for stack outputs (up to 32 frames). */
-  frames?: StackFrame[];
-  /** Total number of frames in the stack (may be > frames.length). */
-  n_frames?: number;
   /** Doc preview: number of rows and a sample of the first rows. */
   n_rows?: number;
   preview?: number[][];

@@ -10,7 +10,7 @@
 // Append a build-stamp query so a new deploy busts any stale browser cache
 // of bundle.zip / pyodideWorker.js (both are plain static assets that
 // upstream HTTP caches tend to hold onto).
-const CACHE_BUST = "v=20261110h";
+const CACHE_BUST = "v=20261110i";
 const WORKER_URL = `./pyodideWorker.js?${CACHE_BUST}`;
 const BUNDLE_URL = `./bundle.zip?${CACHE_BUST}`;
 

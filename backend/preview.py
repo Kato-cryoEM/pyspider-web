@@ -330,48 +330,86 @@ def _csv_string_to_doc(text: str, port_name: str = "") -> dict | None:
     }
 
 
+def _plot_payload(arr: np.ndarray, max_points: int = 512) -> dict:
+    """Downsample a 1D array to a flat JSON-safe list for the frontend's
+    line-plot widget. Keep complex arrays magnitude-only (plot the modulus).
+    """
+    a = np.asarray(arr).ravel()
+    if np.iscomplexobj(a):
+        a = np.abs(a)
+    a = np.asarray(a, dtype=np.float64)
+    n = int(a.size)
+    if n > max_points:
+        idx = np.linspace(0, n - 1, max_points).astype(np.int64)
+        y = a[idx]
+        x = idx.astype(np.float64)
+    else:
+        y = a
+        x = np.arange(n, dtype=np.float64)
+    return {
+        "x": x.tolist(),
+        "y": y.tolist(),
+        "n_total": n,
+    }
+
+
 def encode_output(value: Any, kind: str | None = None,
                   port_name: str = "") -> dict:
     """Return a JSON-friendly preview of a single port value.
 
-    ``kind`` is the port kind from the node spec (e.g. "volume", "stack").
-    ``port_name`` is used to guess column headers for CSV string outputs.
-    Extra payloads:
-      - kind == "volume" (3D): raw uint8 voxels for the Three.js viewer.
-      - kind == "stack"  (3D, N>1): per-frame thumbnails for the filmstrip.
+    **Ndim-based dispatch** — the port spec's ``kind`` no longer selects
+    the preview style. Instead:
+
+      - 0-D (scalar array)      → scalar text
+      - 1-D array               → line plot
+      - 2-D array (real/complex)→ PNG image (HSV colour for complex)
+      - 3-D array               → rotatable Three.js volume  (+ centre-slice PNG)
+      - 4+D array               → shape summary only
+
+    ``port_name`` is still used to guess column headers for CSV strings.
     """
     if hasattr(value, "shape") and hasattr(value, "dtype"):
         arr = xp.to_host(value)
         real = np.log1p(np.abs(arr)) if np.iscomplexobj(arr) else arr
-        # Choose the PNG encoder based on the port kind (phase → HSV colour).
-        if kind == "phase" and arr.ndim == 2 and not np.iscomplexobj(arr):
-            png = _phase_to_png_b64(arr)
-        elif arr.ndim in (2, 3):
+        if arr.ndim == 0:
+            try:
+                val = float(arr)
+            except (TypeError, ValueError):
+                val = str(arr)
+            return {"kind": "scalar", "value": val,
+                    "shape": [], "dtype": str(arr.dtype)}
+        if arr.ndim == 1:
+            return {
+                "kind": "plot",
+                "shape": list(arr.shape),
+                "dtype": str(arr.dtype),
+                "plot": _plot_payload(arr),
+                "min": float(real.min()) if arr.size else None,
+                "max": float(real.max()) if arr.size else None,
+            }
+        png: str | None = None
+        if arr.ndim == 2:
+            png = (_phase_to_png_b64(arr)
+                   if kind == "phase" and not np.iscomplexobj(arr)
+                   else _image_to_png_b64(arr))
+        elif arr.ndim == 3:
+            # Centre-slice thumbnail so a 2D fallback is always available
+            # (e.g. inline SpiderNode preview before Three.js initialises).
             png = _image_to_png_b64(arr)
-        else:
-            png = None
         result: dict = {
-            "kind": "image" if arr.ndim in (2, 3) else "array",
+            "kind": "image" if arr.ndim == 2 else (
+                "volume" if arr.ndim == 3 else "array"),
             "shape": list(arr.shape),
             "dtype": str(arr.dtype),
             "png": png,
             "min": float(real.min()) if arr.size else None,
             "max": float(real.max()) if arr.size else None,
         }
-        if kind in ("volume", "fourier3d") and arr.ndim == 3 and arr.size > 0:
-            # fourier3d is complex; _downsample uses log1p(|F|) for complex
-            # arrays, which gives the student a rotatable |F(k)| cloud.
+        if arr.ndim == 3 and arr.size > 0:
             raw, vshape, vmin, vmax = _downsample_volume_to_uint8(arr)
             result["volume_u8"] = base64.b64encode(raw).decode("ascii")
             result["volume_shape"] = vshape
             result["volume_range"] = [vmin, vmax]
-        elif (arr.ndim == 3 and arr.shape[0] > 1
-              and not (arr.shape[-1] == 3 and arr.shape[0] != 3)):
-            # Filmstrip for any 3D output with >1 frame — not just `stack`.
-            # Skip when the last dim is 3 (RGB annotated preview) so a
-            # (H, W, 3) image isn't mis-interpreted as an H-frame stack.
-            result["frames"] = _stack_frames_preview(arr)
-            result["n_frames"] = int(arr.shape[0])
         return result
     if isinstance(value, str):
         # Multi-row numeric CSV → render as a table (with column headers when
