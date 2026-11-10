@@ -329,7 +329,16 @@ html, body, #root { margin: 0; height: 100vh; background: var(--bg); color: var(
                                        rgba(50, 120, 60, 0.85));
 }
 .spider-node .header { margin-bottom: 2px; }
-.spider-node .title { font-weight: 600; }
+.spider-node .title { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.fixture-name-badge {
+  background: #ffd166;
+  color: #1a0a0a;
+  font-weight: 700;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 6px;
+}
 .spider-node .category { font-size: 9px; text-transform: uppercase;
   letter-spacing: 0.05em; color: var(--muted); }
 

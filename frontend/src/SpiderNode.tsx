@@ -139,7 +139,14 @@ export default function SpiderNode({ id, data, selected }: NodeProps<SpiderNodeD
          style={{ minWidth: `${dynamicMinWidth}px` }}>
       <div className="header">
         <div className="category">{spec.category}</div>
-        <div className="title">{spec.label}</div>
+        <div className="title">
+          {spec.label}
+          {(spec.id === "data.challenge_input"
+            || spec.id === "data.challenge_input_volume")
+            && typeof params?.name === "string" && params.name && (
+            <span className="fixture-name-badge">{params.name as string}</span>
+          )}
+        </div>
       </div>
 
       {/* Reserve vertical space for all port rows; handles + labels are
