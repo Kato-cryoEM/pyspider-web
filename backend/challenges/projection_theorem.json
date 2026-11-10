@@ -16,6 +16,7 @@
     {
       "name": "projection",
       "kind": "image",
+      "hide_output": true,
       "recipe": {
         "axis_project": "volume",
         "axis": "y"

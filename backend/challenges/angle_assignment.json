@@ -15,6 +15,7 @@
     {
       "name": "particle",
       "kind": "image",
+      "hide_output": true,
       "recipe": {
         "project_of": "volume",
         "phi": 0,

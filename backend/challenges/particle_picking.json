@@ -19,6 +19,7 @@
     {
       "name": "truth_mask",
       "kind": "image",
+      "hide_output": true,
       "recipe": {
         "betagal_truth_mask": true,
         "size": 1024,

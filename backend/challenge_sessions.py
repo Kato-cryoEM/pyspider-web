@@ -486,7 +486,13 @@ def start_session(spec: dict) -> dict:
     fixture_meta = [
         {"name": item["name"],
          "kind": item.get("kind", "image"),
-         "judge_only": bool(item.get("judge_only", False))}
+         "judge_only": bool(item.get("judge_only", False)),
+         # When True, the fixture's output handle is suppressed on the canvas
+         # so the student doesn't wire it into their pipeline. Used for pure
+         # target fixtures (e.g. `projection` in projection_theorem, where
+         # the student builds the projection themselves — the fixture only
+         # exists so the judge has something to compare against).
+         "hide_output": bool(item.get("hide_output", False))}
         for item in spec.get("fixtures", [])
     ]
     return {
@@ -498,11 +504,6 @@ def start_session(spec: dict) -> dict:
         "fixture_names": [f["name"] for f in fixture_meta],  # back-compat
         "allowed_nodes": spec.get("allowed_nodes", []),
         "hint": spec.get("hint", ""),
-        # The fixture name the judge compares the student's answer against.
-        # The UI uses this to hide the output handles on the target fixture
-        # (so a student doesn't wire it as graph input by mistake and the
-        # "this is the target" intent is visually clear).
-        "compare_to": spec.get("compare_to"),
     }
 
 

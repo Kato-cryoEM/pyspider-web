@@ -605,20 +605,28 @@ function Canvas({ specs }: { specs: NodeSpec[] }) {
     return () => window.clearTimeout(t);
   }, [nodes, edges]);
 
-  // In challenge mode we hide the output handle on the *target* fixture
-  // (the one the judge compares against). That fixture is the answer, not
-  // a problem input — hiding its handle makes the intent visually clear
-  // and prevents accidental "wire the answer straight through" cheats.
-  // Problem-input fixtures (and all other nodes) keep their handles.
-  const targetFixtureName = challenge.session?.compare_to ?? null;
+  // Per-fixture `hide_output` flag (from the challenge JSON) — pure-answer
+  // fixtures (e.g. `particle` in angle_assignment, `projection` in
+  // projection_theorem) suppress their output handle so the student
+  // doesn't accidentally wire the target into the pipeline. Fixtures
+  // meant as problem inputs (reference / shifted / rotated / volume /
+  // micrograph) are absent from this set and keep their handles.
+  const hideOutputFixtureNames = useMemo(() => {
+    const s = new Set<string>();
+    for (const f of challenge.session?.fixtures ?? []) {
+      if (f.hide_output) s.add(f.name);
+    }
+    return s;
+  }, [challenge.session]);
 
   const nodesWithWireInfo = useMemo(
     () => nodes.map((n) => {
       const spec = n.data.spec;
-      const isTargetFixture = !!targetFixtureName
+      const isHiddenFixture = hideOutputFixtureNames.size > 0
         && (spec.id === "data.challenge_input"
             || spec.id === "data.challenge_input_volume")
-        && n.data.params?.name === targetFixtureName;
+        && typeof n.data.params?.name === "string"
+        && hideOutputFixtureNames.has(n.data.params.name as string);
       return {
         ...n,
         data: {
@@ -626,12 +634,12 @@ function Canvas({ specs }: { specs: NodeSpec[] }) {
           wiredParams: wiredParamsByNode.get(n.id) ?? new Set<string>(),
           hasWires: nodesWithEdges.has(n.id),
           predictedShape: predictedShapes[n.id],
-          hideAllOutputs: isTargetFixture,
+          hideAllOutputs: isHiddenFixture,
         },
       };
     }),
     [nodes, wiredParamsByNode, nodesWithEdges, predictedShapes,
-     targetFixtureName],
+     hideOutputFixtureNames],
   );
 
   // Attach a type-compatibility check to each edge and colour it.

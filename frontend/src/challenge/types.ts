@@ -24,6 +24,10 @@ export interface FixtureMeta {
    *  panel — no canvas node is dropped — so the student cannot wire it
    *  into their graph (= hidden ground-truth / judge reference). */
   judge_only?: boolean;
+  /** When true, the fixture is dropped on the canvas but its output
+   *  handle is suppressed, preventing the student from wiring it into
+   *  their pipeline. Used for pure-answer fixtures. */
+  hide_output?: boolean;
 }
 
 /** Payload returned by POST /api/challenges/start. */
@@ -37,9 +41,6 @@ export interface ChallengeSession {
   fixture_names: string[];
   allowed_nodes: string[];
   hint: string;
-  /** Name of the fixture the judge compares the student's answer to. The UI
-   *  hides the output handle on this fixture so it isn't wired by mistake. */
-  compare_to?: string | null;
 }
 
 /** Payload returned by POST /api/challenges/judge. */
