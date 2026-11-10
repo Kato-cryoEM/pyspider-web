@@ -3,9 +3,10 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  // Emit the standalone, server-less build to `dist/` next to the source.
-  // Serve this directory with any static server (or `python -m http.server`)
-  // to run pyspider entirely in the browser via Pyodide.
+  // Relative base — index.html references assets as `./assets/...`, which
+  // works both at the site root (local `python -m http.server`) and under
+  // a GitHub Pages subpath like `/pyspider-web/`.
+  base: "./",
   build: {
     outDir: "dist",
     emptyOutDir: true,
