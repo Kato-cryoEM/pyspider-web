@@ -605,35 +605,33 @@ function Canvas({ specs }: { specs: NodeSpec[] }) {
     return () => window.clearTimeout(t);
   }, [nodes, edges]);
 
-  // Per-node set of output ports that currently have an outgoing edge. In
-  // challenge mode we use this to hide dangling output handles on terminal
-  // (= "answer") nodes so the node that will be submitted looks clean.
-  const connectedOutputs = useMemo(() => {
-    const m = new Map<string, Set<string>>();
-    for (const e of edges) {
-      if (!e.source || !e.sourceHandle) continue;
-      if (!m.has(e.source)) m.set(e.source, new Set());
-      m.get(e.source)!.add(e.sourceHandle);
-    }
-    return m;
-  }, [edges]);
-  const inChallenge = !!challenge.session;
+  // In challenge mode we hide the output handle on the *target* fixture
+  // (the one the judge compares against). That fixture is the answer, not
+  // a problem input — hiding its handle makes the intent visually clear
+  // and prevents accidental "wire the answer straight through" cheats.
+  // Problem-input fixtures (and all other nodes) keep their handles.
+  const targetFixtureName = challenge.session?.compare_to ?? null;
 
-  // Inject the wired-params set + predicted shape into each node's data.
   const nodesWithWireInfo = useMemo(
-    () => nodes.map((n) => ({
-      ...n,
-      data: {
-        ...n.data,
-        wiredParams: wiredParamsByNode.get(n.id) ?? new Set<string>(),
-        hasWires: nodesWithEdges.has(n.id),
-        predictedShape: predictedShapes[n.id],
-        connectedOutputs: connectedOutputs.get(n.id) ?? new Set<string>(),
-        hideUnconnectedOutputs: inChallenge,
-      },
-    })),
+    () => nodes.map((n) => {
+      const spec = n.data.spec;
+      const isTargetFixture = !!targetFixtureName
+        && (spec.id === "data.challenge_input"
+            || spec.id === "data.challenge_input_volume")
+        && n.data.params?.name === targetFixtureName;
+      return {
+        ...n,
+        data: {
+          ...n.data,
+          wiredParams: wiredParamsByNode.get(n.id) ?? new Set<string>(),
+          hasWires: nodesWithEdges.has(n.id),
+          predictedShape: predictedShapes[n.id],
+          hideAllOutputs: isTargetFixture,
+        },
+      };
+    }),
     [nodes, wiredParamsByNode, nodesWithEdges, predictedShapes,
-     connectedOutputs, inChallenge],
+     targetFixtureName],
   );
 
   // Attach a type-compatibility check to each edge and colour it.

@@ -37,6 +37,9 @@ export interface ChallengeSession {
   fixture_names: string[];
   allowed_nodes: string[];
   hint: string;
+  /** Name of the fixture the judge compares the student's answer to. The UI
+   *  hides the output handle on this fixture so it isn't wired by mistake. */
+  compare_to?: string | null;
 }
 
 /** Payload returned by POST /api/challenges/judge. */

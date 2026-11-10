@@ -27,11 +27,10 @@ export interface SpiderNodeData {
    *  correct aspect (clock 256² → PO 128×~804) instead of an arbitrary
    *  square. May be undefined for nodes the predictor doesn't know. */
   predictedShape?: number[];
-  /** Names of output ports on THIS node that currently feed at least one
-   *  edge. Paired with `hideUnconnectedOutputs` to render a cleaner
-   *  "answer node" during challenges (no dangling output handles). */
-  connectedOutputs?: Set<string>;
-  hideUnconnectedOutputs?: boolean;
+  /** Hide every output handle on this node (used for the "target fixture"
+   *  in challenges — the fixture the judge compares against). Input
+   *  handles and the rest of the node remain unaffected. */
+  hideAllOutputs?: boolean;
 }
 
 const ROW_HEIGHT = 16;
@@ -98,10 +97,9 @@ export default function SpiderNode({ id, data, selected }: NodeProps<SpiderNodeD
     return Array.isArray(want) ? want.includes(otherVal) : otherVal === want;
   };
   const visibleInputs = spec.inputs.filter(dependsOnSatisfied);
-  const connectedOuts = data.connectedOutputs ?? new Set<string>();
-  const visibleOutputs = spec.outputs
-    .filter(dependsOnSatisfied)
-    .filter((p) => !data.hideUnconnectedOutputs || connectedOuts.has(p.name));
+  const visibleOutputs = data.hideAllOutputs
+    ? []
+    : spec.outputs.filter(dependsOnSatisfied);
   const wireableParams: Param[] = spec.params.filter(
     (p) => p.wireable && (dependsOnSatisfied(p) || wired.has(p.name)),
   );
