@@ -1,0 +1,77 @@
+{
+  "id": "basic_filter",
+  "title": "Basic 10 · Apply a filter",
+  "summary": "Frequency-domain filter (low-pass / high-pass variants) with a tunable cutoff. Previews the live filter response ring.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try a filter",
+      "body": "Apply a Gaussian low-pass in frequency space to attenuate high-frequency content. We use the **Siemens star** — a radial test chart whose lines become higher-frequency as they approach the centre — so you can see exactly which frequencies the filter cuts.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Siemens Star** onto the canvas.",
+      "target": { "tutorId": "palette:data.siemens", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.siemens" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.siemens` shows the full-frequency star before filtering.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.siemens" }
+    },
+    {
+      "id": "drop-filter",
+      "title": "Drop the Low-pass node",
+      "body": "From the Filter category, drag **Filter · Low-pass** (`filter.lp`) next to the Siemens star. The default `kind` is `gauss` — acts as a Gaussian LP out of the box.",
+      "target": { "tutorId": "palette:filter.lp", "cardSide": "right", "expandPaletteCategory": "Filter" },
+      "action": { "kind": "add_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Siemens → Low-pass",
+      "body": "Drag from the Siemens Star's right output to the Low-pass's left input.",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.siemens", "srcPort": "image", "dstNodeType": "filter.lp", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. The default cutoff is already mild — the filtered star shows subtle blurring at the centre as a baseline.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "select",
+      "title": "Click the Low-pass node",
+      "body": "Click Low-pass. Core params: `kind` (filter shape, default gauss) and `fc` (cutoff in cycles/pixel; 0.5 = Nyquist). Default `fc` is 0.1 (= 10-pixel period). The Inspector shows a live frequency-response plot that updates as you tweak `fc`.",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "set-fc",
+      "title": "Lower fc to 0.05",
+      "body": "Enter **0.05** in `fc`. The low-pass becomes more aggressive (heavier smoothing).",
+      "target": { "tutorId": "param:fc", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "fc", "value": 0.05 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. The Low-pass node preview shows a smoothed Siemens star — the thin lines near the centre (high frequency) are gone while the thicker outer lines survive: direct visual evidence of what frequencies got cut.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "Drop `fc` to 0.02 and the centre becomes almost a flat disk; raise it to 0.2 and the result is nearly the original. Switch `kind` to `tophat` / `fermi` / `butter` / `raised_cos` to see how the transition shape near the cutoff changes (Comparison 2 explores this in depth).",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

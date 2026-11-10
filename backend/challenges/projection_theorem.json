@@ -1,0 +1,37 @@
+{
+  "id": "projection_theorem",
+  "title": "Projection–slice theorem: synthesise the projection in Fourier",
+  "summary": "Produce the projection from a 3D helix volume using the Fourier-slice theorem.",
+  "prompt": "On the canvas: a 3D helix `volume` and its projection `projection`. Produce an image matching `projection` from `volume` using Fourier-domain nodes only.\n\n**Goal:** NCC ≥ 0.99 with `projection`.",
+  "fixtures": [
+    {
+      "name": "volume",
+      "kind": "volume",
+      "recipe": {
+        "helix_volume": true,
+        "size": 64,
+        "n_turns": 3.0
+      }
+    },
+    {
+      "name": "projection",
+      "kind": "image",
+      "recipe": {
+        "axis_project": "volume",
+        "axis": "y"
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "ft.forward",
+    "recon.slice3d",
+    "ft.inverse",
+    "recon.vol_slice"
+  ],
+  "answer_port": "image",
+  "compare_to": "projection",
+  "metric": "ncc",
+  "pass_score": 0.99,
+  "hint": "Central-slice (projection–slice) theorem:\n  the 2D FFT of a projection along direction d = the central slice of the volume's 3D FFT perpendicular to d.\n\nSo: volume → 3D FFT → central slice perpendicular to d → 2D IFFT recovers the d-direction projection.\n\nThree-node solution: volume → ft.forward(dims=3d) → recon.slice3d(axis=?, index=-1, tilt_deg=0) → ft.inverse(dims=2d)\n\nHint for choosing `axis`: observe which direction was integrated to form `projection` and pick that axis. Here the slice is axis-aligned so `tilt_deg = 0` is enough. The Inspector's slice diagram shows where you're cutting through the cube.",
+  "order": 5
+}

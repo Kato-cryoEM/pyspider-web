@@ -1,0 +1,126 @@
+{
+  "id": "basic_multiply",
+  "title": "Basic 9 · Image × mask (Multiply)",
+  "summary": "Make a circular mask with the MO (Model image) node, then multiply it by a Camera image to keep only the central disk.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Build masking with multiplication",
+      "body": "The most practical use of multiply is **image × mask**. The mask is a binary (or soft-coefficient) image whose value is 1 where you want to keep content and 0 where you want to discard it, so:\n\n  **output = image × mask** → 1 regions pass through, 0 regions become 0.\n\nBasic 4's Circular mask does exactly this internally. Here we build it explicitly: generate a circular mask with **MO (Model image)** and multiply it against a Camera image via `arith.binop` with op=mul.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-camera",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Camera** (128×128). This is the image we'll mask.",
+      "target": { "tutorId": "palette:data.camera", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.camera" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.camera` shows its image.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.camera" }
+    },
+    {
+      "id": "drop-mo",
+      "title": "Drop MO (Model image)",
+      "body": "From Palette (Data), drag **Model image** (`data.mo`) — the mask-generator node. Its `kind` dropdown offers circle / gaussian / soft_circle / rectangle / ring and more.",
+      "target": { "tutorId": "palette:data.mo", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.mo" }
+    },
+    {
+      "id": "_run_after_add_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.mo` shows its mask image.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.mo" }
+    },
+    {
+      "id": "select-mo",
+      "title": "Click MO",
+      "body": "Click MO. The Inspector reveals `nx` / `ny` (output size), `kind`, `density` (value inside the shape), `radius`, and more. Defaults: `kind=circle`, `density=1`, `radius=20`, `nx=ny=128`.",
+      "target": { "tutorId": "node:data.mo", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "data.mo" }
+    },
+    {
+      "id": "set-nx",
+      "title": "Set nx to 128",
+      "body": "Enter **128** in `nx` — matches Camera's size (both operands must share shape for multiply).",
+      "target": { "tutorId": "param:nx", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "nx", "value": 128 }
+    },
+    {
+      "id": "set-ny",
+      "title": "Set ny to 128",
+      "body": "Enter **128** in `ny` — matches Camera vertically.",
+      "target": { "tutorId": "param:ny", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "ny", "value": 128 }
+    },
+    {
+      "id": "set-radius",
+      "title": "Set radius to 40",
+      "body": "Enter **40** in `radius`. A radius-40 disk gets value **1** inside and **0** outside — this binary mask decides the keep/kill regions for the multiply step.",
+      "target": { "tutorId": "param:radius", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "radius", "value": 40 }
+    },
+    {
+      "id": "drop-binop",
+      "title": "Drop the Arithmetic node",
+      "body": "From Arithmetic, drag **Arithmetic · a ∘ b** (`arith.binop`) — the multiply happens here.",
+      "target": { "tutorId": "palette:arith.binop", "cardSide": "right", "expandPaletteCategory": "Arithmetic" },
+      "action": { "kind": "add_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "wire-a",
+      "title": "Wire Camera → a",
+      "body": "Drag from Camera's `image` output to `arith.binop.a`. Convention: the image being masked goes on `a`.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.camera", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "a" }
+    },
+    {
+      "id": "wire-b",
+      "title": "Wire MO → b",
+      "body": "Drag from MO's `image` output to `arith.binop.b`. The mask goes on `b`.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.mo", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "b" }
+    },
+    {
+      "id": "_run_after_wire_3",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. The default `op=add` gives Camera + Mask — a baseline before we switch to multiply.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "select-binop",
+      "title": "Click Arithmetic",
+      "body": "Click Arithmetic. Default `op` is `add`; switch to `mul`.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "set-op",
+      "title": "Set op to mul",
+      "body": "Change `op` to **`mul`**. Multiply mode engaged.",
+      "target": { "tutorId": "param:op", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "op", "value": "mul" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. The MO circular mask is multiplied pixel-wise with Camera: only the inside of the disk keeps the camera content, everything outside becomes 0 (black).",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "**Play with it — change the mask shape:**\n  - MO `kind` = **`soft_circle`** → cosine-rolled boundary, best for suppressing Fourier-domain ringing.\n  - `kind` = **`gaussian`** → a Gaussian window (centre-weighted window function).\n  - `kind` = **`ring`** + `radius` / `width` → annular mask (same effect as a Basic-4 mask with the centre punched out).\n  - `kind` = **`rectangle`** + `width` / `height` → rectangular crop.\n  - `density` = 0.5 → softly dim the whole image by 50 %.\n\n**Takeaway:** MO + binop lets you design arbitrary mask shapes — Basic 4's Circular mask is convenient but shape-locked. In real cryo-EM, a soft-edged circular or elliptical mask from MO is routinely multiplied with particles.\n\nThat completes the arith trio (`add` / `sub` / `mul`) — same `arith.binop` node, only `op` changes. Next: **Basic 10 · Apply a filter** moves us into frequency filtering.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

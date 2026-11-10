@@ -1,0 +1,109 @@
+<html> 
+<head>
+<title>SPIDER: RM (Radon transform suite of programs.)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM - Radon transform suite of programs.</h2>
+<em>(2/09/01)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>All programs for handling Radon
+transforms are found under the operation 'RM' .
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rm2dn.html"><strong>RM 2DN</strong></a></td><td> [Radon Transform - 2D]</td></tr>
+<tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmcompln.html"><strong>RM COMPLN</strong></a></td><td> [Radon Transform - 2D, Complete]</td></tr>
+<tr><td><a href="rmfilter.html"><strong>RM FILTER</strong></a></td><td> [Radon Transform - Filter]</td></tr>
+<tr><td><a href="rmftinvn.html"><strong>RM FTINVN</strong></a></td><td> [Radon Transform - Inverse Fourier transform]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+<tr><td><a href="rminv2n.html"><strong>RM INV2N</strong></a></td><td> [Radon Transform - Computes inverse (Fourier-)Radon transform]</td></tr>
+<tr><td><a href="rminv3n.html"><strong>RM INV3N</strong></a></td><td> [Radon Transform - Computes inverse 3D (Fourier-)Radon transform]</td></tr>
+<tr><td><a href="rmmake3.html"><strong>RM MAKE3</strong></a></td><td> [Radon Transform - Create blank 3D Radon (or Polar Fourier) Transf.]</td></tr>
+<tr><td><a href="rmreset.html"><strong>RM RESET</strong></a></td><td> [Radon Transform - Clear counter and sigma]</td></tr>
+<tr><td><a href="rmsave.html"><strong>RM SAVE</strong></a></td><td> [Radon transform suite of programs.]</td></tr>
+<tr><td><a href="rmsum3n.html"><strong>RM SUM3N</strong></a></td><td> [Radon Transform - Sum/average 2D Into 3D Fourier Radon transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM<br />
+<p>
+</dd> <dd>[RM is a suite of programs to handle Radon transforms. Currently
+Radon transforms do not have a separate file type and neither do
+their Fourier transforms. The user has to make sure that the
+correct type of data are used.
+2D Radon transforms (also called Sinograms) are stored with each
+line corresponding to one projection angle. The file header
+contains the information about the angular sampling in positions
+54-56, in the order: (from, to, increment).
+3D Radon transforms also are stored with each line belonging
+to one angle. Phi increases with the line number, theta with the
+slice.
+The Fourier transforms of 2D and 3D Radon transforms are stored
+line by line in the same position as the real space transform.
+Each line is two numbers longer than in real space Radon transform.
+Also peak files are used. For alignment of 2D to 3D radon transforms
+the angular range of the peakfiles is kept in header positions
+48 to 56.
+Programs in this suite all transfer the header information. Other
+programs in SPIDER may not. If this is the case you have to use
+'FI' x.. to extract the header information from one file and
+'ST' to set it in the output file (this problem is under discussion
+and will be removed).
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Please contact M. Radermacher
+(michael@alpha.biophys.mpg.de)
+for details about the opeations and recent changes.
+<p>
+<li>Developed by M. Radermacher.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

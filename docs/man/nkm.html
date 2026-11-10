@@ -1,0 +1,79 @@
+<html> 
+<head>
+<title>SPIDER: NK M (Shrink to mask)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>NK M - Shrink to mask</h2>
+<em>(10/23/96)</em><br>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Isolate particle within image frame using threshold criterion.
+Threshold is placed outside the particle. The picture
+elements within the particle will be filled with the
+value 1., and those outside with the value 0, to create a
+binary mask.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="nk.html"><strong>NK</strong></a></td><td> [Shrink to threshold]</td></tr>
+<tr><td><a href="se.html"><strong>SE</strong></a></td><td> [Seed fill an image]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: NK M<br>
+<p>
+<dd>.INPUT FILE: PIC001<BR>
+[Enter the name of the input file.]
+<p>
+.OUTPUT FILE: IMG040<BR>
+[Enter the name of the output file.]
+<p>
+.RETAIN VALUES (A)BOVE OR (B)ELOW THRESHOLD: A<BR>
+<p>
+.THRESHOLD: 1.25<BR>
+[Enter density threshold marking particle boundary.]
+<p>
+<p>
+</dl>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/shr.f">SHR</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util2.f">UTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

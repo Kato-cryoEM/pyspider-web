@@ -1,0 +1,210 @@
+{
+  "id": "detail_shift_rotate_order",
+  "title": "Comparison 4 · Shift / rotate order dependency",
+  "summary": "Rotate→Shift vs Shift→Rotate produce different images (R·T ≠ T·R around the image centre). Subtract to visualise the gap.",
+  "category": "Comparison",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "See how operator order matters",
+      "body": "Rotation and translation generally produce **different images** if you swap their order. Rotation is around the image centre, so:\n\n  • **Rotate → Shift**: rotate around the centre first, then translate by (dy, dx) in canvas coordinates.\n  • **Shift → Rotate**: translate (dy, dx) first → content is now offset from the centre; rotating lands it at R·(dy, dx) → the shift direction appears rotated by the angle.\n\nIn this tutorial we build two pipelines A / B and visualise **A − B** as a difference image. The SPIDER / RELION convention is 'rotate first, translate second' (= pipeline A's order), and you need to agree on this when propagating alignment parameters downstream.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Checkerboard** (256×256). Its crisp step-edges make position shifts obvious.",
+      "target": { "tutorId": "palette:data.checker", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.checker` shows its image before we build the two pipelines.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "drop-rotate-a",
+      "title": "Pipeline A · drop Rotate",
+      "body": "Build pipeline A (Rotate → Shift) first. From Geometry, drag **Rotate** (`geom.rotate`).",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-ra",
+      "title": "Wire Checker → Rotate (A)",
+      "body": "Drag Checker's `image` output to Rotate's `image` input.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "select-ra",
+      "title": "Click Rotate (A)",
+      "body": "Click this Rotate. We'll set `angle_deg` in the Inspector.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-ra-angle",
+      "title": "Set angle_deg to 30",
+      "body": "Enter **30** in `angle_deg`. Off-axis angles bring out the order-dependence more clearly.",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 30 }
+    },
+    {
+      "id": "drop-shift-a",
+      "title": "Pipeline A · drop Shift",
+      "body": "From Geometry, drag **Shift** (`geom.shift`). Place it after Rotate (A).",
+      "target": { "tutorId": "palette:geom.shift", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "wire-ra-sa",
+      "title": "Wire Rotate (A) → Shift (A)",
+      "body": "Drag Rotate's `image` output to Shift's `image` input — pipeline A (Rotate → Shift) is now assembled.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "geom.shift", "dstPort": "image" }
+    },
+    {
+      "id": "select-sa",
+      "title": "Click Shift (A)",
+      "body": "Click this Shift.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "set-sa-dx",
+      "title": "Set dx to 40",
+      "body": "Enter **40** in `dx`. Pipeline A becomes: rotate 30° → shift right 40 px.",
+      "target": { "tutorId": "param:dx", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "dx", "value": 40 }
+    },
+    {
+      "id": "drop-shift-b",
+      "title": "Pipeline B · drop Shift",
+      "body": "Now build pipeline B (Shift → Rotate). From Geometry, drag another **Shift**.",
+      "target": { "tutorId": "palette:geom.shift", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "wire-sb",
+      "title": "Wire Checker → Shift (B)",
+      "body": "Drag Checker's `image` output to the new Shift's `image` input.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "geom.shift", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `geom.shift`'s default behaviour becomes a baseline before we set the same dx as pipeline A.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "select-sb",
+      "title": "Click Shift (B)",
+      "body": "Click the new Shift.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "set-sb-dx",
+      "title": "Set dx to 40 (same)",
+      "body": "Enter **40** in `dx` — identical to pipeline A for a fair comparison.",
+      "target": { "tutorId": "param:dx", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "dx", "value": 40 }
+    },
+    {
+      "id": "drop-rotate-b",
+      "title": "Pipeline B · drop Rotate",
+      "body": "Drag another **Rotate**. Place it after Shift (B).",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-sb-rb",
+      "title": "Wire Shift (B) → Rotate (B)",
+      "body": "Drag Shift (B)'s `image` output to Rotate's `image` input — pipeline B (Shift → Rotate) is now assembled.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.shift", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_3",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `geom.rotate`'s default behaviour becomes a baseline before we set the same angle as pipeline A.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "select-rb",
+      "title": "Click Rotate (B)",
+      "body": "Click this Rotate.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-rb-angle",
+      "title": "Set angle_deg to 30 (same)",
+      "body": "Enter **30** — same conditions as Rotate (A).",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 30 }
+    },
+    {
+      "id": "drop-binop",
+      "title": "Drop arith.binop for the A − B diff",
+      "body": "From Arithmetic, drag **Arithmetic · a ∘ b**. Subtracting A and B visualises the order dependence.",
+      "target": { "tutorId": "palette:arith.binop", "cardSide": "right", "expandPaletteCategory": "Arithmetic" },
+      "action": { "kind": "add_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "wire-binop-a",
+      "title": "Wire Shift (A) → binop.a",
+      "body": "Drag pipeline A's final Shift node's `image` output to arith.binop's `a` input.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.shift", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "a" }
+    },
+    {
+      "id": "wire-binop-b",
+      "title": "Wire Rotate (B) → binop.b",
+      "body": "Drag pipeline B's final Rotate node's `image` output to the same arith.binop's `b` input.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "b" }
+    },
+    {
+      "id": "_run_after_wire_4",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `arith.binop`'s default behaviour becomes a baseline before we flip the op to sub.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "select-binop",
+      "title": "Click binop",
+      "body": "Click arith.binop.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "set-op",
+      "title": "Set op to sub",
+      "body": "Change `op` to **`sub`** — output becomes `A − B`.",
+      "target": { "tutorId": "param:op", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "op", "value": "sub" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Both pipelines and the diff execute. What to notice:\n\n  1. **Compare the A and B previews** — the checkerboard grid is clearly in different places. A is shifted 40 px right; B's shift direction has been rotated 30° so it lands up-and-right.\n  2. **Diff (A − B) preview on binop** — bright/dark bands follow the checker outlines. Amplitude reaches nearly the original dynamic range (0..1) — a direct view of how big the order-violation offset is.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "**Takeaway:** rotation is centre-anchored, translation is in canvas coordinates → `R·T ≠ T·R` (**non-commutative**). When propagating alignment outputs downstream, you must agree on the application order. The SPIDER / RELION convention is **rotate first, translate second** (= pipeline A order).\n\n**Play with it:**\n  • Set either `dx` or `angle_deg` to 0 — A − B collapses to zero (order doesn't matter if one of them is identity).\n  • Set `angle_deg` to 90 — integer-multiple right-angle rotations still leave a diff (the shift direction after rotation is totally different).\n  • Switch arith.binop's `op` to `div` for a ratio visualisation — same shape, different reading.\n\nNext: **Comparison 5 · Rotate N times — accumulating interpolation error** — looks at how splitting the same total rotation across many passes affects interpolation loss.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+<html> 
+<head>
+<title>SPIDER: OR (ORientation search - half circle used)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>OR - ORientation search - half circle used</h2>
+<em>(8/25/97)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Determines orientation between two auto-correlation
+functions. Image dimensions must be powers of two.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="or3a.html"><strong>OR 3A</strong></a></td><td> [ORientation search - 3D, Eulerian angles, arbitrary center ||]</td></tr>
+<tr><td><a href="or3q.html"><strong>OR 3Q</strong></a></td><td> [ORientation search - 3-D, Eulerian angles ||]</td></tr>
+<tr><td><a href="orf.html"><strong>OR F</strong></a></td><td> [ORientation search - full circle used]</td></tr>
+<tr><td><a href="orfm.html"><strong>OR FM</strong></a></td><td> [ORientation search - Full circle, Find > one peak]</td></tr>
+<tr><td><a href="orm.html"><strong>OR M</strong></a></td><td> [ORientation search - find More than one peak]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: OR X10,X11<br>
+<p>
+<dd>[The optional output parameters X10,X11 specify register
+positions for the rotation angle and the value of the
+angular correlation peak found in this operation. X10
+contains the rotation angle according to a 7-point parabolic
+fit.]
+<p>
+.INPUT1 FILE: ACF001<BR>
+[Enter name of the file containing the ACF of the first
+picture, 64x64 or 128x128.]
+<p>
+.INPUT2 FILE: ACF002<BR>
+[Enter the name of the file containing the ACF of second
+picture; dimensions must correspond to those of the first
+picture.]
+<p>
+.NO. OF RINGS, WEIGHT OVERRIDE(1/0): 5,0<BR>
+[Enter number of ring segments to be used for orientation
+search, and enter '1' if the default weights and radii are
+to be overridden (see notes).]
+<p>
+.GRAPH FOR EACH RING (Y/N), (A)BSOLUTE SCALE ?: YA<BR>
+[Indicate if a plot of the CCF in the RESULTS file for each
+ring is desired.]
+<p>
+<dt>If A was the second letter to the above question SPIDER asks:
+<p>
+<dd>.ENTER SCALE FACTOR: 1.2<BR>
+[The scale facter overrides the automatical scaling in
+subroutine GRAPHO, which otherwise scales the graph to
+the range of 50 steps.]
+<p>
+<dt>If the weight override option is chosen, SPIDER then asks
+for the radii and weights]:
+<p>
+<dd>.ENTER RADII: 20.,25.,30.,50.,54.<BR>
+[Enter radii (as floating point values) for each ring,
+(up to 10 per line). CAUTION: you must use the decimal
+point, otherwise the program does not use the correct
+values!]
+<p>
+.ENTER WEIGHTS: 0.1,0.2,0.5,1.0,0.1<BR>
+[Enter a weighting factor (as floating point values)
+for each ring (10 per line).]
+<p>
+[SPIDER computes the cross-correlation of equispaced data
+along concentric circles around the centers of the ACFs;
+the resulting one-dimensional cross-correlation functions
+are weighted and added together. The orientation graph
+(between -90 and +90 degrees) is printed to the RESULTS
+file, with the position of the highest peak indicating the
+angle where optimum match occurs. The position and
+accuracy of the peak are also printed. If option &quot;.GRAPH FOR
+EACH RING?(Y/N):&quot; is chosen, the CCF of each ring before
+weighting is printed out (use this option for tests only,
+<p>
+because one page is used for each ring in the printout).
+In addition, the rotation angle will be put into the
+temporary register if an output parameter X10 is specified.
+This can be used as input to a subsequent
+RT operation.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Accuracy and computing time increase with the number
+of rings.
+<p>
+<li>Default weights are 0.1 for the first ring and 1.0 for
+all other rings.
+<p>
+<li>Maximum number of rings is currently 20. If a larger
+number is specified, the system defaults to 20. The
+default radii are a function of the image size and the
+number of rings chosen. For example, for a 128x128
+image, the default radii are 4.8, 9.6, 14.4, ..., 48.
+if 10 rings are specified.
+<p>
+<li>In the default mode of operation, only the upper
+half-plane of the input files is correlated, assuming
+centrosymmetry of the input patterns, as in the case of
+the ACFs.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd>ORNTS, <a href="../../src/crcse1.f">CRCSE1</a>, CRCSEC, ORPKS</dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util3.f">UTIL3</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

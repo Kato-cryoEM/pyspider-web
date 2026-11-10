@@ -1,0 +1,77 @@
+{
+  "id": "basic_sum",
+  "title": "Basic 7 · Sum two images",
+  "summary": "Arithmetic a+b on two test images via arith.binop with op=add. The atomic class-averaging operation.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try image addition",
+      "body": "Add two images pixel-by-pixel. In cryo-EM this is the atomic operation of **class averaging** — aligning many particle images and summing them to raise S/N. Here we add two different test images and watch the two patterns combine.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-clock",
+      "title": "Drop the Clock image",
+      "body": "From Palette (Data), drag **Test · Clock face** (128×128).",
+      "target": { "tutorId": "palette:data.clock", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.clock` shows its image before we add the next input.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "drop-checker",
+      "title": "Drop the Checker image",
+      "body": "From Palette (Data), drag **Test · Checkerboard** (`data.checker`) — a 128×128 checkerboard.",
+      "target": { "tutorId": "palette:data.checker", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "_run_after_add_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.checker` now also has a preview — you can see both source images before combining them.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "drop-binop",
+      "title": "Drop the Arithmetic node",
+      "body": "From the Arithmetic category, drag **Arithmetic · a ∘ b** (`arith.binop`). It's a general 2-input op whose `op` dropdown selects add / sub / mul / div. Default is `add`, which is what we want here.",
+      "target": { "tutorId": "palette:arith.binop", "cardSide": "right", "expandPaletteCategory": "Arithmetic" },
+      "action": { "kind": "add_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "wire-a",
+      "title": "Wire Clock → a",
+      "body": "Drag from Clock's `image` output to Arithmetic's `a` input. Clock becomes the left operand.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.clock", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "a" }
+    },
+    {
+      "id": "wire-b",
+      "title": "Wire Checker → b",
+      "body": "Drag from Checkerboard's `image` output to Arithmetic's `b` input. Checker becomes the right operand.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "b" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Clock + Checker is emitted — the clock face overlaid with the checkerboard pattern, with both intensities superimposed.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "To add inputs with mismatched scales (e.g. compute a class average), use `arith.calc` with a formula like `P1*0.5 + P2*0.5` for coefficient-weighted summation. Next, **Basic 8 · Subtract two images** takes the difference of the same pair to highlight what differs.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

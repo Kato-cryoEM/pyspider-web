@@ -1,0 +1,100 @@
+<html> 
+<head>
+<title>SPIDER: CP TO TARGA (CoPy SPIDER file to Targa format)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>CP TO TARGA - CoPy SPIDER file to Targa format</h2>
+<em>(7/17/96)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Copy SPIDER data file to a Targa format file. Only
+available on SGI Unix.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="cpfromascii.html"><strong>CP FROM ASCII</strong></a></td><td> [CoPy ASCII text file to SPIDER format]</td></tr>
+<tr><td><a href="cpfromccp4.html"><strong>CP FROM CCP4</strong></a></td><td> [CoPy CCP4 format File to SPIDER File]</td></tr>
+<tr><td><a href="cpfromemi.html"><strong>CP FROM EMI</strong></a></td><td> [CoPy EMISPEC format File to SPIDER File]</td></tr>
+<tr><td><a href="cpfrommrc.html"><strong>CP FROM MRC</strong></a></td><td> [CoPy MRC format File to SPIDER File]</td></tr>
+<tr><td><a href="cpfrompdb.html"><strong>CP FROM PDB</strong></a></td><td> [Copy PDB file to SPIDER format]</td></tr>
+<tr><td><a href="cpfrompe.html"><strong>CP FROM PE</strong></a></td><td> [Copy Perkin Elmer disk file to SPIDER format]</td></tr>
+<tr><td><a href="cpfromraw.html"><strong>CP FROM RAW</strong></a></td><td> [CoPy RAW Image to SPIDER]</td></tr>
+<tr><td><a href="cpfromsgi.html"><strong>CP FROM SGI</strong></a></td><td> [CoPy SGI SPIDER file TO NT SPIDER format file]</td></tr>
+<tr><td><a href="cpfromterm.html"><strong>CP FROM TERM</strong></a></td><td> [CoPy terminal input to SPIDER file]</td></tr>
+<tr><td><a href="cpfromvax.html"><strong>CP FROM VAX</strong></a></td><td> [CoPy VAX SPIDER file to a Unix SPIDER file]</td></tr>
+<tr><td><a href="cpfromxp.html"><strong>CP FROM XP</strong></a></td><td> [CoPy X-PLOR ASCII file to SPIDER format]</td></tr>
+<tr><td><a href="cptoascii.html"><strong>CP TO ASCII</strong></a></td><td> [CoPy SPIDER file to ASCII text format]</td></tr>
+<tr><td><a href="cptobrix.html"><strong>CP TO BRIX</strong></a></td><td> [CoPy SPIDER volume to BRIX file for "O" input]</td></tr>
+<tr><td><a href="cptoccp4.html"><strong>CP TO CCP4</strong></a></td><td> [CoPy SPIDER file TO CCP4 format file]</td></tr>
+<tr><td><a href="cptomrc.html"><strong>CP TO MRC</strong></a></td><td> [CoPy SPIDER file TO MRC format file]</td></tr>
+<tr><td><a href="cptoopend.html"><strong>CP TO OPEND</strong></a></td><td> [CoPy SPIDER file TO OPposite ENdedness]</td></tr>
+<tr><td><a href="cptopost.html"><strong>CP TO POST</strong></a></td><td> [CoPy SPIDER file to a POSTscript file]</td></tr>
+<tr><td><a href="cptoraw.html"><strong>CP TO RAW</strong></a></td><td> [CoPy SPIDER file to a 8-bit raw image]</td></tr>
+<tr><td><a href="cptosgi.html"><strong>CP TO SGI</strong></a></td><td> [CoPy SPIDER file to SGI format]</td></tr>
+<tr><td><a href="cptotiff.html"><strong>CP TO TIFF</strong></a></td><td> [CoPy SPIDER file to a TIFF format]</td></tr>
+<tr><td><a href="cptovv.html"><strong>CP TO VV</strong></a></td><td> [CoPy SPIDER volume to Voxel View format]</td></tr>
+<tr><td><a href="cptoxplor.html"><strong>CP TO XPLOR</strong></a></td><td> [CoPy SPIDER UNIX 3D volume to X-PLOR format]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: CP TO TARGA<br>
+<p>
+<dd>.ENTER UNIX SPIDER INPUT FILE: SPI000<BR>
+[Enter the name of the image to be converted.]
+<p>
+.ENTER TARGA OUTPUT FILE: TAR000<BR>
+[Enter name for Targa image file.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Routine is slow because it calls SGI image library
+routines which need a delay set to ensure completion of
+subprocesses.
+<p>
+<li>Implemented by: ArDean Leith
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/copy1.f">COPY1</a>, <a href="../../src/spitosgi.f">SPITOSGI</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/copy1.f">COPY1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

@@ -1,0 +1,261 @@
+<HTML><HEAD>
+<TITLE>SPIDER: CA MAP (Correspondence Analysis - nonlinear MAPping)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>CA MAP - Correspondence Analysis - nonlinear MAPping</H2>
+<EM>(12/15/93)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Calculate a distance-preserving map from a cluster file
+created by CORAN. A nonlinear mapping algorithm is used,
+which minimizes SUM((DH-DL)**2/DH**EXP), where DH are the
+distances in high-dimensional space and DL the distances
+in the two-dimensional space.
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="cas.html"><STRONG>CA S</STRONG></A> [Correspondence Analysis - find solution]<BR>
+<A HREF="casi.html"><STRONG>CA SI</STRONG></A> [Correspondence AnalysiS - initialize]<BR>
+<A HREF="casm.html"><STRONG>CA SM</STRONG></A> [Correspondence Analysis - factor map]<BR>
+<A HREF="casme.html"><STRONG>CA SME</STRONG></A> [Correspondence Analysis - factor map and Eigen Values]<BR>
+<A HREF="casr.html"><STRONG>CA SR</STRONG></A> [Correspondence Analysis - full reconstitution of images]<BR>
+<A HREF="casrd.html"><STRONG>CA SRD</STRONG></A> [Correspondence AnalysiS - reconstitute differential images]<BR>
+<A HREF="casri.html"><STRONG>CA SRI</STRONG></A> [Correspondence AnalysiS - reconstitute importance images]<BR>
+<A HREF="casrp.html"><STRONG>CA SRP</STRONG></A> [Correspondence Analysis - PCA reconstitution]<BR>
+<A HREF="cavis.html"><STRONG>CA VIS</STRONG></A> [Correspondence Analysis - Create visual map]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: CA MAP<BR>
+<P>
+<DD>.COORDINATE FILE VERSION: (1)OLD, (2)NEW: 1<BR>
+[Enter version of CORAN used to create cluster file]
+<P>
+.COORDINATE FILE: IMC001<BR>
+[Enter the name of the cluster file created by CORAN.]
+<P>
+.FACTOR NUMBERS: 1,3,4,6<BR>
+[Enter the factors that you want to include in the
+nonlinear mapping algorithm.]
+<P>
+.FACTOR WEIGHTS (2 PER LINE): 1,1.5<BR>
+[Enter weights for each selected factor.]
+<P>
+.ASSIGN SYMBOLS (Y/N): Y<BR>
+[enter Y if you want to have a map where symbols (letters)
+are printed for specified images.]
+<P>
+<DT>If &quot;Y" was answered:
+<DD><BR>.SYMBOL: A<BR>
+[Enter symbol.]
+<P>
+.SYMBOL ASSIGNED TO IMAGE # FROM,TO: 1,100<BR>
+[Enter the image numbers for which the symbol should be
+used.]
+<P>
+.ASSIGN SYMBOLS (Y/N): .....<BR>
+[This question reappears until you answer &quot;N".]
+<P>
+.LOWER THRESHOLD FOR DISTANCES: 0.0001<BR>
+[Images with a distance lower than this threshold are
+considered identical and only one of a set of identical
+images is used in the algorithm; the others are excluded,
+enter 0 if you want to keep all elements.]
+<P>
+.DEFINE STARTING 2-D DISTRIBUTION:<BR><BR>
+[(1) GIVEN EIGENVECTOR PROJECTION<BR>
+(2) RANDOM DISTRIBUTION<BR>
+(3) EIDENVECTOR PROJECTION WITH MINIMAL STARTING ERROR.<BR>
+(4) READ START DISTRIBUTION IN FILE COD001<BR>
+<P>
+.START:(1)GIVEN,(2)RANDOM,(3)MIN.ERR.,(4)READ: 1<BR>
+[Enter the kind of start distribution you want.(will be changed !!!)]
+<P>
+<P>
+.RELATIVE AXES OF START PROJECTIONS: 1,2<BR>
+[If you entered '1' above for &quot;GIVEN&quot;, the program asks
+for the map you want to start with. The numbers entered
+correspond to the position of the numbers entered for
+&quot;FACTOR NUMBERS&quot;. (Here the starting map will be factor 1
+versus factor 3.)]
+<P>
+.NUMBER OF ITERATIONS: 40<BR>
+[Give the number of iterations which should be done, if
+the error never becomes less than epsilon. If in any
+iteration step prior to the given one the error was less
+than in the last iteration, the program continues until
+the error is less than or equal to the smallest previous
+error. However, there is an absolute limit of 200 iterations.]
+<P>
+.EPSILON: 0.001<BR>
+[Enter the value of the remaining error when the iterations
+should stop. This value may be 0. because the program has
+additional controls to limit the number of iterations.]
+<P>
+.EXPONENT IN ERROR: 0.0001<BR>
+[Enter the exponent, in the formula given above, of the
+error. An exponent close to 1 means a stronger weight
+for the small distances; a value close to 0, a higher
+weight for the long distances. Normally in the first run
+one should use an exponent &lt;< 1. Instead of 0 use a very
+small value e.g. 0.00001, because the exponentiation in
+VAX-Fortran sometimes does not tolerate an exact 0]
+<P>
+.2D FILE: COD001<BR>
+[Document file in which the coordinates of the nonlinear map
+will be stored. It can be used as input for another
+nonlinear mapping process, or from a previous run. The file
+is then overwritten with the new result. Also usable as input
+to CA VIS (visual map)]
+<P>
+.MAP FILE: MAP001<BR>
+[Enter the name of the file where the map will be displayed.]
+<P>
+.PAGES: 2<BR>
+[Enter size of map: 1x1 or 2x2 pages.]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>Details may be found in: M. Radermacher &amp; J. Frank,
+Ultramicroscopy,17,(1985), 117-126, (erratum: Ultramicr. 19
+(1986), p75
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/mrdev.f">MRDEV</A>, <A HREF="../../src/dist2d.f">DIST2D</A>, <A HREF="../../src/distlst.f">DISTLST</A>, <A HREF="../../src/disttst.f">DISTTST</A>, <A HREF="../../src/mrnlstrt.f">MRNLSTRT</A>, <A HREF="../../src/nlclusrd.f">NLCLUSRD</A>, <A HREF="../../src/nonlmap.f">NONLMAP</A>, <A HREF="../../src/strtdis.f">STRTDIS</A>, <A HREF="../../src/nltfile.f">NLTFILE</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/util1.f">UTIL1</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

@@ -1,0 +1,117 @@
+<html> 
+<head>
+<title>SPIDER: RM 3DN (Radon Transform - 3D)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM 3DN - Radon Transform - 3D</h2>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Computes the Radon transform of a three-dimensional image,
+(New format)
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmcompln.html"><strong>RM COMPLN</strong></a></td><td> [Radon Transform - 2D, Complete]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+<tr><td><a href="rmftinvn.html"><strong>RM FTINVN</strong></a></td><td> [Radon Transform - Inverse Fourier transform]</td></tr>
+<tr><td><a href="rminv2n.html"><strong>RM INV2N</strong></a></td><td> [Radon Transform - Computes inverse (Fourier-)Radon transform]</td></tr>
+<tr><td><a href="rminv3n.html"><strong>RM INV3N</strong></a></td><td> [Radon Transform - Computes inverse 3D (Fourier-)Radon transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM 3DN<br />
+<p>
+<dd>.THREED FILE: VOLUME001<br />
+[Enter name of three-dimensional volume]
+<p>
+.3D THRESHOLD/LIFT/NONE (T/L/N): N<br />
+[Enter if you wish to (T)hreshold the volume in 3D,
+(L)ift the minimum up to 0 or (N)one of the above.]
+<p>
+If "T" was answered:
+<br />.UPPER,LOWER THRESHOLD:1.1,-0.2<br />
+[enter upper and lower threshold]
+<p>
+.AVERAGE 2D THRESHOLD (Y/N): N<br />
+[Enter Y if you want to have the intermodiate 2D projections
+thresholded below their average.]
+<p>
+.RADON TRANSF. SAMPLE DIM.: 64<br />
+[Enter line dimension of Radon transform.]
+<p>
+.OUTPUT FILE: THREEDRAD001<br />
+[Enter name of output file.]
+<p>
+.ANGULAR INCREMENT THETA,PHI: 10,5<br />
+[Enter the angular sampling for the Radon transform. Theta
+angle around y, phi angle within the intermediate 2D
+projections.]
+<p>
+.RADIUS OF SPHERICAL MASK: 30<br />
+[The volume is masked by a sphere with this radius before
+the Radon transform is calculated.]
+<p>
+.WRITE INTERMEDIATE PROJECTIONS (Y/N): N<br />
+[Allows to write the intermediat 2D projections (a single
+axis tilt series).]
+<p>
+If "y" was answered:
+<br />.OUTPUT FILE: INTERPRO001<br />
+[Enter file name template for an output file series. These
+files will be numbered sequentially, starting with 1.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>For more details see: M.Radermacher, Ultramicroscopy 53, 1994,
+121-136
+<p>
+<li>DEVELOPED BY: M.Radermacher
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/radon3dn.f">RADON3DN</a>, <a href="../../src/radon2en.f">RADON2EN</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

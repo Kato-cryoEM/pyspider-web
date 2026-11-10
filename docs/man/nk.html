@@ -1,0 +1,85 @@
+<html> 
+<head>
+<title>SPIDER: NK (Shrink to threshold)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>NK - Shrink to threshold</h2>
+<em>(3/7/01)</em><br>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Isolate particle in image using threshold criterion.
+Threshold is placed outside the particle.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="nkm.html"><strong>NK M</strong></a></td><td> [Shrink to mask]</td></tr>
+<tr><td><a href="se.html"><strong>SE</strong></a></td><td> [Seed fill an image]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: NK<br>
+<p>
+<dd>.INPUT FILE: H_PIC001<BR>
+[Enter the name of the input file.]
+<p>
+.OUTPUT FILE: H_IMG040<BR>
+[Enter the name of the output file.]
+<p>
+.RETAIN VALUES (A)BOVE OR (B)ELOW THRESHOLD: A<BR>
+<p>
+.THRESHOLD: 1.25<BR>
+[Enter density threshold marking particle boundary.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Implemented crudely. Searches each line starting
+at left boundary until it finds threshold pixel and
+replaces those pixels. Then does search from right
+boundary. This fails badly for concave particles at
+many orientations! I suggest you use 'SE' instead.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/shr.f">SHR</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util2.f">UTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

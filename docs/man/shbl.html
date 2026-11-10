@@ -1,0 +1,110 @@
+<html> 
+<head>
+<title>SPIDER: SH BL (SHift -- using bilinear interpolation)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>SH BL - SHift -- using bilinear interpolation</h2>
+<em>(04/18/95)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Shifts a picture by a specified vector.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="sh.html"><strong>SH</strong></a></td><td> [SHift - using bilinear interpolation ||]</td></tr>
+<tr><td><a href="sh3.html"><strong>SH 3</strong></a></td><td> [SHift 3-D]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: SH BL<br>
+<p>
+<dd>.INPUT1 FILE: PIC001<BR>
+[Enter the name of the picture to be shifted.]
+<p>
+.OUTPUT FILE: SHI001<BR>
+[Enter the name of the file where the shifted picture is
+to be kept.]
+<p>
+.SHIFT PARAMETERS: -5.2, 6.5<BR>
+[Enter the shift vector components.]
+<p>
+[In the above example, PIC001 will then be shifted by -5.2
+units in the x direction and 6.5 units in the y direction,
+and the result will be written into SHI001.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The shift parameters can be specified by reference to
+the temporary register: -X11,-X12, will input the
+components (with inverted sign) of a shift vector
+found in a previous 'CC' and 'PK X11,X12' operation.
+Whether or not the sign has to be inverted follows
+from the order of argument files in the 'CC'
+operation.
+<p>
+<li>For integer shift vector components, a simple index
+permutation is done. For non-integer shift values
+bilinear interpolation is used.
+<p>
+<li>DNEW (K,I) = DOLD (K',I') <BR>
+where K' = K + KSH, I' = I + ISH <BR>
+This operation shifts into sample positions only. Note
+that the shift is circular; i.e. the image is repeated in
+all directions. The effective new coordinate pair is: <BR>
+K' = MOD (K + KSH, NSAM)<BR>
+I' = MOD (I + ISH, NROW)<BR>
+<p>
+<li>The shift operation has the unpleasant effect of
+moving a discontinuity into the image field (this happens
+whether or not the shift is circular). If this is
+not desired, and cannot be removed by subsequent masking, the
+image should be recreated from its original field by
+rewindowing. The new window coordinates must be offset by
+-KSH,-ISH to correspond to an application of 'SH' with
++KSH,+ISH.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/shift2.f">SHIFT2</a>, <a href="../../src/shift_pf.f">SHIFT_PF</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util2.f">UTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

@@ -1,0 +1,307 @@
+<html><head>
+<title>SPIDER: CA SME (Correspondence Analysis - Factor Map &amp; Eigen Values)</title>
+<!-- Begin Scripts -->
+<script language = "JavaScript">
+
+   // browserName = navigator.appName;   // detect browser 
+   // browserVer  = parseInt(navigator.appVersion);
+
+      {         
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      faqon             = new Image();
+      faqon.src         = "../buttons/faqon.gif";
+      techson           = new Image();
+      techson.src       = "../buttons/techson.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      faqoff            = new Image();
+      faqoff.src        = "../buttons/faq.gif";
+      techsoff          = new Image();
+      techsoff.src      = "../buttons/techs.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      imgOn = eval(imgName + "on.src");
+      document [imgName].src = imgOn;
+      }
+
+   function img_inact(imgName)
+      {
+      imgOff = eval(imgName + "off.src");
+      document [imgName].src = imgOff;
+      }
+</script>
+
+<!-- End Scripts -->
+<body>
+<!-- Begin Buttons -->
+<a href="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<img name="smallspider"  width="40" height="40" alt="HOME"  src="./buttons/smallspider.gif"></a>
+<a href="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<img name="work" width="40" height="40" alt="GUIDE"          src="./buttons/work.gif" ></a>
+<a href="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<img  width="40"  name="index"  height="40" alt="OPERATIONS"    src="./buttons/index.gif"></a>
+<a href="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<img width="40"   name="help"  height="40" alt="DOCS"       src="./buttons/help.gif"></a>
+<a href="../faq.html" 
+ onMouseover = "img_act('faq')"  onMouseout = "img_inact('faq')">            
+<img  name="faq"  width="40" height="40" alt="FAQ"   src="./buttons/faq.gif"></a>
+<a href="../techniques.html" 
+ onMouseover = "img_act('techs')"  onMouseout = "img_inact('techs')">            
+<img  name="techs"  width="40" height="40" alt="TECHNIQUES"   src="./buttons/techs.gif"></a>
+<a href="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<img  name="menu" width="40" height="40" alt="FORMATS"      src="./buttons/menu.gif" ></a>
+<a href="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<img  name="install"  width="40" height="40" alt="INSTALL"  src="./buttons/install.gif" ></a>
+<a href="../release.html" 
+ onMouseover = "img_act('new')" onMouseout = "img_inact('new')">           
+<img  name="new" width="40" height="40" alt="NEW"     src="./buttons/new.gif" ></a>
+<a href="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<img  name="tips"  width="40" height="40" alt="TIPS"  src="./buttons/tips.gif" ></a>
+<a href="../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<img  name="web" width="40" height="40" alt="WEB"     src="./buttons/web.gif" ></a>
+<a href="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<img  name="www" width="40" height="40" alt="LINKS"   src="./buttons/www.gif" ></a>
+<br><hr>
+<!-- End Buttons -->
+<h2>CA SME - Correspondence Analysis - Factor Map &amp; Eigen Values</h2>
+<em>(4/11/01)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Print selected factor map and/or list of eigenvalues.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="cas.html"><strong>CA S</strong></a></td><td> [Correspondence Analysis - Solution]</td></tr>
+<tr><td><a href="casm.html"><strong>CA SM</strong></a></td><td> [Correspondence Analysis - Show Map & Eigen Values]</td></tr>
+<tr><td><a href="casr.html"><strong>CA SR</strong></a></td><td> [Correspondence Analysis - full Reconstitution of images]</td></tr>
+<tr><td><a href="casrd.html"><strong>CA SRD</strong></a></td><td> [Correspondence Analysis - Reconstitute Differential images]</td></tr>
+<tr><td><a href="casri.html"><strong>CA SRI</strong></a></td><td> [Correspondence Analysis - Reconstitute Importance images]</td></tr>
+<tr><td><a href="cavis.html"><strong>CA VIS</strong></a></td><td> [Correspondence Analysis - Create VISual map]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: CA SME<br>
+<p>
+<dd>.(I)MAGE OR (P)IXEL: I<BR>
+[Enter 'I' if you wish to have a map of images, and 'P'
+for a map of pixels.]
+<p>
+.COORDINATE FILE CODE, NO. OF HOR. PATCHES: 2,0<BR>
+[Enter the CODE number identifying the three sequential files
+to store the output from the previous 'CA_S' run: IMC00#,
+PIX00#, EIG00#.
+The number of horizontal patches does not need to be
+specified, UNLESS this particular CORAN analysis
+was done on a set of correlation patch averages. In this
+case, a small lookup map is printed on the sheet
+preceding the actual map, which helps you trace the image
+numbers back to the patches they originated from in the
+image field. E.g., a set of 18 patch averages originating
+from 3 rows of 6 patches each would require the input
+NO. OF HOR. PATCHES = 6, and this would yield the lookup map: <BR>
+<p>
+1 2 3 4 5 6<BR>
+7 8 9 10 11 12<BR>
+13 14 15 16 17 18 ]<BR>
+<p>
+.FACTOR TWO NUMBERS: 1,4<BR>
+[Enter the number identifying the factors for which the map
+is to be printed. Factor 1 is the first non-trivial factor.]
+<p>
+.(S)YMBOL, (A)SSIGN SYMBOL, (C)LASS, (D)OC, (I)D: I<BR>
+<p>
+[Enter 'S' if you want to enter a character symbol for
+each active image; <BR>
+Enter 'I' if you want the numbers identifying the images
+or pixels to be printed. (this is the standard
+option for a CORAN map); <BR>
+<p>
+[The following additional options are for images only:<BR>
+Enter 'A' if you want to assign symbols to specific
+ranges of ID numbers. <BR>
+Enter 'C' if you want the class number of the image to
+appear as symbols (in this case, a classification file
+from a previous run of 'CA CLA' must be available). <BR>
+Enter 'D' if you want to supply a specific symbol for each
+image. (in this case, a document file must be supplied
+that specifies the symbol lookup)].
+<p>
+<dt>If 'S', then the following question appears:
+<p>
+<dd>.ENTER 1 CHAR. SYMBOL FOR ACTIVE IMAGES:<BR>
+<p>
+<dt>For all options, the following question appears:
+<p>
+<dd>.PREPARE POSTSCRIPT FILE FOR MAP? (Y/N): Y<BR>
+[Option 'Y' prepares Postscript output containing the map.
+Option 'N' lists map in RESULTS file only.]
+<p>
+<dt>If the answer is &quot;N" the following questions appear.
+<p>
+<dd>.NUMBER OF PAGES (1,2,3) OR &lt;CR&gt;=1: 2<BR>
+[Specify number of pages for the map.]
+<p>
+.NUMBER OF LINES OR &lt;CR&gt; FOR DEFAULT: &lt;RETURN><BR>
+[Default: horizontal space, known from the number of
+pages, is used to determine the number of lines. Enter a
+number if you want to override the default.]
+<p>
+<dt>For all answers, the following three questions appear:
+<p>
+<dd>.NUMBER OF SD OR &lt;CR&gt;=2.3: &lt;RETURN><BR>
+[The map is truncated for efficient visualization of the
+data cloud. Normal cutoff is set at 2.3 x standard
+deviation. Outliers outside the map are listed along with
+their coordinates, and printed exactly on the border.]
+<p>
+.1=FLIP #1/ 2=FLIP #2/ 3=FLIP 1+2/ &lt;CR&gt;=NO FLIP:&lt;return&gt;<BR>
+<p>
+<dt>In case the 'C' option was selected, the name of the
+classification file will be solicited:
+<p>
+<dd>.CLASS FILE: CLU002<BR>
+<p>
+<dt>In case the 'A' option was selected, the following questions
+appear:
+<p>
+<dd>.SYMBOL: X<BR>
+[Enter symbol]
+<BR>.Until ID #: 320<BR>
+[Enter upper limit up to which the symbol should be used]
+<BR>.SYMBOL: y<BR>
+<p>
+.Until ID #: 320<BR>
+<p>
+[The questions continue until 0 or &lt;RET&gt; is entered for
+ID #.]
+<p>
+<dt>In case the 'D' option was selected, the name of the document
+file containing the symbol lookup will be solicited:
+<p>
+<dd>.LOOKUP FILE: DOC001<BR>
+<p>
+[The document file should contain, the
+original image ID number (=Key), and the standard
+number of the ASCII character to be used as the
+symbol (=Register 2)].
+<p>
+<dt>If a Postscript map was requested the following
+questions will appear usually the default &lt;CR&gt; answer is OK:
+<p>
+<dd>.POSTSCRIPT OUTPUT FILE: posmap<BR>
+[Default extension is .ps.]
+<p>
+.TEXT SIZE FOR AXIS AND DATA (USE &lt;CR&gt; FOR DEFAULT = 10):12 12<BR>
+[Allows control over text size. A size of 10 is a reasonable
+default.]
+<p>
+.ENTER X AXIS OFFSET: 0<BR>
+<p>
+Bounds for X axis of plot listed.
+<p>
+.ENTER NEW LOWER, UPPER AXIS BOUNDS OR &lt;CR&gt;: &lt;CR><BR>
+[Can change y axis bounds or keep default by entering
+&lt;return&gt;.]
+<p>
+X axis label units listed.
+<p>
+.ENTER NEW AXIS LABEL UNIT AND TICKS / LABEL OR &lt;CR&gt;: &lt;CR><BR>
+[Can change X axis label unit or keep default]
+<p>
+.ENTER LABEL NO. TO EDIT. USE 0 FOR LABEL: 1<BR>
+-1 TO RELIST ALL LABELS, OR &lt;CR&gt; TO CONTINUE: &lt;CR>
+<p>
+Bounds for Y axis of plot listed.
+<p>
+.ENTER NEW LOWER, UPPER AXIS BOUNDS OR &lt;CR&gt;: &lt;CR><BR>
+<p>
+.ENTER Y AXIS OFFSET: 0<BR>
+<p>
+Y axis label units listed.
+<p>
+.ENTER NEW AXIS LABEL UNIT AND TICKS / LABEL OR &lt;CR&gt;: &lt;CR><BR>
+<p>
+.ENTER LABEL NO. TO EDIT. USE 0 FOR LABEL: 1<BR>
+-1 TO RELIST ALL LABELS, OR &lt;CR&gt; TO CONTINUE: &lt;CR>
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The list of eigenvalues, their percentages, and cumulative
+percentages will be written on the terminal. IMPORTANT:
+if the operation 'CA S' was used with the 'Project' option
+(i.e., inactive co-projection of one image set into the
+factor space spanned by another image set), then there is no
+eigenvector file with the file code specified, and
+option 'CA SME' cannot be used.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/sgraf.f">SGRAF</a>, <a href="../../src/hismap.f">HISMAP</a>, <a href="../../src/hismap4.f">HISMAP4</a>, <a href="../../src/borns.f">BORNS</a>, <a href="../../src/postrt.f">POSTRT</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util1.f">UTIL1</a> 
+</dl>
+<!-- Begin Trailer -->
+<HR> <small><address>&copy; <a HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </address></small></a>
+<!-- End Trailer -->
+</body>
+</html>

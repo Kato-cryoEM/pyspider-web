@@ -1,0 +1,288 @@
+<HTML><HEAD>
+<TITLE>SPIDER: CL CLAF (CLassification - Fuzzy)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>CL CLAF - CLassification - Fuzzy</H2>
+<EM>(11/7/88)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Apply fuzzy partitioning techniques to the classification of
+images in factor space. Three techniques are currently
+available: Gustafson-Kessel (metric with a Mahalanobis distance),
+Roubens (non-metric Euclidian distance) and
+Fuzzy C-Means (metric Euclian distance).
+Either a classification in itself can be carried out or, instead,
+a cluster validation search can be performed (the cluster
+validation is implicitly making a classification, a choice
+of FZ and GK are available).
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: CL CLAF<BR>
+<P>
+<DD>.INPUT IMC-FILE CODE: 6<BR>
+[Enter number of the IMC file previously created by
+CORAN85, which contains the image coordinates in factor
+space]
+<P>
+.INPUT CLUSTER-FILE CODE: 001<BR>
+[The code of the cluster file where cluster and
+classification parameters are put for later reference.
+The file actually created will be called CLU001].
+<P>
+.FACTOR NUMBERS FOR CLUSTERING: 1-3,6-8<BR>
+[Enter factors to be used in the cluster search]
+<P>
+.NUMBER OF CLUSTERS: 3,5<BR>
+[If you are performing a classification the first number
+is the number of clusters into which the algorithm will
+partition the data, the second number will be ignored.
+If you are performing a cluster validation the two numbers
+indicate the interval along which the search will be conducted).
+<P>
+.WHICH METHOD? (GK, FZ, RB, CV...): FZ<BR>
+[GK, FZ and RB are classification options,
+GK means Gustafson-Kessel, FZ means Fuzzy C-Means, and RB Roubens.
+CV is the option for cluster validation search]
+<P>
+.FUZZY EXPONENT (1,INF.), EPSILON TO STOP ITERATION: 1.3,0.01<BR>
+[The fuzzy exponent is defined beteen 1.00001 and infinite.
+1 would correspond to a totally hard classification and
+infinite to a maximally fuzzy classification.
+For most practical purposes 2 is a very fuzzy classification,
+and around 1.5 is an acceptible compromise hard/fuzzy.
+The algorithm will stop iterating when the changes in either
+the center of the clusters between succesive iterations
+were smaller than epsilon (for GK), or the pertenence function
+for any point changes less than epsilon.
+In general a value of 0.0001 (for GK) or 0.01 (for FZ and RB) is good.
+<P>
+<DT>IF the classifications options were selected
+<P>
+<DD>.MAXIMUM NUMBER OF ITERATIONS ANYWAY: 50<BR>
+[Irrespective of the value of epsilon, this marks the total
+number of iterations].
+<P>
+.THRESHOLD FOR HARD-PARTITIONING TRANSFORMATION: 0.6<BR>
+[This parameter establishes a threshold that is applied
+only in the print-out of the program. It is just
+intended to be a help in studying the results. This value
+is not used at all during the fuzzy classification.
+Images will be considered &quot;safely&quot; classified when
+their pertenence to a given cluster were larger than this
+threshold. Clusters will be marked from 1 to N (N of clusters).
+An additional cluster, cluster 0, is formed with the
+images that have a pertenence function below the thershold.
+If either GK or FZ was selected, this
+assignement is used by all other programs handling this file;
+however, if RB was selected, the hard assignement provided
+by the Roubens method itself is the one that is carried on].
+<P>
+<DT>If &quot;FZ&quot; was selected:
+<P>
+<DD>.INPUT INITIAL POINTS? (Y/N):? Y<BR>
+[It allows to choose the center of the clusters for the
+first iteration. If answered &quot;Y" it asks:
+<P>
+CLUSTER NUMBER 1
+<P>
+.CORRESPONDING CLUSTER CENTER (IMAGE): 234<BR>
+[Where &quot;CLUSTER NUMBER&quot; shows the current cluster for
+which a given image is being selected as initial
+cluster center. In this way local
+minima can be studied and/or the global convergence can be
+speeded-up. The actual number to be entered is the image
+identifier number (as it appears in a factor map)].
+<P>
+<P>
+<DT>IF the cluster-validation option was selected:
+<P>
+<DD>.MAXIMUM NUMBER OF ITERATIONS ANYWAY:<BR>
+[Irrespective of the value of epsilon, the maximum number of
+iterations marks the stop of the iterative classification process.]
+<P>
+.NUMBER OF BOOTSTRAPS, NUMBER OF INITIALIZATIONS: 100,40<BR>
+[The cluster validation techniques have been based on the
+ideas of Moreau and Jain (see reference below).
+They perform a number of bootstraps
+(sampling with replacement) and a number of initializations
+in order to impruve the consistency of the data.
+Attention: The number of searchs will be the products
+of the N bootstraps X N initializations!!!.
+This number is usally large and thus the computation
+is very long].
+<P>
+.METHOD TO BE USED (0=FCM, 1=G-K):<BR>
+[If 0 is selected the classifications will be carried out
+by the Fuzzy C-Means approach. If 1 is selected the
+Gustarfson-Kessel method will me used].
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>If the classifications options were selected:<BR>
+The results will be stored in the cluster file. Besides that, the
+Results file will also have all the information. The first part
+of the Results file is an echo of the parameters used in the
+classification. The membership matrix follows. The information
+provided here is &quot;element&quot; (element identifier), &quot;pertenence"
+(pertenence function to each cluster), &quot;decission&quot; (cluster assignement
+based on the threshold used), and &quot;max.pertenence&quot; (it shows
+which was the maximum pertenece function that the element had).
+At the end, the cluster centers, the total number of element per
+cluster, the listing of the images in each class,
+and the total number of iterations are shown.
+IF RB was selected, the print-out of the membership matrix will
+consist of &quot;element, &quot;Roubens hard classification&quot;, &quot;pertence&quot;,
+&quot;decission&quot;, &quot;max.pertenence&quot;.
+<P>
+<LI>If the cluster validation option was specified<BR>
+The Results file will include a heading echoing the selection of
+input options and a listing of a number of relevant cluster
+validity criteria. Up to the present experience, the best
+of them is the one proposed by Moreau and Jain (1986).
+<P>
+<LI>References:<BR>
+For GK and FN: James C. Bezdek, Pattern Recognition with
+fuzzy objective function algorithms,
+Plenum Press, New York 1981. <BR>
+For RB: Marc Roubens, European Journal of Operational
+Research (1982), 10: 294-301. <BR>
+For cluster: All the above ones plus Moreau, J.V. and Jain, A.K.
+validity (1986), IEEE Int. Conf. on Compt. Vis. and Patt.
+Rec., pp. 634-636. <BR>
+<P>
+<LI><STRONG>Not distributed!!</STRONG>
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/sclasf.f">SCLASF</A>, <A HREF="../../src/gktest.f">GKTEST</A>, <A HREF="../../src/fcmtst.f">FCMTST</A>, <A HREF="../../src/ro2test.f">RO2TEST</A>, <A HREF="../../src/crtest.f">CRTEST</A>, <A HREF="../../src/gksm.f">GKSM</A>, <A HREF="../../src/fcm.f">FCM</A>, <A HREF="../../src/roub2.f">ROUB2</A>, <A HREF="../../src/m_j.f">M_J</A>, <A HREF="../../src/invdet.f">INVDET</A></DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<html> 
+<head>
+<title>SPIDER: PJ 3Q O (Project - 3D volume using Eulerian angles (older version) ||)</title>
+<link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PJ 3Q O - Project - 3D volume using Eulerian angles (older version) ||</h2>
+<em>(9/02/04)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Computes projection(s) of a 3D volume according to the three
+<a href="../euler.html">Eulerian angles</a>. This older version has greater
+aliasing than the current operation.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="pj3.html"><strong>PJ 3</strong></a></td><td> [Project - 3D volume]</td></tr>
+<tr><td><a href="pj3q.html"><strong>PJ 3Q</strong></a></td><td> [Project - 3D volume using Eulerian angles ||]</td></tr>
+<tr><td><a href="pjat.html"><strong>PJ AT</strong></a></td><td> [Project - 3D volume using exponential Attenuation]</td></tr>
+<tr><td><a href="pjcyl.html"><strong>PJ CYL</strong></a></td><td> [Project - 3D volume onto Cylinder]</td></tr>
+<tr><td><a href="rtsq.html"><strong>RT SQ</strong></a></td><td> [Rotate and Shift - image, Quadratic interpolation ||]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: PJ 3Q O<br />
+<p>
+<dd>.3-D INPUT FILE: vol001<br />
+[Enter the name of the volume whose projections are to be
+computed. This should be a cube!]
+<p>
+.RADIUS OF THE OBJECT: 26.0<br />
+[The projections are computed only for the object inside
+the sphere of the given radius.]
+<p>
+.ENTER ANGLE NUMBERS OR SELECTION DOC. FILE NAME: 1-700 or SEL001<br />
+[Enter selected angle numbers OR the name of the document file containing
+the selected angle numbers. Projections will only be calculated for
+the selected sets of angles from the following angles doc. file. (If you
+use a selection doc. file then the selected numbers
+are taken from the first register in the file.)]
+<p>
+.ANGLES DOC. FILE: ANGLES<br />
+[Enter the name of the document file containing the Eulerian
+angles for the projections. The angles have to be given
+in the order: psi, theta, phi. The meaning of the angles
+is the same as in operation 'RT SQ'. Projections will be
+calculated for every entry specified in the previous question.]
+<p>
+.ENTER TEMPLATE FOR 2-D PROJECTIONS: PRJ****<br />
+[Enter the template for the output files which will contain the
+2-D projections.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Memory requirements: NSAM*NROW+12*R**3+15*R**2, where R is the
+radius, but no more than: 6*NSAM*NROW+NSAM*NROW*NSLICE
+<p>
+<li>The projection file has always dimensions NSAM x NROW.
+<p>
+<li>For a projection of the whole volume (not the internal
+sphere only) give a radius larger than any linear
+dimension of the volume. Please note that usually
+such a projection is incorrect and the program takes
+much longer!
+<p>
+<li>Implemented by: P.Penczek.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/pj3q.f">PJ3Q</a>, <a href="../../src/prepcub_q.f">PREPCUB_Q</a>, <a href="../../src/writpro.f">WRITPRO</a>, <a href="../../src/wpro.f">WPRO</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/vtil2.f">VTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

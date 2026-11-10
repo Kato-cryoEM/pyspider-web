@@ -1,0 +1,116 @@
+<html> 
+<head>
+<title>SPIDER: CA SRP (Correspondence Analysis - PCA reconstitution)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>CA SRP - Correspondence Analysis - PCA reconstitution</h2>
+<em>(10/12/03)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Reconstitute complete images using PCA reconstitution.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="cas.html"><strong>CA S</strong></a></td><td> [Correspondence Analysis - Solution]</td></tr>
+<tr><td><a href="casm.html"><strong>CA SM</strong></a></td><td> [Correspondence Analysis - Show Map & Eigen Values]</td></tr>
+<tr><td><a href="casr.html"><strong>CA SR</strong></a></td><td> [Correspondence Analysis - Reconstitute images]</td></tr>
+<tr><td><a href="casrd.html"><strong>CA SRD</strong></a></td><td> [Correspondence Analysis - Reconstitute Differential images]</td></tr>
+<tr><td><a href="casri.html"><strong>CA SRI</strong></a></td><td> [Correspondence Analysis - Reconstitute Importance images]</td></tr>
+<tr><td><a href="cavis.html"><strong>CA VIS</strong></a></td><td> [Correspondence Analysis - Create VISual map]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: CA SRP<br>
+<p>
+<dd>.CORAN/PCA FILE PREFIX: pca_t_<BR>
+[Enter the prefix for the files created in 'CA S'.]
+<p>
+.ENTER FILE NUMBERS TO BE USED (EG. 1-8,12-22,55): 1-80,90-95<BR>
+[Numbers are consecutive, and refer to the sequence of
+files specified in 'CA S'. ]
+<p>
+.MASK FILE: *<BR>
+[Enter the name of the mask file specified in 'CA S' or
+'*' if none.]
+<p>
+.SUBTRACT AVERAGE IN PCA RECONSTRUCTION? (N/Y): N<BR>
+<p>
+.ENTER FACTORS TO BE USED: 2-4<BR>
+[Enter the factors to be used for image reconstitution.
+note that the numbers have to be less that the number of
+images and less or equal to the number used in 'CA S'.]
+<p>
+[If there is no image with the above given number, then
+coordinates are solicited for each of the factors specified]
+<p>
+.ENTER COORDINATES FOR EACH FACTOR SELECTED: 0.0013, -0.0011,<BR>
+0.0004
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The purpose of this operation is threefold:
+<p>
+<li>To reconstitute approximation of original images using chosen
+factors: use file numbers of the original images in
+&quot;ENTER FILE NUMBERS&quot;;
+<p>
+<li>To create eigenimages - images corresponding to chosen
+eigenvectors: use file number (one) non-existing in the
+original image series in &quot;ENTER FILE NUMBERS&quot;, answer Yes in
+&quot;SUBTRACT AVERAGE IN PCA RECONSTRUCTION&quot;, use only one
+(chosen) factor number in &quot;ENTER FACTORS TO BE USED&quot;, and
+answer 1.0 in &quot;ENTER COORDINATES FOR EACH FACTOR SELECTED"
+(or -1.0, since the sign of eigenvector is not determined by
+the analysis);
+<p>
+<li>To create non-existing images using chosen factors and
+arbitrary coordinates: use file numbers non-existing in the
+original image series in &quot;ENTER FILE NUMBERS&quot;, answer No in
+&quot;SUBTRACT AVERAGE IN PCA RECONSTRUCTION&quot;, enter (arbitrary)
+factor coordinates in &quot;ENTER COORDINATES FOR EACH FACTOR SELECTED&quot;.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/jpmsk2.f">JPMSK2</a>, PCA_SRIP2, PCA_RECDUM, PCA_REMAKE</dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util1.f">UTIL1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

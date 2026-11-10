@@ -1,0 +1,84 @@
+{
+  "id": "basic_pad",
+  "title": "Basic 3 · Pad an image",
+  "summary": "Grow the canvas around an image with Pad, exploring fill modes (average / set / border / circular).",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try padding",
+      "body": "Pad grows an image by adding a border around it. In cryo-EM it's used routinely before and after Fourier transforms to avoid wrap-around artefacts at the box edges.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Clock face** (a 128×128 image).",
+      "target": { "tutorId": "palette:data.clock", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.clock` shows its image before we add the next stage.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "drop-pad",
+      "title": "Drop the Pad node",
+      "body": "From Geometry, drag **Pad**.",
+      "target": { "tutorId": "palette:geom.pad", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.pad" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Clock → Pad",
+      "body": "Drag from Clock's `image` output to Pad's `image` input.",
+      "target": { "tutorId": "node:geom.pad", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.clock", "srcPort": "image", "dstNodeType": "geom.pad", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With default sizes the output equals the input — a baseline before you grow the canvas.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.pad" }
+    },
+    {
+      "id": "select",
+      "title": "Click Pad",
+      "body": "Click Pad. The Inspector reveals `ny` / `nx` (output size), `pad_type` (how to fill the border: average = image mean, set = the `background` value, etc.), and `background`.",
+      "target": { "tutorId": "node:geom.pad", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.pad" }
+    },
+    {
+      "id": "set-ny",
+      "title": "Set ny to 256",
+      "body": "Enter **256** in `ny` — doubles the vertical output size.",
+      "target": { "tutorId": "param:ny", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "ny", "value": 256 }
+    },
+    {
+      "id": "set-nx",
+      "title": "Set nx to 256",
+      "body": "Enter **256** in `nx` too. Output becomes 256×256 with the original 128×128 clock centred and 64 pixels of fill all around.",
+      "target": { "tutorId": "param:nx", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "nx", "value": 256 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Pad emits a 256×256 image: the clock face in the middle, surrounded by the image's mean value (default `pad_type = average`).",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.pad" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "Switch to `pad_type = set` with `background = 0` to pad with zeros (= black). That's the usual pre-processing step before a Fourier filter. Next, **Basic 4 · Apply a mask**.",
+      "target": { "tutorId": "node:geom.pad", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

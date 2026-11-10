@@ -1,0 +1,195 @@
+<HTML><HEAD>
+<TITLE>SPIDER: AD M (ADd images - using Multipliers)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>AD M - ADd images - using Multipliers</H2>
+<EM>(9/02/96)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Adds two or more images or volumes together. Apply
+a multiplication factor to each file after first.
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="ad.html"><STRONG>AD</STRONG></A> [Add images - without multiplier]<BR>
+<A HREF="asr.html"><STRONG>AS R</STRONG></A> [Average images - find &amp; save variance, better]<BR>
+<A HREF="pa.html"><STRONG>PA</STRONG></A> [Add images - different sizes]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: AD M<BR>
+<P>
+<DD>.INPUT FILE: PIC001<BR>
+[Enter the name of the first file to be added.]
+<P>
+.NEXT INPUT FILE: PIC002<BR>
+[Enter the name of the second file to be added.]
+<P>
+.OUTPUT FILE: PIC999<BR>
+[Enter the name of output file.]
+<P>
+<DT>A factor is solicited for every file following the initial
+one (which has a factor of 1.):
+<P>
+<DD>.ENTER FACTOR: 1.2<BR>
+[Enter multiplicative factor for the second file.]
+<P>
+<DT>The system continues:
+<P>
+<DD>.NEXT INPUT FILE: PIC004<BR>
+[Enter the name of the next file to be added.]
+<P>
+<DT>'AD M' will continue in this manner until an asterisk
+('*') is given as the name of the added file.
+<P>
+<P>
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>This routine only works for files with the same
+dimensions. To add pictures of different dimensions,
+use PATCH (see 'PA').
+<P>
+<LI>For adding an entire file series, is is more practical
+to use operation 'AS' which will also produce a variance
+map.
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/add.f">ADD</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/util2.f">UTIL2</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

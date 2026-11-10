@@ -1,0 +1,171 @@
+<html><head>
+<title>SPIDER: PJ INTER (ProJected Surface - INTERlace two surface representations)</title>
+<!-- Begin Scripts -->
+<script language = "JavaScript">
+
+   // browserName = navigator.appName;   // detect browser 
+   // browserVer  = parseInt(navigator.appVersion);
+
+      {         
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      faqon             = new Image();
+      faqon.src         = "../buttons/faqon.gif";
+      techson           = new Image();
+      techson.src       = "../buttons/techson.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      faqoff            = new Image();
+      faqoff.src        = "../buttons/faq.gif";
+      techsoff          = new Image();
+      techsoff.src      = "../buttons/techs.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      imgOn = eval(imgName + "on.src");
+      document [imgName].src = imgOn;
+      }
+
+   function img_inact(imgName)
+      {
+      imgOff = eval(imgName + "off.src");
+      document [imgName].src = imgOff;
+      }
+</script>
+
+<!-- End Scripts -->
+<body>
+<!-- Begin Buttons -->
+<a href="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<img name="smallspider"  width="40" height="40" alt="HOME"  src="./buttons/smallspider.gif"></a>
+<a href="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<img name="work" width="40" height="40" alt="GUIDE"          src="./buttons/work.gif" ></a>
+<a href="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<img  width="40"  name="index"  height="40" alt="OPERATIONS"    src="./buttons/index.gif"></a>
+<a href="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<img width="40"   name="help"  height="40" alt="DOCS"       src="./buttons/help.gif"></a>
+<a href="../faq.html" 
+ onMouseover = "img_act('faq')"  onMouseout = "img_inact('faq')">            
+<img  name="faq"  width="40" height="40" alt="FAQ"   src="./buttons/faq.gif"></a>
+<a href="../techniques.html" 
+ onMouseover = "img_act('techs')"  onMouseout = "img_inact('techs')">            
+<img  name="techs"  width="40" height="40" alt="TECHNIQUES"   src="./buttons/techs.gif"></a>
+<a href="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<img  name="menu" width="40" height="40" alt="FORMATS"      src="./buttons/menu.gif" ></a>
+<a href="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<img  name="install"  width="40" height="40" alt="INSTALL"  src="./buttons/install.gif" ></a>
+<a href="../release.html" 
+ onMouseover = "img_act('new')" onMouseout = "img_inact('new')">           
+<img  name="new" width="40" height="40" alt="NEW"     src="./buttons/new.gif" ></a>
+<a href="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<img  name="tips"  width="40" height="40" alt="TIPS"  src="./buttons/tips.gif" ></a>
+<a href="../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<img  name="web" width="40" height="40" alt="WEB"     src="./buttons/web.gif" ></a>
+<a href="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<img  name="www" width="40" height="40" alt="LINKS"   src="./buttons/www.gif" ></a>
+<br><hr>
+<!-- End Buttons -->
+<h2>PJ INTER - ProJected Surface - INTERlace two surface representations</h2>
+<em>(04/22/97)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Creates an image for red-green stereo representation of surfaces
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="pjshad.html"><strong>PJ SHAD</strong></a></td><td> []</td></tr>
+<tr><td><a href="pjst.html"><strong>PJ ST</strong></a></td><td> [ProJected Surface - Creation]</td></tr>
+<tr><td><a href="pjcol.html"><strong>PJ COL</strong></a></td><td> [ProJected surface - COLoring]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PJ INTER<br>
+<p>
+<dd>.LEFT EYE IMAGE FILE: LEFT001<BR>
+[Enter the file containing the surface for the left eye]
+<p>
+.RIGHT EYE IMAGE FILE: RIGHT001<BR>
+[Enter the file containing the surface for the right eye]
+<p>
+.OUTPUT FILE: STEREO001<BR>
+[Enter the output file name for the stereo image.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The program normalizes each of the two images and stores one image
+in the range from 0 to 1 in every second line of the output image,
+and the second image in the range from 1 to 2 in the alternating
+lines. If such an image is displayed with a color table that is red
+in the range from 0 to 1 and green from 1 to 2, then the image can be
+viewed with red-green stereo glasses. (The left and right sides
+given above might be inverted, depending on the color table used.)
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/interl.f">INTERL</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/vtil2.f">VTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<HR> <small><address>&copy; <a HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </address></small></a>
+<!-- End Trailer -->
+</body>
+</html>

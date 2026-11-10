@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyspider-web"
+version = "0.1.0"
+description = "Visual node editor for cryo-EM image processing — Python + React Flow, ships with a full built-in image-analysis library."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "pyspider-web contributors" }]
+keywords = ["cryo-em", "image-processing", "node-editor", "spider"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+  "Framework :: FastAPI",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.29",
+  "pydantic>=2.5",
+  "numpy>=1.24",
+  "scipy>=1.11",
+  "Pillow>=10.0",
+  "mrcfile>=1.5",
+]
+
+[project.optional-dependencies]
+# Optional CUDA acceleration — pick the wheel that matches your CUDA runtime:
+#   pip install pyspider-web[cuda12]
+#   pip install pyspider-web[cuda11]
+cuda12 = ["cupy-cuda12x>=13.0"]
+cuda11 = ["cupy-cuda11x>=13.0"]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[project.scripts]
+# Installed as an executable — `pyspider-web` starts the local server + UI.
+pyspider-web = "backend.launcher:main"
+
+[project.urls]
+Homepage = "https://github.com/pyspider-web/pyspider-web"
+Documentation = "https://github.com/pyspider-web/pyspider-web#readme"
+Repository = "https://github.com/pyspider-web/pyspider-web"
+Issues = "https://github.com/pyspider-web/pyspider-web/issues"
+
+[tool.setuptools]
+# Explicit list so the pre-built frontend, bundled data, and manual HTML
+# all get packaged into the wheel — end-users don't need Node.js.
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*", "pyspider*"]
+exclude = ["backend.__pycache__*", "tests*"]
+
+[tool.setuptools.package-data]
+"backend" = [
+  "bundled_data/**/*",
+  "tutorials/*.json",
+  "challenges/*.json",
+  # Pre-built React UI (vite writes to backend/_static/ per vite.config.ts).
+  # End-users don't need Node.js — the wheel ships the built assets.
+  "_static/**/*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

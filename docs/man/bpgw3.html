@@ -1,0 +1,311 @@
+<HTML><HEAD>
+<TITLE>SPIDER: BP GW3 (Back Projection - weighted, arbitrary geometry, 3 angles)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>BP GW3 - Back Projection - weighted, arbitrary geometry, 3 angles</H2>
+<EM>(1/26/94)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>This is the first step of the weighted back projection
+with arbitrary geometry and three Euler angles.
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="bp3.html"><STRONG>BP 3</STRONG></A> [Back Projection - 3D, iterative]<BR>
+<A HREF="bp3d.html"><STRONG>BP 3D</STRONG></A> [Back Projection - 3D, using Euler angles, ||]<BR>
+<A HREF="bp3e.html"><STRONG>BP 3E</STRONG></A> [Back Projection - 3D, using Euler angles]<BR>
+<A HREF="bpctf.html"><STRONG>BP CTF</STRONG></A> [Back Projection - 3D, CTF correction, ||]<BR>
+<A HREF="bpgw.html"><STRONG>BP GW</STRONG></A> [Back Projection - weighted, arbitrary geometry]<BR>
+<A HREF="bpmem2.html"><STRONG>BP MEM2</STRONG></A> [Back Projection - 2D maximum entropy method]<BR>
+<A HREF="bpr2.html"><STRONG>BP R2</STRONG></A> [Back Projection - 2D, R**2 weighting of the image series]<BR>
+<A HREF="bprp.html"><STRONG>BP RP</STRONG></A> [Back Projection - 3D, iterative, with constraints, ||]<BR>
+<A HREF="bps2.html"><STRONG>BP S2</STRONG></A> [Back Projection - 2D, single tilt iterative, with constraints]<BR>
+<A HREF="bpw2.html"><STRONG>BP W2</STRONG></A> [Back Projection - 2D, filtered weighted]<BR>
+<A HREF="bpwx.html"><STRONG>BP WX</STRONG></A> [Back Projection - weighted. X]<BR>
+<A HREF="bpwy.html"><STRONG>BP WY</STRONG></A> [Back Projection - weighted, Y]<BR>
+<A HREF="bpxy.html"><STRONG>BP XY</STRONG></A> [Back Projection - simple for single axis &amp; conical tilting]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: BP GW3<BR>
+<P>
+<DD>.(S)INC-FCT.,(G)AUSS-FCT.,(M)IXED : M<BR>
+[Enter if weighting function should be constructed by a summation
+of sinc-functions, Gaussian functions or a mixture of both. Sinc
+function weighting implies that the reprojection rays are limited
+by a multiplication with a box-function, i.e., a sharp cutoff,
+Gaussian, that the (infinite) reprojection rays are limited
+by multiplication with a Gaussian function, Mixed, that the rays
+are limited by an apodized box function, the falloff of this box
+function is determined by the half width of the Gaussian. The
+weighting function then is calculated from the sum of
+sinc-functions multiplied with Gaussians]
+<P>
+<DT>If either G of M was answered:
+<DD><BR>.SIGMA (absolute units): .1<BR>
+[Enter the sigma of the Gaussian in Fourier space, use absolute
+units. If in real space the box-function is apodized by
+multiplication of the box function with a Gaussian function with
+halfwidth s (in pixels) then sigma should be 1/s.]
+<P>
+.(T)RANSFER OR (W)EIGHTING-FCT.: w<BR>
+[Enter if you want the Transfer function or the Weighting function
+(= 1./(Transfer function)). The calculation of the transfer
+function may be desirable for test purposes]
+<P>
+.CRITICAL VALUE FOR W: 0.6<BR>
+[Give upper limit for inverse of weighting function (=transfer
+function) to avoid noise enhancement. (remark: this parameter
+will be changed. A value smaller than 1 allows a weighting
+function larger than 1. A value of 0.6 seems to be adequate) ]
+<P>
+<P>
+.3D VOLUME DIAMETER: 80<BR>
+[Enter diameter of reconstructed volume in real space]
+<P>
+.GENER.ANGLES IN (L)ABEL,(D)OCF,(E)XTERNAL: L<BR>
+[Enter if angles of the projections, which are used to generate
+the weighting function are contained in the label of the files,
+in a document file or if they will be entered externally. It is
+strongly recommended to provide these angle in the file label.
+This is the most used mode and thus the best tested.]
+<P>
+.WGT. ANGLES IN (L)ABEL,(D)OCF,(E)XTERNAL: L<BR>
+[Enter if angles of the projections which will be weighted are
+contained in label, document file, or externally given. s. remark
+above.]
+<P>
+.TEMPLATE OF INPUT FILE SERIES: PRO***<BR>
+[Enter prefix of input files]
+<P>
+.TEMPLATE OF OUTPUT FILE SERIES: PRW***<BR>
+[Enter prefix of output files]
+<P>
+.FILE NUMBERS OF GENERATING FILES: 1,5,6-36<BR>
+[Enter file numbers of the projections, which generate the
+weighting function]
+<P>
+.FILE NUMBERS OF FILES TO BE WEIGHTED: 1,5, 7-36<BR>
+[Enter file numbers of files which will be weighted]
+<P>
+If angles of generating projections are given externally:
+<BR>.PHI: 10.<BR>
+<BR>.THETA: 45.<BR>
+<P>
+<P>
+<P>
+[Enter phi and theta for each generating projection]
+<P>
+If angles of generating projections are contained in document file:
+<BR>.DOC1: DOC001<BR>
+[Enter name of document file which contains the angles of
+the generating projections. see also note 2!!!]
+<P>
+.BOTH IMAGE SETS IDENTICAL (Y/N): N<BR>
+[Answer &quot;N"!. Only if the set of projections which generate the
+weighting function and the set which is to be weighted are
+identical you may answer Y.
+Warning: Answer yes only, if both sets are really the same images,
+corresponding to each other image by image including the file
+numbers. N always works! ]
+<P>
+<DT>If they are not identical and the angles of the projections which
+are to be weighted are given externally:
+<P>
+<DD>.INPUT DATA OF THE PROJECTION SET TO BE WEIGHTED:<BR>
+<BR>.PHI: 10<BR>
+<BR>.THETA: 50<BR>
+<P>
+<P>
+<P>
+[Enter the angles of these projections]
+<P>
+<P>
+<DT>If they are not identical and the angles of the projections which
+are to be weighted are contained in document file:
+<P>
+<DD>.DOC2: DOC002<BR>
+[Enter document file that contains the angle of the projections
+that are to be weighted. It can be the same file as DOC1. see
+also note 2.!!!]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>The projections must have power-of-2 dimensions.
+'BP GW' also does an in-core Fourier transform. Maximum size
+of projections is currently 128x128.
+<P>
+<LI>The document files have to have the format:
+KEY=file #, PHI (azimuth), THETA (cone angle), PSI (rotation
+within the plane of the projection), FLAG (1 if image used,0
+if skipped)
+<P>
+<LI>Gaps in keys are not allowed, instead enter a line that has a
+0 flag. Document file keys must be in sequential order !!!
+<P>
+<LI>The program calculates the weighting function along a section
+in Fourier space corresponding to a projection. The weighting
+function is the invers of the sum of the sinc-functions along
+the z-directions in the coordinate systems of each generating
+projection.
+<P>
+<LI>Let PW be the projection to be weighted and PG the projection
+generating the sinc-function. Let RW(w) be a vector in the
+coordinate system belonging to PW and RW(g) the same vector
+represented in the coordinate system of PG. The argument of the
+sinc-function is the plane RW(g) with ZW=0 (ZW z-coordinate in
+PW).
+<P>
+<LI>Let R be a vector in the space fixed coordinate system. [DW]
+the rotation matrix from R to RW (R(w)=[DW]*R). analogous let
+[DG] be the rotation matrix from R to RG (R(g)=[DG]*R). The
+argument of the sinc function then is: projection onto Zg of
+          <PRE>       
+                                   -1 
+          RW(g)=[D]*RW(w)=[DG]*[DW]  *RW(w) 
+                                       -1        -1        -1 
+              :=[DGthe]*[DGphi]*[DWphi]  *[DWthe]  *[DWPSI]  *RW(w). 
+</PRE>
+<P>
+<LI>The matrices used are consistent with BAPI3A used in the simple
+backprojection called in SPIDER by 'BP 3E'.
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/genw3e.f">GENW3E</A>, <A HREF="../../src/four2.f">FOUR2</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/vtil2.f">VTIL2</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

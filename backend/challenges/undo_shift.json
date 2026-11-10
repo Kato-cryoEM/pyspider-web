@@ -1,0 +1,34 @@
+{
+  "id": "undo_shift",
+  "title": "Undo the shift",
+  "summary": "Recover a shifted image back to the original — the first warm-up challenge.",
+  "prompt": "On the canvas: `reference` (original image) and `shifted` (the same image translated by (dy, dx) = (12, -7) pixels). Build a graph that transforms `shifted` back to match the original. The palette is restricted to the nodes you need.\n\n**Goal:** mark the node whose output matches `reference` with NCC ≥ 0.9 and submit.",
+  "fixtures": [
+    {
+      "name": "reference",
+      "recipe": {
+        "testdata": "clock",
+        "size": 128
+      }
+    },
+    {
+      "name": "shifted",
+      "recipe": {
+        "shift_of": "reference",
+        "dy": 12,
+        "dx": -7
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "align.cc",
+    "align.peaks",
+    "geom.shift"
+  ],
+  "answer_port": "image",
+  "compare_to": "reference",
+  "metric": "ncc",
+  "pass_score": 0.9,
+  "hint": "Cross-correlate `shifted` (a) against `reference` (b) with `align.cc` → read the peak location with `align.peaks` → feed `shifted` into `geom.shift` and enter dy = -(peak dy), dx = -(peak dx) to undo the translation.",
+  "order": 1
+}

@@ -1,0 +1,136 @@
+<html> 
+<head>
+<title>SPIDER: BP 3E (Back Projection - in XY planes)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>BP 3E - Back Projection - in XY planes</h2>
+<em>(9/17/94)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>The second step of the weighted back projection method.
+The input projections are back projected into a given volume. This volume may already exist; in this case the pro-
+jections are added on. If the volume does not exist, it
+will create a volume containing 0 density, if the
+question &quot;.IS THIS A NEW 3D (Y/N):&quot; is answered Y.
+The program works for both single axis and
+conical tilting series. The angles of the projections
+have to be written into the title of the image using the
+command 'ST'. In contrast to BP XY BP 3E uses all three
+<a href="../euler.html">Euler angles</a>.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><a href="bp3.html"><strong>BP 3</strong></a> [(ART Back Projection - 3D)]<br>
+<a href="bp3d.html"><strong>BP 3D</strong></a> [(3D Reconstruction - using three Eulerian angles]<br>
+<a href="bpgw.html"><strong>BP GW</strong></a> [3D reconstruction with general weighting]<br>
+<a href="bplocal.html"><strong>BP LOCAL</strong></a> [Back projection calculated to a specific local area]<br>
+<a href="bpmem2.html"><strong>BP MEM2</strong></a> [2D reconstruction by Max. Entropy Method]<br>
+<a href="bprp.html"><strong>BP RP</strong></a> [Iterative Reconstruction With Constraints]<br>
+<a href="bpr2.html"><strong>BP R2</strong></a> [R**2 weighting for 2D]<br>
+<a href="bps2.html"><strong>BP S2</strong></a> [2D Single-tilt Iterative Recon. With Constraints]<br>
+<a href="bpw2.html"><strong>BP W2</strong></a> [2D filtered, weighted back projection]<br>
+<a href="bpwx.html"><strong>BP WX</strong></a> [Weighted Back Projection]<br>
+<a href="bpwy.html"><strong>BP WY</strong></a> [Weighted Back Projection]<br>
+<a href="bpxy.html"><strong>BP XY</strong></a> [Back Projection in X-Y planes]<br>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: BP 3E<br>
+<p>
+<dd>.THREED FILE: REC100<BR>
+[Enter the name of the reconstruction volume.]
+<p>
+.IS THIS A NEW 3D (Y/N): Y<BR>
+<p>
+<dt>If the last answer was &quot;Y" it asks:
+<p>
+<dd>.X,Y DIMENSIONS: 64,64<BR>
+<BR>.Z DIMENSION: 64<BR>
+[Define the dimensions of the reconstruction volume.
+These are independent of the dimensions of the projections. The center is assumed to be at point (NSAM/2+1,
+NROW/2+1,NSLICE/2+1).]
+<p>
+.FIRST,LAST SLICE TO BE RECONSTRUCTED: 10,50<BR>
+[Self-explanatory.]
+<p>
+.STEP: 1<BR>
+[Enter the steps between the slices to be calculated.
+This allows for the reconstruction, for example, of every
+second slice. However, the slices not calculated are
+still part of the reconstructed volume, and contain 0
+density.]
+<p>
+.ENLARGEMENT FACTOR: 1<BR>
+[Since the dimensions of the volume are independent of
+those of the projections, different grids for the reconstruction volume and the projections may be defined by the
+enlargement factor. The default=1.]
+<p>
+.FIRST FILE: PRO001<BR>
+<BR>.LAST FILE: PRO020<BR>
+[Enter the names of the first and last projections.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The reconstructed volume has to be filtered to the correct
+resolution, which is determined by the number of projecttions. This can be done either after the reconstruction,
+by filtering the volume, or by filtering the input projections before the reconstruction the the correct resolu-
+tion. For the formulas to calculate the resolution, see:
+<p>
+<li>Single-Axis Tilting:
+Crowther R.A., DeRosier D.J., Klug A., Proc. Roy. Soc.
+Lond. A. 317,319-340 (1970) (specifically, page 332).
+<p>
+<li>Conical Tilting:
+Radermacher M., Hoppe W., Proc. 7th Europ. Congr. El.
+Micr. den Haag, 1980 Vol.1 132-133.
+<p>
+<li>Arbitrary tilting: The resollution can be estimated from
+a histogram of the angular distribution or a comparison
+of two or more independent reconstructions. Exact formulas
+are not available.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd>BAPI, MIRQBXS</dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/vtil2.f">VTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

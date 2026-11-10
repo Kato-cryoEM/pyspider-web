@@ -1,0 +1,39 @@
+{
+  "id": "projection_realspace",
+  "title": "Make a projection in real space (no FFT)",
+  "summary": "Rotate the volume by ZYZ Euler angles, then sum along one axis to form the projection. No Fourier transform allowed.",
+  "prompt": "On the canvas: a 3D helix `volume` and a projection `projection` taken from some viewing direction. Produce an image matching `projection` without using any Fourier-domain nodes.\n\n**Goal:** NCC ≥ 0.9 with `projection`.",
+  "fixtures": [
+    {
+      "name": "volume",
+      "kind": "volume",
+      "recipe": {
+        "helix_volume": true,
+        "size": 64,
+        "n_turns": 3.0
+      }
+    },
+    {
+      "name": "projection",
+      "kind": "image",
+      "recipe": {
+        "project_of": "volume",
+        "phi": 0,
+        "theta": 60,
+        "psi": 0
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "geom.rotate3d",
+    "recon.sum_axis",
+    "recon.vol_slice",
+    "recon.slice3d"
+  ],
+  "answer_port": "image",
+  "compare_to": "projection",
+  "metric": "ncc",
+  "pass_score": 0.9,
+  "hint": "`projection` was built by rotating the volume by SPIDER ZYZ Euler angles (phi, theta, psi) and summing along +z (= the body of `recon.pj3q`). Two real-space nodes do the job:\n\n  volume → geom.rotate3d(phi=?, theta=?, psi=?) → recon.sum_axis(axis=z)\n\nStrategy: inspect the wavy structure of `projection` to estimate how much the volume was tilted. Try theta = 0 / 30 / 60 / 90 and see which matches. Preview with `recon.vol_slice` or `recon.slice3d` to peek at the rotated volume.",
+  "order": 4
+}

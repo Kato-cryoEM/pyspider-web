@@ -1,0 +1,242 @@
+<HTML><HEAD>
+<TITLE>SPIDER: BP XY (Back Projection - simple for single axis &amp; conical tilting)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>BP XY - Back Projection - simple for single axis &amp; conical tilting</H2>
+<EM>(9/17/94)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>The second step of the weighted back projection method.
+The input projections are back projected into a given volume.
+This volume may already exist; in this case the
+projections are added on. If the volume does not exist, it
+will create a volume containing 0 density, if the
+question &quot;.IS THIS A NEW 3D (Y/N):&quot; is answered 'Y'.
+The program works for both single axis and
+conical tilting series.
+The geometrical relation between the
+object and the projections is described by the rotation
+matrix:
+<PRE>
+COS(THETA)COS(PHI) COS(THETA)SIN(PHI) -SIN(THETA)
+-SIN(PHI) COS(PHI) 1
+</PRE>
+If, for example, you have a single-axis tilting series
+with Y as the tilt axis, use 'BP WX' to weight the
+projections perpendicular to the tilt axis and define only
+THETA in the back projection step.
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="bp3.html"><STRONG>BP 3</STRONG></A> [Back Projection - 3D, iterative]<BR>
+<A HREF="bp3d.html"><STRONG>BP 3D</STRONG></A> [Back Projection - 3D, using Euler angles, ||]<BR>
+<A HREF="bp3e.html"><STRONG>BP 3E</STRONG></A> [Back Projection - 3D, using Euler angles]<BR>
+<A HREF="bpctf.html"><STRONG>BP CTF</STRONG></A> [Back Projection - 3D, CTF correction, ||]<BR>
+<A HREF="bpgw.html"><STRONG>BP GW</STRONG></A> [Back Projection - weighted, arbitrary geometry]<BR>
+<A HREF="bpgw3.html"><STRONG>BP GW3</STRONG></A> [Back Projection - weighted, arbitrary geometry, 3 angles]<BR>
+<A HREF="bpmem2.html"><STRONG>BP MEM2</STRONG></A> [Back Projection - 2D maximum entropy method]<BR>
+<A HREF="bpr2.html"><STRONG>BP R2</STRONG></A> [Back Projection - 2D, R**2 weighting of the image series]<BR>
+<A HREF="bprp.html"><STRONG>BP RP</STRONG></A> [Back Projection - 3D, iterative, with constraints, ||]<BR>
+<A HREF="bps2.html"><STRONG>BP S2</STRONG></A> [Back Projection - 2D, single tilt iterative, with constraints]<BR>
+<A HREF="bpw2.html"><STRONG>BP W2</STRONG></A> [Back Projection - 2D, filtered weighted]<BR>
+<A HREF="bpwx.html"><STRONG>BP WX</STRONG></A> [Back Projection - weighted, X]<BR>
+<A HREF="bpwy.html"><STRONG>BP WY</STRONG></A> [Back Projection - weighted, Y]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: BP XY<BR>
+<P>
+<DD>.3D FILE: REC100<BR>
+[Enter the name of the reconstruction volume.]
+<P>
+.IS THIS A NEW 3D? (Y/N): Y<BR>
+<P>
+<DT>If the last answer was &quot;Y" it asks:
+<P>
+<DD>.X,Y DIMENSIONS: 64,64<BR>
+<BR>.Z DIMENSION: 64<BR>
+[Define the dimensions of the reconstruction volume.
+These are independent of the dimensions of the
+projections. The center is assumed to be at point (NSAM/2+1,
+NROW/2+1,NSLICE/2+1).]
+<P>
+.FIRST,LAST SLICE TO BE RECONSTRUCTED: 10,50<BR>
+[Self-explanatory.]
+<P>
+.SLICE INTERVAL: 1<BR>
+[Enter the steps between the slices to be calculated.
+This allows for the reconstruction, for example, of every
+second slice. However, the slices not calculated are
+still part of the reconstructed volume, and contain 0
+density.]
+<P>
+.ENLARGEMENT FACTOR: 1<BR>
+[Since the dimensions of the volume are independent of
+those of the projections, different grids for the
+reconstruction volume and the projections may be defined by the
+enlargement factor. The default=1.0]
+<P>
+.FIRST PROJECTION FILE: PRO001<BR>
+<BR>.LAST PROJECTION FILE: PRO020<BR>
+[Enter the names of the first and last projections.]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>The reconstructed volume has to be filtered to the correct
+resolution, which is determined by the number of
+projecttions. This can be done either after the reconstruction,
+by filtering the volume, or by filtering the input
+projections before the reconstruction the the correct
+resolution. For the formulas to calculate the resolution, see:
+<BR>
+Single-Axis Tilting: <BR>
+Crowther R.A., DeRosier D.J., Klug A., Proc. Roy. Soc.
+Lond. A. 317,319-340 (1970) (specifically, page 332).
+Conical Tilting: <BR>
+Radermacher M., Hoppe W., Proc. 7th Europ. Congr. El.
+Micr. den Haag, 1980 Vol.1 132-133.
+Arbitrary tilting: <BR>
+The resolution can be estimated from
+a histogram of the angular distribution or a comparison
+of two or more independent reconstructions. Exact formulas
+are not available.
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/bapi.f">BAPI</A>, <A HREF="../../src/mirqbxs.f">MIRQBXS</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/vtil2.f">VTIL2</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

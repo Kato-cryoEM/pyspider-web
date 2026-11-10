@@ -1,0 +1,77 @@
+{
+  "id": "basic_flip",
+  "title": "Basic 6 · Mirror an image (MR)",
+  "summary": "Flip an image across its horizontal or vertical centre line — SPIDER's MR command. Useful for handedness tests.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try mirroring",
+      "body": "Flip an image across an axis. For cryo-EM particles this is used to detect/fix handedness (mirror-image), to grow a reference set under an assumed symmetry, or to re-orient particles after a CTF phase flip. SPIDER's `MR`.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Clock face**. The clock is asymmetric both horizontally and vertically, so the effect of a mirror is immediately visible.",
+      "target": { "tutorId": "palette:data.clock", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.clock` shows its image before we attach the flip.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "drop-flip",
+      "title": "Drop the Flip node",
+      "body": "From Geometry, drag **Flip (mirror)** (`geom.flip`).",
+      "target": { "tutorId": "palette:geom.flip", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.flip" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Clock → Flip",
+      "body": "Drag from Clock's `image` output to Flip's `image` input.",
+      "target": { "tutorId": "node:geom.flip", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.clock", "srcPort": "image", "dstNodeType": "geom.flip", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With the default axis you'll see one mirror direction already — a baseline before we flip the other way.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.flip" }
+    },
+    {
+      "id": "select",
+      "title": "Click Flip",
+      "body": "Click Flip. The Inspector's `axis` dropdown selects `horizontal` (left-right flip = mirror about the x axis) or `vertical` (top-bottom = mirror about the y axis).",
+      "target": { "tutorId": "node:geom.flip", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.flip" }
+    },
+    {
+      "id": "set-axis",
+      "title": "Set axis to vertical",
+      "body": "Change `axis` to **`vertical`**. Top-bottom mirror — the 12 moves down, the 6 moves up, and both digits themselves appear upside down (mirrored glyphs).",
+      "target": { "tutorId": "param:axis", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "axis", "value": "vertical" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. The Flip node preview shows the clock face mirrored top-to-bottom.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.flip" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "Switch `axis` to `horizontal` for a left-right flip: 12 and 6 stay in place but their glyphs mirror; 3 and 9 swap positions (both appearing as mirror characters). Important: a mirror only **flips pixel positions** — the glyph itself is also reflected (an \"E\" becomes \"Ǝ\"), not re-read as a different digit. Mirror is a linear map, so combining it with rotation (Basic 1) lets you build pairs of references that differ only by a single handedness flip — useful for growing the reference set during mirror-aware alignment.",
+      "target": { "tutorId": "node:geom.flip", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

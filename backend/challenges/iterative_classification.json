@@ -1,0 +1,62 @@
+{
+  "id": "iterative_classification",
+  "title": "Recover K class averages from a noisy mixed stack",
+  "summary": "100 particles sampled from 4 different projection views, mixed randomly with per-frame rotation + small shift + heavy noise. Recover the 4 class averages via iterative multi-reference alignment.",
+  "prompt": "On the canvas:\n  - `rotated_stack` (100 frames, 4 projection views mixed randomly, each frame with a random in-plane rotation + small shift + strong noise)\nis provided. Individual frames are nearly unreadable.\n\nSeed the initial references with `stack.random_group_mean(k=4)` — four random-group means from the stack. Inside a DO loop, run `align.ap` to classify + align, then for each class use `stack.select_by_class` → `stack.mean` to form a class average. Combine all four with `stack.build` to make the next-iteration references. Classes separate over several iterations.\n\n**Goal:** the final `align.ap` must produce a per-frame class assignment (`ref_index`, length-100 int array) whose clustering accuracy against the hidden ground-truth labels (🔒 `class_labels`) is ≥ 0.80. Class numbering is free — the judge tries all 4! permutations and takes the best match; only 'are the same images in the same class?' matters.\n\nSubmission: select the **last `align.ap` inside the loop** and press Submit (its `ref_index` output is sent automatically). Convergence typically needs 10–15 iterations.\n\nThe RNG seed on `random_group_mean` matters — bad seeds give 0.5–0.6, good seeds reach 0.85+. If a run misses the threshold, retry with a different seed. This is the classic 'seed sensitivity' of real cryo-EM class averaging.",
+  "fixtures": [
+    {
+      "name": "class_truths",
+      "kind": "image",
+      "judge_only": true,
+      "recipe": {
+        "mcls_truth": true,
+        "size": 128,
+        "seed": 7,
+        "k_classes": 4,
+        "n_per_class": 25,
+        "shift_sigma": 3.0,
+        "noise_sigma": 0.6,
+        "clean_averages": 2000
+      }
+    },
+    {
+      "name": "class_labels",
+      "kind": "image",
+      "judge_only": true,
+      "recipe": {
+        "mcls_labels": true,
+        "seed": 7,
+        "k_classes": 4,
+        "n_per_class": 25
+      }
+    },
+    {
+      "name": "rotated_stack",
+      "kind": "image",
+      "recipe": {
+        "mcls_stack": true,
+        "size": 128,
+        "seed": 7,
+        "k_classes": 4,
+        "n_per_class": 25,
+        "shift_sigma": 3.0,
+        "noise_sigma": 0.6
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "flow.do",
+    "flow.state",
+    "align.ap",
+    "stack.random_group_mean",
+    "stack.select_by_class",
+    "stack.mean",
+    "stack.build"
+  ],
+  "answer_port": "labels",
+  "compare_to": "class_labels",
+  "metric": "cluster_accuracy",
+  "pass_score": 0.8,
+  "hint": "Suggested pipeline (SPIDER style, per-class SELECT + AS R):\n\n  rotated_stack ──> stack.random_group_mean(k=4) → initial_refs ──> flow.state.initial\n\n  ┌──[ flow.do(start=1, end=12, step=1) ]────────────────────────────────────┐\n  │  rotated_stack ─┐                                                        │\n  │                 ├── align.ap(stack, references) → aligned, assignments_csv│\n  │  state.value_out┘                                                        │\n  │                                                                          │\n  │  aligned + assignments_csv ──┬─ select_by_class(class_id=0) → mean → m0  │\n  │                               ├─ select_by_class(class_id=1) → mean → m1 │\n  │                               ├─ select_by_class(class_id=2) → mean → m2 │\n  │                               └─ select_by_class(class_id=3) → mean → m3 │\n  │                                                                          │\n  │  stack.build(m0, m1, m2, m3) → new_refs ──> state.value_in               │\n  └──────────────────────────────────────────────────────────────────────────┘\n\n  Submission: pick the last `align.ap` inside the DO → Submit (ref_index sent to the judge).\n\nSPIDER equivalents:\n  - stack.select_by_class = SELECT docfile (rows matching a condition)\n  - stack.mean             = AS R (average selected frames)\n  - stack.build            = stack concatenation (K refs into one stack)\n\nTips:\n  - Seeding initial refs with `random_group_mean` (25 frames averaged per bucket) beats single-frame picking: every bucket already mixes all true classes so no class collapses from the start.\n  - For `align.ap`: last_ring ≈ 40 (particle radius), search_range 5–8.\n  - Change the `random_group_mean` seed if a run falls into a bad local minimum.\n  - The DO loop's final `align.ap.ref_index` is what the judge reads. `stack.build/mean` only exist to build next-iteration references.",
+  "order": 6
+}

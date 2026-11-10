@@ -1,0 +1,99 @@
+<html> 
+<head>
+<title>SPIDER: PJ 3T (ProJect - 3D volume using internal Threshold)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PJ 3T - ProJect - 3D volume using internal Threshold</h2>
+<em>(09/10/96)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Computes a projection of a 3D density distribution along
+two specified angles (azimuth angle, PHI, and tilt angle,
+THETA), with values within the threshold boundaries
+contributing to the projection.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="pj3.html"><strong>PJ 3</strong></a></td><td> [ProJect - 3D volume]</td></tr>
+<tr><td><a href="pj3e.html"><strong>PJ 3E</strong></a></td><td> [ProJect - 3D volume using Eulerian angles, fast]</td></tr>
+<tr><td><a href="pj3q.html"><strong>PJ 3Q</strong></a></td><td> [ProJect - 3D volume using Eulerian angles ||]</td></tr>
+<tr><td><a href="pjat.html"><strong>PJ AT</strong></a></td><td> [ProJect 3D volume using exponential ATtenuation]</td></tr>
+<tr><td><a href="pjcyl.html"><strong>PJ CYL</strong></a></td><td> [ProJect - 3D volume onto CYLinder]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PJ 3T<br>
+<p>
+<dd>.THREED FILE: PIC001<BR>
+[Enter the name of the file whose projection is to be
+computed.]
+<p>
+.UPPER, LOWER THRESHOLD: 20,0.1<BR>
+[Enter density range that is to be used for the projection.
+If in this example the volume has a density range from 0 to 0.5,
+all voxels larger than 0.1 will contribute.]
+<p>
+.PROJECTION SAMPLE DIM.: 110,78<BR>
+[Enter the X dimension and (optional) Y dimension
+for the projection file equal to, or smaller than, the volume
+sidelength. If Y dimension = 0 then the Y dimension is chosen
+such that the X/Y ratio in the projection is the same as in the
+volume. Arbitrary dimensions can be used.]
+<p>
+.OUTPUT FILE: PRJ001<BR>
+[Enter the name of the file where the projection is to be
+stored.]
+<p>
+.AZIMUTH ANGLE (PHI): 45.5<BR>
+[Enter the azimuth angle, in degrees.]
+<p>
+.TILT ANGLE (THETA): -30.0<BR>
+[Enter the tilt angle, in degrees.]
+<p>
+[For this example, the projection of PIC001 with PHI equal
+to 45.5 and THETA equal to -30.0 is computed and stored in
+PRJ001.]
+<p>
+</dl>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/proj3.f">PROJ3</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/vtil2.f">VTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

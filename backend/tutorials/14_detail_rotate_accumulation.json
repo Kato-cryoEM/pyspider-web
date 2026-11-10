@@ -1,0 +1,231 @@
+{
+  "id": "detail_rotate_accumulation",
+  "title": "Comparison 5 · Repeated rotations — accumulated interpolation error",
+  "summary": "One 30° rotation vs ten 3° rotations via a DO + flow.state feedback loop. Each extra spline interpolation blurs the result slightly; the diff image shows how fast that stacks up.",
+  "category": "Comparison",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Measure cumulative interpolation loss with a DO loop",
+      "body": "Each spline interpolation acts like a tiny low-pass filter, so **for the same total 30°**:\n\n  • **One 30° rotation**: one interpolation's worth of loss.\n  • **10° × 3 rotations**: three interpolations' worth (cumulative).\n\nGives different results.\n\nTutorial layout:\n\n  1. **Circular mask** confines the image inside radius 120 and zeroes the outside. The disk's support is rotation-invariant, so **content stays within the box at every angle** — no side effects from corner clipping.\n  2. **DO loop + `flow.state`** sets up a feedback: 'this iteration's output becomes the next iteration's input.'\n  3. Subtract the single-30° result from the DO version with arith.binop — the diff image shows **pure cumulative interpolation loss**.\n\n`flow.state` is a special node that carries a value across iterations: `initial` is the starting value from outside the loop; `value_in` is the value you feed in at the end of this iteration (becomes next iteration's state); `value_out` is the current value visible at the start of this iteration.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Checkerboard** (256×256).",
+      "target": { "tutorId": "palette:data.checker", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.checker` shows its image before we start masking.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "drop-mask",
+      "title": "Drop the Circular mask node",
+      "body": "From Masking, drag **Circular mask** (`mask.circle`). Confines the image inside a circle and zeroes the outside so corner clipping during rotation doesn't eat information.",
+      "target": { "tutorId": "palette:mask.circle", "cardSide": "right", "expandPaletteCategory": "Masking" },
+      "action": { "kind": "add_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "wire-checker-mask",
+      "title": "Wire Checker → Mask",
+      "body": "Drag Checker's `image` output to Circular mask's `image` input.",
+      "target": { "tutorId": "node:mask.circle", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "mask.circle", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `mask.circle`'s default behaviour becomes a baseline before we tune the radius and background.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "select-mask",
+      "title": "Click Mask",
+      "body": "Click Circular mask. Set `outer_radius` (the radius to keep) and `background_mode` / `background` (value outside).",
+      "target": { "tutorId": "node:mask.circle", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "set-outer-radius",
+      "title": "Set outer_radius to 120",
+      "body": "Enter **120** in `outer_radius`. Content inside radius 120 is preserved (image is 256×256). A circular support is rotation-invariant, so no information bleeds into the corners at any angle (128 → 120 leaves a small safety margin).",
+      "target": { "tutorId": "param:outer_radius", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "outer_radius", "value": 120 }
+    },
+    {
+      "id": "set-bg-mode",
+      "title": "Set background_mode to external",
+      "body": "Change `background_mode` to **`external`**. Outside the circle becomes `background` (scalar, default **0**). The default `average` (≈ 0.5) would make a grey rim; 0 gives a clean black outside.",
+      "target": { "tutorId": "param:background_mode", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "background_mode", "value": "external" }
+    },
+    {
+      "id": "drop-rx",
+      "title": "Pipeline X · drop Rotate",
+      "body": "From Geometry, drag **Rotate** (`geom.rotate`). This is X (one-shot 30° rotation). Place it outside the DO loop.",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-mask-rx",
+      "title": "Wire Mask → Rotate (X)",
+      "body": "Drag Mask's `image` output to Rotate (X)'s `image` input. The masked disk is the input.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "mask.circle", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "select-rx",
+      "title": "Click Rotate (X)",
+      "body": "Click this Rotate.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-rx-angle",
+      "title": "Set angle_deg to 30",
+      "body": "Enter **30** in `angle_deg`. X: a single-interpolation 30° rotation.",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 30 }
+    },
+    {
+      "id": "drop-do",
+      "title": "Drop the DO loop",
+      "body": "From Control, drag **DO loop** (`flow.do`). We'll place Rotate and flow.state inside it to accumulate 3 passes of rotation.",
+      "target": { "tutorId": "palette:flow.do", "cardSide": "right", "expandPaletteCategory": "Control" },
+      "action": { "kind": "add_node", "nodeType": "flow.do" }
+    },
+    {
+      "id": "drop-state",
+      "title": "Drop flow.state inside DO",
+      "body": "From Control, drag **Loop state** (`flow.state`) and drop it **inside the DO container frame**. This node holds the 'current iteration's image'.",
+      "target": { "tutorId": "palette:flow.state", "cardSide": "right", "expandPaletteCategory": "Control" },
+      "action": { "kind": "add_node", "nodeType": "flow.state" }
+    },
+    {
+      "id": "drop-ry",
+      "title": "Drop Rotate inside DO",
+      "body": "From Geometry, drag **Rotate** and drop it **inside the DO container**. This is Y — it applies 10° per iteration.",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-state-initial",
+      "title": "Wire Mask → state.initial",
+      "body": "Drag from Mask (outside the DO) to `flow.state`'s **`initial`** input inside (top handle). This is the value state sees on iteration 1 = the masked checkerboard.",
+      "target": { "tutorId": "node:flow.state", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "mask.circle", "srcPort": "image", "dstNodeType": "flow.state", "dstPort": "initial" }
+    },
+    {
+      "id": "wire-state-rotate",
+      "title": "Wire state.value_out → Rotate (Y)",
+      "body": "Drag from `flow.state`'s `value_out` output to Rotate (Y)'s `image` input inside the DO. At the start of every iteration, the current state value flows into Rotate.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "flow.state", "srcPort": "value_out", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_3",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `geom.rotate`'s default behaviour inside the loop becomes a baseline before we wire the feedback.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-rotate-back",
+      "title": "Wire Rotate (Y) → state.value_in (feedback)",
+      "body": "Drag from Rotate (Y)'s `image` output to `flow.state`'s **`value_in`** input (bottom handle). This stores Rotate's result as the next iteration's state value — rotations now accumulate.",
+      "target": { "tutorId": "node:flow.state", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "flow.state", "dstPort": "value_in" }
+    },
+    {
+      "id": "select-ry",
+      "title": "Click Rotate (Y)",
+      "body": "Click the Rotate inside the DO.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-ry-angle",
+      "title": "Set angle_deg to 10",
+      "body": "Enter **10** in `angle_deg`. 10° per iteration, 3 iterations → 30° total — matches X.",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 10 }
+    },
+    {
+      "id": "select-do",
+      "title": "Click the DO loop",
+      "body": "Click the DO container header to select it. `start` / `end` / `step` appear in the Inspector.",
+      "target": { "tutorId": "node:flow.do", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "flow.do" }
+    },
+    {
+      "id": "set-end",
+      "title": "Set end to 3",
+      "body": "Change `end` to **3**. With default `start=1, step=1` and `end=3` we get 3 iterations (i = 1, 2, 3).",
+      "target": { "tutorId": "param:end", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "end", "value": 3 }
+    },
+    {
+      "id": "drop-binop",
+      "title": "Drop arith.binop for the X − Y diff",
+      "body": "From Arithmetic, drag **Arithmetic · a ∘ b**. Place it outside the DO. We'll compare X's output against the DO's final Rotate (Y) output.",
+      "target": { "tutorId": "palette:arith.binop", "cardSide": "right", "expandPaletteCategory": "Arithmetic" },
+      "action": { "kind": "add_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "wire-binop-a",
+      "title": "Wire Rotate (X) → binop.a",
+      "body": "Drag from the outside Rotate (X)'s `image` output to arith.binop's `a` input.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "a" }
+    },
+    {
+      "id": "wire-binop-b",
+      "title": "Wire Rotate (Y) → binop.b",
+      "body": "Drag from the DO-internal Rotate (Y)'s `image` output to arith.binop's `b` input. Wires can cross the DO boundary — the value from the final iteration is read.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "b" }
+    },
+    {
+      "id": "_run_after_wire_4",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `arith.binop`'s default behaviour becomes a baseline before we flip the op to sub.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "select-binop",
+      "title": "Click binop",
+      "body": "Click arith.binop.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "set-op",
+      "title": "Set op to sub",
+      "body": "Change `op` to **`sub`** — output is `X − Y`.",
+      "target": { "tutorId": "param:op", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "op", "value": "sub" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Mask → fork → X and DO (Y) → diff all execute. What to notice:\n\n  1. **Compare X and Y previews** — both are the masked disk rotated by a total of 30°. Outside the circle stays 0 (black). Y should look **slightly more blurred** (softer edges).\n  2. **Diff X − Y on binop** — thin bright/dark bands follow the checker edges inside the disk. Outside the disk is nearly perfectly 0 — no information was pushed into the corners, so the diff shows **pure interpolation loss**.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "**Takeaway:** every interpolation is a tiny low-pass filter, so more passes with the same total transform means **more high-frequency loss**. In real cryo-EM iterative alignment the standard tactic is **always re-applying the current best (φ, θ, ψ, dx, dy) to the original particle in one pass** — never 'rotate, then rotate again'.\n\nMasking the particle inside a sensible radius before applying rotations/translations is a standard precaution: it avoids the side effect of corner clipping shrinking the effective support each iteration.\n\n**Play with it — watch the error grow with iteration count:**\n  • Set DO `end` to **1** → N=1 the diff is 0 (self comparison).\n  • `end=6` with Y's `angle_deg=5` → 5° × 6 = 30° total, more cumulative loss.\n  • Set Mask's `outer_radius` to **200** so the disk exceeds the box → corner information is now clipped, mixing interpolation loss with mask effects.\n  • Set Mask's `edge` to `cosine` → softer rim, less Fourier-ringing (cleaner high-frequency comparison).\n  • Drop Rotate (Y)'s `interpolation` from `linear` to `nearest` → more loss per pass → accumulation becomes very obvious.\n\n**Quantify:** wire `stats.moments` to arith.binop's output to read the diff's sigma numerically. Sweep DO `end` 1 → 2 → 3 → … and watch sigma rise monotonically.\n\n**DO + flow.state pattern:** the canonical way to express 'feed this iteration's output into the next'. Alignment iteration, SGD, Newton iteration — any 'apply the same transform until convergence' workflow uses this shape.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

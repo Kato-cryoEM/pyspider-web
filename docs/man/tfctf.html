@@ -1,0 +1,198 @@
+<HTML><HEAD>
+<TITLE>SPIDER: TF CTF (Transfer Function - CTF correction)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>TF CTF - Transfer Function - CTF correction</H2>
+<EM>(2/23/97)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>CTF correction of a series of volumes by Wiener filtering.<br>
+<b>This command was superseded by TF CTS command.</b>
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="tf.html"><STRONG>TF</STRONG></A> [Transfer Function - defocus dependent]<BR>
+<A HREF="tfc.html"><STRONG>TF C</STRONG></A> [Transfer Function - complex]<BR>
+<A HREF="tfc3.html"><STRONG>TF C3</STRONG></A> [Transfer Function - complex 3D]<BR>
+<A HREF="tfct.html"><STRONG>TF CT</STRONG></A> [Transfer Function - phase flipping, complex, ternary]<BR>
+<A HREF="tfct3.html"><STRONG>TF CT3</STRONG></A> [Transfer Function - complex, ternary 3D]<BR>
+<A HREF="tfcts.html"><STRONG>TF CTS</STRONG></A> [CTF correction of a series of volumes by Wiener filtering.]<BR>
+<A HREF="tfd.html"><STRONG>TF D</STRONG></A> [Transfer Function - display]<BR>
+<A HREF="tfddf.html"><STRONG>TF DDF</STRONG></A> [Transfer Function - determine defocus and amplitude contrast]<BR>
+<A HREF="tfdev.html"><STRONG>TF DEV</STRONG></A> [Transfer Function - determine envelope function]<BR>
+<A HREF="tfdns.html"><STRONG>TF DNS</STRONG></A> [Transfer Function - determine and delete noise background]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: TF CTF<BR>
+<P>
+<DD>.INPUT FILE: MOL001<BR>
+[Enter name of volume to be restored.]
+<P>
+.CTF FILE: TF001<BR>
+[Enter name of file containing CTF for the previous volume.]
+<P>
+.INPUT FILE: *<BR>
+[Enter '*' if no more files are to be processed.]
+<P>
+.SNR : 100<BR>
+[Enter signal-to-noise ratio of the volumes.]
+<P>
+.OUTPUT FILE: MOL003<BR>
+[Enter name for output file.]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>Input files can be either real or Fourier. CTF files must be
+in Fourier format.
+All files must have the same dimensions and must be 3D.
+Output file is real.
+<P>
+<LI>CTF functions can be generated from 'TF C3'. All the parameters
+can be determined from 'TF DDF' and 'TF DEV'.
+<P>
+<LI>Memory requirement: 3*(NSAMxNROWxNSLICE)+2*NSAM
+<P>
+<LI>The theory is described in: J. Frank and P. Penczek (1995) On
+the correction of the contrast transfer function in biological
+electron microscopy. <I>Optik</I> 98:125-129.
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/rctfs.f">RCTFS</A>, <A HREF="../../src/mulfc3.f">MULFC3</A>, <A HREF="../../src/divcr3.f">DIVCR3</A>, <A HREF="../../src/dvcr.f">DVCR</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/util1.f">UTIL1</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

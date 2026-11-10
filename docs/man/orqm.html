@@ -1,0 +1,126 @@
+<html> 
+<head>
+<title>SPIDER: OR QM (Multireference alignment - based on self-correlation functions ||)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>OR QM - Multireference alignment - based on self-correlation functions ||</h2>
+<em>(07/22/04)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Performs multireference alignment between a series of images and a set
+of reference images (templates). The mirror orientation is checked.
+The operation uses self-correlation function.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="orqm.html"><strong>OR QM</strong></a></td><td> [Multireference alignment - based on self-correlation functions ||]</td></tr>
+<tr><td><a href="apsh.html"><strong>AP SH</strong></a></td><td> [Alignment - multi-reference, exhaustive rotation & shift ||*]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: OR QM<br>
+<p>
+<p>
+<dd>.ENTER TEMPLATE FOR REFERENCE IMAGE SERIES: REF***<BR>
+[Give the template name of the existing file series of 2D
+reference images (typically projections).]
+<p>
+.ENTER FILE NUMBERS OR SELECTION DOC. FILE NAME: SELECTREF<BR>
+[Enter numbers of reference files. The file numbers can also
+be read from a selection document file where file numbers are contained in the
+first register (not the keys).]
+<p>
+.Real space mask radius for the input and reference images: 25, 15<BR>
+[The radii applied in real space to the input and reference images, respectively.]
+<p>
+.RADIUS OF THE ACF, MAXIMUM SHIFT: 20,5<BR>
+[Enter the maximum radius of the self-correlation function to be used
+in angle determination and the maximum shift to be considered.]
+<p>
+.ENTER TEMPLATE FOR IMAGE SERIES TO BE ALIGNED: DAT***<BR>
+[Give the template name of the existing file series of
+experimental images. These images will be checked for
+alignment versus the reference images.]
+<p>
+.ENTER FILE NUMBERS OR SELECTION DOC. FILE NAME: 1-21<BR>
+[Enter numbers of experimental files. The file numbers can also
+be read from a selection document file where file numbers are contained in the
+first register (not the keys).]
+<p>
+.DOCUMENT FILE NAME: PARM101<BR>
+[This is the only output produced by this program.
+It contains 6 columns: <br />
+<p>
+1. Number of the most similar reference projection.<br />
+When this number is negative, the most similar is the
+mirrored projection. <br />
+<p>
+2. Not-normalized correlation coefficient. <br />
+Can be used as a similarity measure. <br />
+<p>
+3. Angle. <br />
+In-plane rotation angle determined.
+<p>
+4. X-shift. <br />
+X translation determined.
+<p>
+5. Y-shift. <br />
+Y translation determined.
+<p>
+6. Experimental projection number.] <br />
+<p>
+<p>
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>This command employs the same strategy as 'AP SH'. For details see:<br />
+Joyeux, L. and P.A. Penczek. Efficiency of 2D alignment methods.
+Ultramicroscopy, 92, 33-46 (2002).<br />
+<p>
+<li>Implemented by: Paul Penczek
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/oracfmskm.f">ORACFMSKM</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util3.f">UTIL3</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

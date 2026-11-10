@@ -1,0 +1,208 @@
+<html><head>
+<title>SPIDER: TF WCTF (Transfer Function - 3D CTF correction)</title>
+<!-- Begin Scripts -->
+<script language = "JavaScript">
+
+   // browserName = navigator.appName;   // detect browser 
+   // browserVer  = parseInt(navigator.appVersion);
+
+      {         
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      faqon             = new Image();
+      faqon.src         = "../buttons/faqon.gif";
+      techson           = new Image();
+      techson.src       = "../buttons/techson.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      faqoff            = new Image();
+      faqoff.src        = "../buttons/faq.gif";
+      techsoff          = new Image();
+      techsoff.src      = "../buttons/techs.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      imgOn = eval(imgName + "on.src");
+      document [imgName].src = imgOn;
+      }
+
+   function img_inact(imgName)
+      {
+      imgOff = eval(imgName + "off.src");
+      document [imgName].src = imgOff;
+      }
+</script>
+
+<!-- End Scripts -->
+<body>
+<!-- Begin Buttons -->
+<a href="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<img name="smallspider"  width="40" height="40" alt="HOME"  src="./buttons/smallspider.gif"></a>
+<a href="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<img name="work" width="40" height="40" alt="GUIDE"          src="./buttons/work.gif" ></a>
+<a href="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<img  width="40"  name="index"  height="40" alt="OPERATIONS"    src="./buttons/index.gif"></a>
+<a href="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<img width="40"   name="help"  height="40" alt="DOCS"       src="./buttons/help.gif"></a>
+<a href="../faq.html" 
+ onMouseover = "img_act('faq')"  onMouseout = "img_inact('faq')">            
+<img  name="faq"  width="40" height="40" alt="FAQ"   src="./buttons/faq.gif"></a>
+<a href="../techniques.html" 
+ onMouseover = "img_act('techs')"  onMouseout = "img_inact('techs')">            
+<img  name="techs"  width="40" height="40" alt="TECHNIQUES"   src="./buttons/techs.gif"></a>
+<a href="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<img  name="menu" width="40" height="40" alt="FORMATS"      src="./buttons/menu.gif" ></a>
+<a href="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<img  name="install"  width="40" height="40" alt="INSTALL"  src="./buttons/install.gif" ></a>
+<a href="../release.html" 
+ onMouseover = "img_act('new')" onMouseout = "img_inact('new')">           
+<img  name="new" width="40" height="40" alt="NEW"     src="./buttons/new.gif" ></a>
+<a href="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<img  name="tips"  width="40" height="40" alt="TIPS"  src="./buttons/tips.gif" ></a>
+<a href="../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<img  name="web" width="40" height="40" alt="WEB"     src="./buttons/web.gif" ></a>
+<a href="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<img  name="www" width="40" height="40" alt="LINKS"   src="./buttons/www.gif" ></a>
+<br><hr>
+<!-- End Buttons -->
+<h2>TF WCTF - Transfer Function - 3D CTF correction</h2>
+<em>(05/10/02)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>3D CTF correction of volume series by Wiener filtering using
+freqeuncy dependent SSNR.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="tfcts.html"><strong>TF CTS</strong></a></td><td> [Transfer Function - 2D & 3D CTF correction]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: TF WCTF<br>
+<p>
+<dd>.ENTER TEMPLATE FOR IMAGE FILE: img***<BR>
+[Enter template name of a volume series to be restored.]
+<p>
+.ENTER FILE NUMBERS OR SELECTION DOC. FILE NAME: 1-10<BR>
+[Enter file numbers. The file numbers can also
+be read from a selection document file where file numbers
+are contained in the first register (not the keys).]
+<p>
+.ENTER TEMPLATE FOR CTF FILE: ctf***<BR>
+[Enter template name of file series containing CTFs for respective images.
+The CTF files have to have the same number as corresponding defocus groups.]
+<p>
+.ENTER SNR TEMPLATE : snr***<BR>
+[Enter template name of Signal-to-Noise Ratio document files.]
+<p>
+.OUTPUT FILE: MOL003<BR>
+[Enter name for 3D output file.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Input files can be either real or Fourier format. CTF files must be in Fourier format.
+All files must have the same dimensions.
+Output file is real.
+<p>
+<li>CTF functions can be generated 'TF C3'. All parameters
+have be determined using 'TF ECTF' and 'TF ACTF'.
+<p>
+<li>Implemented by L. JOYEUX.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/wctf.f">WCTF</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util1.f">UTIL1</a> 
+</dl>
+<pre>EXAMPLE: 3D reconstruction process, CTF correction part
+
+      ; create SSNR functions form FSC 
+      do lb99 x99=1,x66
+         sn rb,x20,x21
+         refinement/defgrp{***x99}/dres{***x86}
+         l
+
+         sn rf
+         x20,x21
+         (37)
+         (0.1,0.98)
+         (2)
+         refinement/snr{**x76}_{***x99}
+
+      lb99
+
+      ; ctf correction using snr (function of fsc)
+      tf wctf
+      refinement/defgrp***/ttvol{***x86}
+      1-x66
+      refinement/ctf***
+      refinement/snr{**x76}_***
+      (0.5)
+      (1)
+      refinement/tvol{***x86}
+
+</pre>
+<!-- Begin Trailer -->
+<HR> <small><address>&copy; <a HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </address></small></a>
+<!-- End Trailer -->
+</body>
+</html>

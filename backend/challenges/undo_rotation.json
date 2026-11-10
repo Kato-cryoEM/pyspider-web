@@ -1,0 +1,36 @@
+{
+  "id": "undo_rotation",
+  "title": "Undo the rotation",
+  "summary": "Basics of rotational alignment: estimate the angle via polar-coordinate cross-correlation or direct alignment, then counter-rotate.",
+  "prompt": "On the canvas: `reference` (original image) and `rotated` (the original turned by +23°). Rotate `rotated` back so it matches `reference`.\n\n**Goal:** select the node whose output matches `reference` with NCC ≥ 0.9 and submit.",
+  "fixtures": [
+    {
+      "name": "reference",
+      "recipe": {
+        "testdata": "clock",
+        "size": 128
+      }
+    },
+    {
+      "name": "rotated",
+      "recipe": {
+        "rotate_of": "reference",
+        "angle_deg": 23
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "geom.po",
+    "align.cc",
+    "align.peaks",
+    "align.polar_angle",
+    "align.ap",
+    "geom.rotate"
+  ],
+  "answer_port": "image",
+  "compare_to": "reference",
+  "metric": "ncc",
+  "pass_score": 0.9,
+  "hint": "Shortest route: `align.ap(stack=rotated, references=reference)` reports `best_angle_deg`; drop a `geom.rotate` on `rotated` and set `angle_deg = -(best_angle_deg)`.\n\nTextbook route (polar coordinates): run `geom.po` on both `rotated` and `reference` → cross-correlate with `align.cc` → read (dx, dy) via `align.peaks` → feed the CC map and dx into `align.polar_angle` to recover the angle → `geom.rotate` with that angle negated.",
+  "order": 2
+}

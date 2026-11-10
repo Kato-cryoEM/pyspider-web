@@ -1,0 +1,152 @@
+<html> 
+<head>
+<title>SPIDER: RM FILTER (Radon Transform - Filter)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM FILTER - Radon Transform - Filter</h2>
+<em>(11/1/2000)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Applies the nontomgraphic noise reduction filter to
+a three-dimensional Radon transform ("new format").
+This program is designed as part of the three-dimensional
+reconstruction algorithm by inversion of the 3D radon
+transform created with "RM SUM3N" from a series of 2D
+Radon transforms (RM 2DN).
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rm2dn.html"><strong>RM 2DN</strong></a></td><td> [Radon Transform - 2D]</td></tr>
+<tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmmake3.html"><strong>RM MAKE3</strong></a></td><td> [Radon Transform - Create blank 3D Radon (or Polar Fourier) Transf.]</td></tr>
+<tr><td><a href="rmsum3n.html"><strong>RM SUM3N</strong></a></td><td> [Radon Transform - Sum/average 2D Into 3D Fourier Radon transform]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+<tr><td><a href="rmftinvn.html"><strong>RM FTINVN</strong></a></td><td> [Radon Transform - Inverse Fourier transform]</td></tr>
+<tr><td><a href="rminv3n.html"><strong>RM INV3N</strong></a></td><td> [Radon Transform - Computes inverse 3D (Fourier-)Radon transform]</td></tr>
+<tr><td><a href="rminv2n.html"><strong>RM INV2N</strong></a></td><td> [Radon Transform - Computes inverse (Fourier-)Radon transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM FILTER<br />
+<p>
+<dd>.3D RADON INPUT FILE: 3DRAD001<br />
+[Enter the name of the three-dimensional Radon transform that
+you want to filter.]
+<p>
+.3D RADON OUTPUT FILE: 3DRADOUT001<br />
+[Enter the name for the filtered 3D Radon transform.]
+<p>
+.DATA SLICE FOURIER OUTPUT FILE: DATAF001 OR *<br />
+[Enter a file name for the Fourier transform of one slice
+of the input data (the first one). Enter * if you do not
+want it. This and the following option are intended for
+observing and testing the behaviour of the filtration.]
+<p>
+.MASK OUTPUT SLICE FILE: MASKSLICE001 OR *<br />
+[Enter a name for the first slice of the filtration mask.
+Enter * if not wanted.]
+<p>
+.RADIUS OF RADON TRANSFORM MASK: 21<br />
+[Enter the radius of the mask that was used in "rm 2dn".
+If you want to filter less, then use a larger radius.]
+<p>
+the program writes:
+there are several versions possible:
+1 = filter in z-slices only, no iterations
+2 = filter in y-slices only, no iterations
+3 = filter first z then y, no iterations
+4 = filter first y then z, no iterations
+5 = pocs z-slices only
+6 = pocs y-slices only
+7 = pocs first z then y-slices
+8 = replace only, y and z slices, no iterations
+<p>
+.MODE, # OF ITERATIONS: 5,10<br />
+[Enter what you want to do. In 1-4 the portion of the
+2D Fourier transform of each slice, that according to
+the theory of sinogram transforms should be 0, is set to
+0.
+In the higher modes, the program checks which of the
+lines in the 3D Radontransform contain data and replaces
+these lines after filtration with the original data (see
+fuzzy pocs, below). The combination of filtration
+and replacement results in a version of POCS where the
+two projectors are 1) Radon transform consistency, 2)
+replacement.)
+POCS works only if the 3D transform was created with
+"RM SUM3N"
+<p>
+<p>
+if an option with replacement was chosen, the program asks:
+<br />.REPLACEMENT FACTOR F, 1 HARD POCS, 0&lt;F&lt;1 FUZZY POCS: 0.5<br />
+[Enter a value less than 1 if you want fuzzy pocs. In this
+case the "replacement formula is
+(filtered data)(1-f)+f(original data).
+<p>
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Attention: THESE PROGRAMS WORK CORRECT ONLY WITH THE NEW FORMAT
+OF THE RADON TRANSFORM. THERE IS NO ERROR CHECKING (POSSIBLE)
+FOR THE CORRECT FORMAT. (Each line is 4 pixels longer than the
+p-dimension of the transform or 6 pixels longer when Fourier
+transformed. In the old format a line in the real space Radon
+transform had p pixels and its Fourier transform p+2 pixels.)
+<p>
+<li>For details of the theory see: Lanzavecchia S., Bellon P.L.,
+Radermacher M., Fast and Accurate Three-Dimensional Reconstruction
+from Projections with Random Orientations via Radon Transforms.
+J.Struct.Biol. 128,152-164, 1999
+<p>
+<li>Author: M.Radermacher
+<p>
+<li>AT this time the alignment programs have not been rewritten
+yet for the "new format").
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/callrmfiltern.f">CALLRMFILTERN</a>, <a href="../../src/cutxslice.f">CUTXSLICE</a>, <a href="../../src/cutyslice.f">CUTYSLICE</a>, <a href="../../src/cutzslice.f">CUTZSLICE</a>, <a href="../../src/putyslice.f">PUTYSLICE</a>, <a href="../../src/putzslice.f">PUTZSLICE</a>, <a href="../../src/rmfilterz.f">RMFILTERZ</a>, <a href="../../src/rmfilty.f">RMFILTY</a>, <a href="../../src/rmfiltz.f">RMFILTZ</a>, <a href="../../src/rmmakemask.f">RMMAKEMASK</a>, <a href="../../src/rmrepl.f">RMREPL</a>, <a href="../../src/rmtransfer.f">RMTRANSFER</a>, <a href="../../src/writepict.f">WRITEPICT</a>, <a href="../../src/writepictn.f">WRITEPICTN</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

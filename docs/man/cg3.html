@@ -1,0 +1,86 @@
+<html> 
+<head>
+<title>SPIDER: CG 3 (Center of Gravity - Radius of gyration)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>CG 3 - Center of Gravity - Radius of gyration</h2>
+<em>(12/27/93)</em><br>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Compute center of gravity and radius of gyration of a 3-D
+density distribution.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="cg.html"><strong>CG</strong></a></td><td> [Center of Gravity]</td></tr>
+<tr><td><a href="cg3.html"><strong>CG 3</strong></a></td><td> [Center of Gravity - Radius of gyration]</td></tr>
+<tr><td><a href="cgph.html"><strong>CG PH</strong></a></td><td> [Center of Gravity - Phase approximation ||]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: CG 3 [x],[y],[z],[rg]<br>
+<p>
+<dd>.THREED FILE: 3DQ003<BR>
+[Enter name of file containing the 3-D density
+distribution.]
+<p>
+THRESHOLD: 0.53
+[Only data above the threshold will be used in
+computation.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The coordinates of the center of gravity, with respect to
+the center at (NSAM/2 + 1, NROW/2 + 1, NSLICE/2 +1), and
+the radius of gyration are printed out and put into the
+first four (optional) registers appearing on the command
+line.
+<p>
+<li>For the definition of the radius of gyration, see
+International Tables of Crystallography, vol. III, p327.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/cengr3.f">CENGR3</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util1.f">UTIL1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

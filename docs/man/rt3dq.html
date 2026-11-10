@@ -1,0 +1,209 @@
+<html><head>
+<title>SPIDER: RT 3DQ (RoTate - volume, fast, quadratic interpolation)</title>
+<!-- Begin Scripts -->
+<script language = "JavaScript">
+
+   // browserName = navigator.appName;   // detect browser 
+   // browserVer  = parseInt(navigator.appVersion);
+
+      {         
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      faqon             = new Image();
+      faqon.src         = "../buttons/faqon.gif";
+      techson           = new Image();
+      techson.src       = "../buttons/techson.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      faqoff            = new Image();
+      faqoff.src        = "../buttons/faq.gif";
+      techsoff          = new Image();
+      techsoff.src      = "../buttons/techs.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      imgOn = eval(imgName + "on.src");
+      document [imgName].src = imgOn;
+      }
+
+   function img_inact(imgName)
+      {
+      imgOff = eval(imgName + "off.src");
+      document [imgName].src = imgOff;
+      }
+</script>
+
+<!-- End Scripts -->
+<body>
+<!-- Begin Buttons -->
+<a href="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<img name="smallspider"  width="40" height="40" alt="HOME"  src="./buttons/smallspider.gif"></a>
+<a href="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<img name="work" width="40" height="40" alt="GUIDE"          src="./buttons/work.gif" ></a>
+<a href="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<img  width="40"  name="index"  height="40" alt="OPERATIONS"    src="./buttons/index.gif"></a>
+<a href="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<img width="40"   name="help"  height="40" alt="DOCS"       src="./buttons/help.gif"></a>
+<a href="../faq.html" 
+ onMouseover = "img_act('faq')"  onMouseout = "img_inact('faq')">            
+<img  name="faq"  width="40" height="40" alt="FAQ"   src="./buttons/faq.gif"></a>
+<a href="../techniques.html" 
+ onMouseover = "img_act('techs')"  onMouseout = "img_inact('techs')">            
+<img  name="techs"  width="40" height="40" alt="TECHNIQUES"   src="./buttons/techs.gif"></a>
+<a href="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<img  name="menu" width="40" height="40" alt="FORMATS"      src="./buttons/menu.gif" ></a>
+<a href="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<img  name="install"  width="40" height="40" alt="INSTALL"  src="./buttons/install.gif" ></a>
+<a href="../release.html" 
+ onMouseover = "img_act('new')" onMouseout = "img_inact('new')">           
+<img  name="new" width="40" height="40" alt="NEW"     src="./buttons/new.gif" ></a>
+<a href="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<img  name="tips"  width="40" height="40" alt="TIPS"  src="./buttons/tips.gif" ></a>
+<a href="../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<img  name="web" width="40" height="40" alt="WEB"     src="./buttons/web.gif" ></a>
+<a href="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<img  name="www" width="40" height="40" alt="LINKS"   src="./buttons/www.gif" ></a>
+<br><hr>
+<!-- End Buttons -->
+<h2>RT 3DQ - RoTate - volume, fast, quadratic interpolation</h2>
+<em>(04/11/02)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Rotates a volume by the three <a href="../euler.html">Eulerian angles</a>.
+Uses tri-quadratic interpolation.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rt.html"><strong>RT</strong></a></td><td> [RoTate - image or volume, use average as background]</td></tr>
+<tr><td><a href="rt3.html"><strong>RT 3</strong></a></td><td> [RoTate - volume, slow]</td></tr>
+<tr><td><a href="rt3a.html"><strong>RT 3A</strong></a></td><td> [RoTate - volume, around arbitrary center]</td></tr>
+<tr><td><a href="rt3aq.html"><strong>RT 3AQ</strong></a></td><td> [RoTate - volume, arbitrary center,quadratic interpolation]</td></tr>
+<tr><td><a href="rt90.html"><strong>RT 90</strong></a></td><td> [RoTate - image or volume, by 90, 180, or 270 degrees]</td></tr>
+<tr><td><a href="rtb.html"><strong>RT B</strong></a></td><td> [RoTate - image or volume, supply Background]</td></tr>
+<tr><td><a href="rtm.html"><strong>RT M</strong></a></td><td> [RoTate - image or volume, use minimum as background]</td></tr>
+<tr><td><a href="rtsq.html"><strong>RT SQ</strong></a></td><td> [RoTate - 2D or 3D, Shift, Quadratic interpolation ||]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: RT 3DQ<br>
+<p>
+<dd>.INPUT FILE: PIC001<BR>
+[Enter the name of the file to be rotated.]
+<p>
+.OUTPUT FILE: ROT001<BR>
+[Enter the name of the file where the rotated volume is to
+be stored.]
+<p>
+.PHI, THETA, PSI: 10.5, 13.7<BR>
+[Enter the rotation angles Phi (around Z) and Theta (around
+the new Y after the first rotation by Phi) and PSI (around the new Z)].
+<p>
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Program reads first volume into the memory - larger volumes
+may not fit. In this case use 'RT 3' instead. Unfortunately
+'RT 3' gives slightly incorrect results and does not use the
+proper interpolation scheme and has sign of theta reversed.
+<p>
+<li>Tri-quadratic interpolation scheme is used.
+<p>
+<li>Non-matching points are left without a change.
+<p>
+<li>First rotation is done around Z-axis (counter clockwise), second
+rotation is done around new Y-axis (clockwise) and the
+third rotation is done around new Z-axis (counter clockwise).
+<p>
+<li>Rotation matrix used:
+          <PRE> 
+          R = R(psi) * R(theta) * R(phi) 
+           c  s  0        c  0 -s      c  s  0 
+          -s  c  0    *   0  1  0   * -s  c  0 
+           0  0  1        s  0  c      0  0  1 
+</PRE>
+<p>
+<li>In the corners, old values are left.
+<p>
+<li>How to rotate volumes. <BR>
+If both X and Y axis rotations are needed, it may be simpler
+to use two rotations consecutively. <BR>
+Pick a slice (either X or Y) from the volume and do a test
+rotation in 2D using operation: 'RT'. <BR>
+Change the sign of the angle you determimed using 'RT' and
+apply the angles as shown here. <BR>
+For X rotation: 90, -angle, -90 <BR>
+For Y rotation: 0, -angle, 0 <BR>
+(This note provided by: Mike Marko)
+(Interpolation quality will be poorer)
+<p>
+<li>Implemented by A. Leith.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/rotas3.f">ROTAS3</a>, <a href="../../src/rots3q.f">ROTS3Q</a>, <a href="../../src/bldr.f">BLDR</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util3.f">UTIL3</a> 
+</dl>
+<!-- Begin Trailer -->
+<HR> <small><address>&copy; <a HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </address></small></a>
+<!-- End Trailer -->
+</body>
+</html>

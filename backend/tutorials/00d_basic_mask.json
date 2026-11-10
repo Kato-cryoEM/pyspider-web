@@ -1,0 +1,77 @@
+{
+  "id": "basic_mask",
+  "title": "Basic 4 · Apply a mask",
+  "summary": "Circular mask: keep only the central disk of an image, replace the outside with a background value. Fundamental for particle masking.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try masking",
+      "body": "Masking keeps a chosen region of an image and replaces the rest with a background value. In cryo-EM it's used all the time to crop the noisy surround away from particle centres. This lesson cuts out a circular region with **Circular mask**.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Camera**.",
+      "target": { "tutorId": "palette:data.camera", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.camera" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.camera` shows its image before we attach the mask.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.camera" }
+    },
+    {
+      "id": "drop-mask",
+      "title": "Drop Circular mask",
+      "body": "From the Masking category, drag **Circular mask** (`mask.circle`).",
+      "target": { "tutorId": "palette:mask.circle", "cardSide": "right", "expandPaletteCategory": "Masking" },
+      "action": { "kind": "add_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Camera → Mask",
+      "body": "Drag from Camera's `image` output to Circular mask's `image` input.",
+      "target": { "tutorId": "node:mask.circle", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.camera", "srcPort": "image", "dstNodeType": "mask.circle", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. The default radius is small, so you'll see a tiny preserved disk — the baseline before you pick a sensible radius.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "select",
+      "title": "Click Mask",
+      "body": "Click Mask. The Inspector reveals `outer_radius` (radius of the kept disk, in pixels), `inner_radius` (for an annulus — set > 0 to punch a central hole), `edge` (`disk` = hard / `cos` = soft), `edge_width`, `background_mode`, and `background`.",
+      "target": { "tutorId": "node:mask.circle", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "set-radius",
+      "title": "Set outer_radius to 60",
+      "body": "Enter **60**. A disk of radius 60 is kept in the centre.",
+      "target": { "tutorId": "param:outer_radius", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "outer_radius", "value": 60 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. The output has the camera image inside the radius-60 disk and the image mean (default `background_mode = average`) outside.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "mask.circle" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "Change `edge` to `cos` for a cosine roll-off at the boundary — this suppresses ringing in Fourier space (Comparison 2 explores a similar point for filters). The Masking category also offers `mask.gaussian`, `mask.binarize`, and `mask.threshold` for other use cases. Next: **Basic 5 · Window / crop (WI)**.",
+      "target": { "tutorId": "node:mask.circle", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

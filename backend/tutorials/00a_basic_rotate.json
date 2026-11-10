@@ -1,0 +1,77 @@
+{
+  "id": "basic_rotate",
+  "title": "Basic 1 · Rotate an image",
+  "summary": "Wire a Rotate node after the Clock test image, set angle_deg, and run. The basic drag → wire → param → Run cycle in one lesson.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try rotation",
+      "body": "This first tutorial walks through the core pyspider_web cycle — **drop a data node → drop an operation node → wire them → set a param → Run** — with the **Rotate** operation on a clock-face test image.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Clock face** onto the canvas. A clock-face image is easy to visually track under rotation — you can see at a glance where each hour tick moved.",
+      "target": { "tutorId": "palette:data.clock", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph to execute the pipeline so far. You can inspect the image the `data.clock` node emits before moving on.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "drop-rotate",
+      "title": "Drop the Rotate node",
+      "body": "From Geometry, drag **Rotate** onto the canvas. Placing it next to the Clock keeps the wire tidy.",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Clock → Rotate",
+      "body": "Drag from Clock's `image` output (right edge) to Rotate's `image` input (left edge). The wire lights up once the connection is valid.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.clock", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph again. With `angle_deg` still at its default 0, Rotate is an identity pass-through, so the output matches the Clock input — a baseline to compare against after you set an angle.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "select",
+      "title": "Click Rotate",
+      "body": "Click the Rotate node. The right Inspector reveals `angle_deg`, `cval`, and `interpolation`. `angle_deg` is the rotation in degrees (positive = counter-clockwise); `interpolation` picks the spline kind (default cubic).",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-angle",
+      "title": "Set angle_deg to 45",
+      "body": "Enter **45** in `angle_deg`. The clock face will rotate 45° counter-clockwise.",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 45 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Clock → Rotate flows and the rotated clock appears on the Rotate node's preview.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "You now have the core workflow: drag from Palette → wire → set a param → Run. Changing `angle_deg` re-runs immediately. The next tutorial, **Basic 2 · Shift an image**, applies the same cycle to translation with the Shift node.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

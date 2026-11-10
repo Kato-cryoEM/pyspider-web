@@ -1,0 +1,135 @@
+<html> 
+<head>
+<title>SPIDER: AS AD (Average images - add to an existing average)</title>
+<link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>AS AD - Average images - add to an existing average</h2>
+<em>(09/25/06)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Adds 2 or more files, computing several measures of
+variance (per point, total, etc.).
+The sum and the variance images are stored in separate
+output files. The command works for, 2D, 3D, real or complex data.
+<strong> WARNING: Use 'AS R' if you want a better variance
+measure. Use of this command for variances is no longer
+recommended! </strong>
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="as.html"><strong>AS</strong></a></td><td> [Average images - find variance]</td></tr>
+<tr><td><a href="asr.html"><strong>AS R</strong></a></td><td> [Average images - find & save variance, better]</td></tr>
+<tr><td><a href="ads.html"><strong>AD S</strong></a></td><td> [Add Series of images]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: AS AD<br />
+<p>
+<dd>.INPUT FILE TEMPLATE (EG. PIC****): PIC<br />
+[Enter prefix of images to be added.]
+<p>
+.ENTER FILE NUMBERS: 1-10,12,15-17<br />
+[Enter numbers of files within a series to be added.]
+<p>
+.ALL, ODD-EVEN (A/O): O<br />
+['A' - All images will be added,
+'O' - Two subaverages will be calculated: one for
+odd-numbered images and one for even-numbered images. The
+next two questions will appear twice.]
+<p>
+.AVERAGE FILE: AVG001<br />
+[Enter name of output file receiving average.]
+<p>
+.ENTER NO. OF IMAGES ALREADY AVERAGED: 14<br />
+[Enter number of files originally averaged. This number will
+be used as an offset in its computations.]
+<p>
+.VARIANCE FILE: VAR001<br />
+[Enter name of output file receiving variance map.]
+<p>
+</dd> <dt>Questions for average file, number of images already averaged and
+variance file are repeated if option O-E was chosen.
+<p>
+<p>
+</dd> <dd>The following values are printed: <br />
+<p>
+Number of images <br />
+Number of elements <br />
+Total variance <br />
+Total std. deviation <br />
+Variance per point <br />
+Std. deviation per point <br />
+Average offset <br />
+Variance of average image <br />
+<p>
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The average file will be normalized so that its mean pixel
+value is equal to 0. To "restore" MIN and MAX values
+comparable to those of the input files, use 'AR'. For
+example, if the average offset was 0.00131, you would have
+((P1*0.00131)+0.), with P1 as the input average file.
+This is important if you intend to contour the average
+using 'FC', since negative values in the file will give a
+nonsense result. <br />
+If you calculate an average in more than one step, each
+average-offset is independent. To get the correct average
+offset of the complete image, the average of the subaverage
+average-offsets has to be used. <br />
+<p>
+<li>If the old offset in register is not given, a warning is
+printed and the operation is terminated. <br />
+<p>
+<li>This version of 'AS' does subtracts the average from each image
+during the calculation of global average and variance. Thus,
+it results in the variance estimator which is usually far
+'too optimistic' - the variance obtained is too small and cannot
+be used for statistical tests. Use 'AS R' instead.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/adds.f">ADDS</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util2.f">UTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

@@ -1,0 +1,140 @@
+<html> 
+<head>
+<title>SPIDER: RM FTN (Radon Transform - Fourier transform)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM FTN - Radon Transform - Fourier transform</h2>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Computes Fourier transform of a 2d or 3d Radon transform.
+Applies Fourier filters. 2d and 3d, mixed radix, new format
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmcompln.html"><strong>RM COMPLN</strong></a></td><td> [Radon Transform - 2D, Complete]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+<tr><td><a href="rmftinvn.html"><strong>RM FTINVN</strong></a></td><td> [Radon Transform - Inverse Fourier transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM FTN<br />
+<p>
+<dd>.RADON INPUT FILE: RAD001<br />
+[Enter name of real space Radon transform.]
+<p>
+.(P)AD INPUT FILE: P<br />
+[Answer P if you want to pad the input file.]
+<p>
+If P was answered:
+<br />.PADDING DIMENSION: 140<br />
+<p>
+ENTER * IF NO REAL SPACE OUTPUT DESIRED:
+<br />.RADON OUTPUT FILE: RADOUT001<br />
+[Enter a file name if you desire a back transformed output
+file, e.g. for Fourier filtration.]
+<p>
+.RADON FOURIER OUTPUT FILE: RADFOUR001<br />
+[Enter name of Fourier output file. Enter * if no such file
+is desired.]
+<p>
+.FOURIER FILTER Y/N: Y<br />
+[Enter Y if you want to Fourier filter the transform.]
+<p>
+If "Y" was answered:
+<br />.# OF FILTRATIONS 1/2: 2<br />
+[Enter 2 if you want to combine two filters, 1 if only
+one filter is to be used.]
+<p>
+.(A)DDITIVE (=DEF),(M)ULTIPLICATIVE: M<br />
+[Combine the chosen filters either additive or multiplicative.
+For a band pass filter M is the ususal option.]
+<p>
+.(1)L.P./(2)H.P./(3)G.L.P./(4)G.H.P./(5)F.L.P./(6)F.H.P.,(7) R*: 5<br />
+[Enter desired filter. Similar to SPIDER opreation FF.
+1: cutoff low pass filter, 2: cutoff high pass filter
+3: Gaussian low pass filter, 4: Gaussian high pass filter.
+5: Fermi low-pass filter, 6: Fermi high pass filter.
+7: Multiplication with r* (the Fourier radius).
+8: Multiplication with sqrt(r*).
+<p>
+.FILTER RADIUS: 0.123<br />
+[Enter filter radius. also otion 7 currently asks for a radius,
+but the value is ignored.]
+<p>
+For Fermi filter:
+<br />.TEMPERATURE(0=CUTOFF): 0.03<br />
+[Enter temperature factor for fermi filter.]
+<p>
+[End of question concerning filtrations.]
+<p>
+.(A)MPLITUDE NORMALISATION FOR PHASE CORRELATION: A<br />
+[Answer A if the the Fourier coefficients should be normalized
+by their value. A Wiener style filter is applied. If NF is the n
+new Fourier coefficient and OF is the old value the normalization
+formula is:
+NF = OF / (|OF| + epsilon).
+<p>
+If A was answered:
+<br />.EPSILON (0 TO 1): 0.001<br />
+[Enter value of epsilon for amplitude normailzatioon.]
+<p>
+.(S)IGMA NORMALIZATION: N<br />
+[Enter S if each line in the Fourier transform is to be
+normailzed by its own sigma. Otherwise enter N. Sigma
+for each line is stored with the Fourier transform for
+later usage in this case.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Output has x-dimension of NX +2= P-dimension + 6
+<p>
+<li>Developed by: M.Radermacher
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/fouradcalln.f">FOURADCALLN</a>, <a href="../../src/fouradn.f">FOURADN</a>, <a href="../../src/mrfour1.f">MRFOUR1</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

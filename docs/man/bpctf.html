@@ -1,0 +1,283 @@
+<HTML><HEAD>
+<TITLE>SPIDER: BP CTF (Back Projection - 3D, CTF correction, ||)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>BP CTF - Back Projection - 3D, CTF correction, ||</H2>
+<EM>(04/22/97)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Calculates 3D reconstruction correcting for the CTF
+and using constraints.
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="bp3.html"><STRONG>BP 3</STRONG></A> [Back Projection - 3D, iterative]<BR>
+<A HREF="bp3d.html"><STRONG>BP 3D</STRONG></A> [Back Projection - 3D, using Euler angles, ||]<BR>
+<A HREF="bp3e.html"><STRONG>BP 3E</STRONG></A> [Back Projection - 3D, using Euler angles]<BR>
+<A HREF="bpgw.html"><STRONG>BP GW</STRONG></A> [Back Projection - weighted, arbitrary geometry]<BR>
+<A HREF="bpgw3.html"><STRONG>BP GW3</STRONG></A> [Back Projection - weighted, arbitrary geometry, 3 angles]<BR>
+<A HREF="bpmem2.html"><STRONG>BP MEM2</STRONG></A> [Back Projection - 2D maximum entropy method]<BR>
+<A HREF="bpr2.html"><STRONG>BP R2</STRONG></A> [Back Projection - 2D, R**2 weighting of the image series]<BR>
+<A HREF="bprp.html"><STRONG>BP RP</STRONG></A> [Back Projection - 3D, iterative, with constraints, ||]<BR>
+<A HREF="bps2.html"><STRONG>BP S2</STRONG></A> [Back Projection - 2D, single tilt iterative, with constraints]<BR>
+<A HREF="bpw2.html"><STRONG>BP W2</STRONG></A> [Back Projection - 2D, filtered weighted]<BR>
+<A HREF="bpwx.html"><STRONG>BP WX</STRONG></A> [Back Projection - weighted, X]<BR>
+<A HREF="bpwy.html"><STRONG>BP WY</STRONG></A> [Back Projection - weighted, Y]<BR>
+<A HREF="bpxy.html"><STRONG>BP XY</STRONG></A> [Back Projection - simple for single axis &amp; conical tilting]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: BP CTF<BR>
+<P>
+<DD>.NUMBER OF DEFOCUS SETS IN THE SERIES: 3<BR>
+[Enter number of defocus sets. Each set should have
+associated projection series, angles, and CTF Fourier file.
+Number of defocus sets should be larger or equal 1.
+Current limit is 10.]
+<P>
+.Radius of restored object: 23<BR>
+[Enter radius of reconstructed object (smaller than the
+volume size). The reconstruction is calculated inside the
+sphere only.]
+<P>
+<P>
+.Does your volume have symmetries ?: Y<BR>
+[Answer Yes if you want the symmetries to be internally
+enforced on your volume. The reconstruction in this case is
+calculated as though the projections were multiplied
+as many times as there are symmetries.]
+<P>
+<DT>If the answer was Yes:
+<DD><BR>. : ANGSYM<BR>
+[Enter the name of the document file containing Eulerian
+angles defining symmetries (psi, theta, phi). The angles
+should be such that when used in operation RT 3D transform
+the volume into itself. The identity operation
+(angles 0,0,0) MUST be included.]
+<P>
+<DT>For each defocus set the following questions are asked:
+<P>
+<DD>.ENTER TEMPLATE FOR 2-D IMAGE (# 1 SERIES) FILE: PROJ001<BR>
+[Enter the name of any projection from the set.]
+<P>
+.SELECTION DOC FILE: images127<BR>
+[Enter the name of the document file containing projection
+file numbers in the first column.]
+<P>
+.ANGLES DOC FILE: ANGLES27<BR>
+[Enter the name of the document file containing Eulerian
+angles for the projections used (psi, theta, phi).]
+<P>
+.CTF FILE: CTF010<BR>
+[Enter the name of the CTF file. It has to have Fourier
+format and it is assumed that it is a &quot;proper&quot; transfer
+function, i.e., it is purely real in Fourier space
+and symmetric in real space.]
+<P>
+<DT>Final set of questions:
+<P>
+<DD>. : VOLUME1001<BR>
+[Name of the output file.]
+<P>
+.Lambda, Correction limit: 1.0e-4,0.0<BR>
+[Lambda determines the weight of corrections. Too small a
+value results in long time of calculations; too large
+value will terminate the iterations too soon.
+Correction limit is used to terminate the iterations.
+When the squared correction of the structure becomes
+smaller than the preset value, the iterations are
+terminated. When correction limit is set to zero,
+this criterion is not used.]
+<P>
+.ITERATION LIMIT, MODE: 25,8<BR>
+[Program will terminate after number of iterations given.
+Mode determines the constraints used: <BR>
+1 - frequency limit (smoothing), <BR>
+2 - min constraint, <BR>
+5 - max constraint. <BR>
+Any combination of constraints can be used. The mode answered
+should be the sum of any single modes, for example mode=7
+activates both min and max constraints, mode=8 all three of
+them.]
+<P>
+.MINIMUM, MAXIMUM: 0.0,1.90<BR>
+[Values of min and max constraints. They relate to the values
+in 3D volume.]
+<P>
+.SMOOTHING CONST (0-0.999): 0.9994<BR>
+[Smoothing constant determines relative weight of the low-pass
+filtration. See note #3.]
+<P>
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>The projections need not have power-of-2 dimensions.
+<P>
+<LI>If the radius of the reconstructed circle is too large
+comparing to the size of projections, a warning is printed.
+The reconstruction is calculated, but it is incorrect
+along the boundary.
+<P>
+<LI>Smoothing constant determines relative weight of the
+low-pass filtration.
+It has to be larger than zero and smaller than one.
+In addition smoothing constant has to be lower than
+1/(1+6*lambda). <BR>
+Zero means no smoothing. <BR>
+To achieve stronger low-pass filtration effect one can
+decrease lambda and increase the smoothing constant. <BR>
+Approximate frequency response:
+           <PRE> 
+             lambda     smoothing const    res'n limit (pixels) 
+              .5E-3         0.990                 3 
+              .5E-3         0.997                 5 
+              .1E-3         0.9994               10 
+</PRE>
+<P>
+<LI>It is assumed that projections are squares (NSAM=NROW), so
+the output volume has dimensions NSAMxNSAMxNSAM.
+<P>
+<LI>Memory requirement: (5+K)*(NSAM^3), where K is number of
+defocus sets
+<P>
+<LI>Implemented by: Paul Penczek.
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/repc.f">REPC</A>, <A HREF="../../src/repr32_q.f">REPR32_Q</A>, <A HREF="../../src/rdprj.f">RDPRJ</A>, <A HREF="../../src/redprq.f">REDPRQ</A>, <A HREF="../../src/prepcub_s.f">PREPCUB_S</A>, <A HREF="../../src/bckcq.f">BCKCQ</A>, <A HREF="../../src/prjcq.f">PRJCQ</A>, <A HREF="../../src/smt3_q.f">SMT3_Q</A>, <A HREF="../../src/domin3_s.f">DOMIN3_S</A>, <A HREF="../../src/domax3_s.f">DOMAX3_S</A>, <A HREF="../../src/docors3_s.f">DOCORS3_S</A>, <A HREF="../../src/getctf.f">GETCTF</A>, <A HREF="../../src/subsp.f">SUBSP</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/vtil2.f">VTIL2</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

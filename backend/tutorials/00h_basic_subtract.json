@@ -1,0 +1,98 @@
+{
+  "id": "basic_subtract",
+  "title": "Basic 8 · Subtract two images",
+  "summary": "Arith a−b with op=sub — the standard 'what changed?' visualisation between two processings.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Make a difference image",
+      "body": "Pixel-wise `a − b`. In cryo-EM a **before − after** diff visualises what changed after a processing step, or subtracts a background model from a particle. Same wiring as Basic 7 (Sum) with `op` switched from `add` to `sub`.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-clock",
+      "title": "Drop the Clock image",
+      "body": "From Palette (Data), drag **Test · Clock face**.",
+      "target": { "tutorId": "palette:data.clock", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.clock` shows its image.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "drop-checker",
+      "title": "Drop the Checker image",
+      "body": "From Palette (Data), drag **Test · Checkerboard**.",
+      "target": { "tutorId": "palette:data.checker", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "_run_after_add_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. Both source images now have previews.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "drop-binop",
+      "title": "Drop the Arithmetic node",
+      "body": "From Arithmetic, drag **Arithmetic · a ∘ b** (`arith.binop`).",
+      "target": { "tutorId": "palette:arith.binop", "cardSide": "right", "expandPaletteCategory": "Arithmetic" },
+      "action": { "kind": "add_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "wire-a",
+      "title": "Wire Clock → a",
+      "body": "Drag from Clock's `image` to Arithmetic's `a`. Left operand (the one being subtracted from) = Clock.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.clock", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "a" }
+    },
+    {
+      "id": "wire-b",
+      "title": "Wire Checker → b",
+      "body": "Drag from Checker's `image` to Arithmetic's `b`. Right operand (what gets subtracted) = Checker.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "b" }
+    },
+    {
+      "id": "_run_after_wire_3",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With default `op=add` the result is Clock + Checker — a baseline before we switch the op to sub.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "select",
+      "title": "Click Arithmetic",
+      "body": "Click the Arithmetic node. Change `op` in the Inspector.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "set-op",
+      "title": "Set op to sub",
+      "body": "Change `op` to **`sub`**. Only the operator differs from `add` — the same node body is reused.",
+      "target": { "tutorId": "param:op", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "op", "value": "sub" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Clock − Checker appears. Where Checker is white the Clock value is pushed down (dark); where Checker is black the Clock passes through — a clock face punched by a checkerboard.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "To get a before-vs-after diff, wire: Clock → some processing → `sub.b` and Clock → `sub.a` (or reverse). `sub` produces signed values; negatives may be clipped to grey in the preview — Save to MRC for quantitative inspection.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

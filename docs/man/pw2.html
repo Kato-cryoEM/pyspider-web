@@ -1,0 +1,99 @@
+<html> 
+<head>
+<title>SPIDER: PW 2 (Power spectrum)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PW 2 - Power spectrum</h2>
+<em>(8/06/01)</em><br>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Generates full, unscrambled Fourier squared moduli from complex
+Fourier transform for 2-D or 3-D pictures.
+The input 2D image can be real if it fits into the memory.
+Operations supports multiple radix FFT, thus the input
+image does not have to have power-of-two dimensions
+(see 'FT').
+The resulting data are real and can be displayed like
+a normal image.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="pw.html"><strong>PW</strong></a></td><td> [Amplitudes of Fourier transform]</td></tr>
+<tr><td><a href="pwl.html"><strong>PW L</strong></a></td><td> [Power spectrum - Log10]</td></tr>
+<tr><td><a href="ft.html"><strong>FT</strong></a></td><td> [Fourier Transform ||]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PW 2<br>
+<p>
+<dd>.INPUT FILE: FOU001<BR>
+[Enter the file name of the Fourier transform.]
+<p>
+.OUTPUT FILE: POW001<BR>
+[Enter the name of the file where the power spectrum is to
+be kept.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The center of 2-D power spectrum is placed in
+(NSAM/2+1,NROW/2+1);
+for 3-D case in
+(NSAM/2+1,NROW/2+1,NSLICE/2+1).
+<p>
+<li>The term |F(0)| is replaced by term |F(1)| to facilitate
+visualization.
+<p>
+<li>Memory requirements:
+          <pre> 
+          input image                memory in words 
+             2D real                   (NSAM+2)*NROW 
+             2D complex                (NSAM+2)*NROW 
+             3D real                   (NSAM+2)*NROW*NSLICE 
+</pre>
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/pw2sdr.f">PW2SDR</a>, <a href="../../src/pw2sr.f">PW2SR</a>, <a href="../../src/pw3sdr.f">PW3SDR</a>, <a href="../../src/pw3sr.f">PW3SR</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/four1.f">FOUR1</a> 
+ , <a href="../../src/four1b.f">FOUR1B</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

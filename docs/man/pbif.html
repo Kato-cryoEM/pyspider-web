@@ -1,0 +1,88 @@
+<html> 
+<head>
+<title>SPIDER: PDB IF (PDB - Find information)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PDB IF - PDB - Find information</h2>
+<em>(9/16/06)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>To find information about PDB file, and save it in document file,
+or place in registers.
+</dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PDB IF X11,X12,X13,X14,X15,X16<br>
+<p>
+INPUT FILE: aaa.pdb
+<dd>[Enter the name of the PDB file. Registers x11-x13 will contain crystal
+<dt>unit cell constants a, b, and c in Angstrom Registers X14-x16 are
+total numbers of atoms, terminal atoms and HET atoms.]
+<p>
+<dd>.OUTPUT FILE: PDBPRM<BR>
+[Enter the name of the SPIDER document file.<br />
+The columns in the document file are: <br />
+<dt>Crystal unit cell constants a, b and c.<br />
+Crystal unit cell angles alpha, beta, gamma.<br />
+ORIGX1<br />
+ORIGX2 <br />
+ORIGX3<br />
+SCALE1<br />
+SCALE2<br />
+SCALE3<br />
+Total number of atoms, terminal atoms, and HET atoms.<br />
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li><p>
+<li>Publication information of this PDB file, the space
+group, information about data set and refinement
+such as, highest and lowest resolution, R factor and
+free R factor are printed out.
+<p>
+<li>Implemented by Zhong Huang, Pawel Penczek.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd>PDBIF</dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/pdb.f">PDB</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

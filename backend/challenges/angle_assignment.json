@@ -1,0 +1,39 @@
+{
+  "id": "angle_assignment",
+  "title": "Assign an orientation to a single particle",
+  "summary": "Given an initial β-gal (PDB:1JZ8) map and a single projection at unknown Euler angles, enumerate candidate angles → cross-correlate → identify the match → re-project at that angle.",
+  "prompt": "On the canvas:\n  - `volume` (β-galactosidase initial 3D map, 104³, 2 Å/px)\n  - `particle` (a 2D projection of `volume` at unknown Euler angles)\n\nRecover the correct Euler angle from `volume`, then re-project at that angle (the result should match `particle`) and submit.\n\n**Goal:** NCC ≥ 0.9 with `particle`.",
+  "fixtures": [
+    {
+      "name": "volume",
+      "kind": "volume",
+      "recipe": {
+        "pdb_volume": true,
+        "source": "pdb_1jz8_2A_d2"
+      }
+    },
+    {
+      "name": "particle",
+      "kind": "image",
+      "recipe": {
+        "project_of": "volume",
+        "phi": 0,
+        "theta": 60,
+        "psi": 15
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "recon.voea",
+    "recon.pj3q",
+    "stack.collect",
+    "stack.index",
+    "align.ml_angle"
+  ],
+  "answer_port": "image",
+  "compare_to": "particle",
+  "metric": "ncc",
+  "pass_score": 0.9,
+  "hint": "Suggested pipeline (6 nodes):\n  1. `recon.voea(delta_theta=15, theta_max=180)` generates a candidate Euler list (`eulers_csv`).\n  2. Wrap `particle` in a length-1 stack with `stack.collect`.\n  3. `align.ml_angle(stack, volume, candidate_angles_csv ← voea output)` → `assignments_csv` (= the estimated phi,theta,psi).\n  4. `recon.pj3q(volume, batch=true, eulers_csv ← ml_angle's assignments_csv)` re-projects at the estimated angle.\n  5. `stack.index(0)` pulls the single projection out and that is your submission.\n\nTips:\n  - Smaller `delta_theta` (10°) = more candidates, higher accuracy, slower.\n  - Enable `search_rotation=yes` on `ml_angle` to refine `psi` off the grid.\n  - The ground-truth angle lives on the VO EA grid, so 15° spacing is enough to hit it.",
+  "order": 8
+}

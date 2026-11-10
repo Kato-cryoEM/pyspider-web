@@ -1,0 +1,119 @@
+{
+  "id": "detail_3d_recon_bp",
+  "title": "Comparison 3 · 3D reconstruction of β-gal (projection stack + Euler → volume)",
+  "summary": "Project a β-gal map at 50 Euler angles, then back-project the stack with recon.bp to recover the volume. The canonical reconstruction self-consistency demo.",
+  "category": "Comparison",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try 3D reconstruction",
+      "body": "The endpoint of cryo-EM is recovering a 3D structure from many 2D particle images at random orientations. The workhorse operation is **back-projection (BP)** — smear each 2D projection back along its known viewing direction into 3D and sum. Ideally the original volume reappears. `recon.bp` also exposes the equivalent Fourier version (central-slice insertion) via `method=bp3g/bp3n`.\n\nIn this tutorial:\n  1. Load the **β-galactosidase** test volume (shipped RELION 3.0 tutorial map).\n  2. Use **data.sim.projections** to make 50 projections at known Euler angles (ground-truth angles kept).\n  3. Feed stack + eulers_csv into **recon.bp** to recover the 3D volume.\n\nUnlike real data, here angles are known exactly and there's no noise — perfect for observing what BP recovers in principle.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-betagal",
+      "title": "Drop the β-gal node",
+      "body": "From Palette (Data), drag **Test · β-gal**. β-galactosidase is a standard test specimen in cryo-EM; the bundled map comes from the RELION tutorial reconstruction.",
+      "target": { "tutorId": "palette:data.betagal", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.betagal" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.betagal` shows its default image before we switch it to volume mode.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.betagal" }
+    },
+    {
+      "id": "select-betagal",
+      "title": "Click β-gal",
+      "body": "Click the β-gal node. The Inspector shows `variant` (which of image / stack / volume to emit), `class_index`, and `size`.",
+      "target": { "tutorId": "node:data.betagal", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "data.betagal" }
+    },
+    {
+      "id": "set-variant",
+      "title": "Set variant to map3d",
+      "body": "Change `variant` to **`map3d`**. The right-hand output port flips to `volume` (variant automatically switches the active port). β-gal's 3D density map is now available.",
+      "target": { "tutorId": "param:variant", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "variant", "value": "map3d" }
+    },
+    {
+      "id": "set-size",
+      "title": "Set size to 64",
+      "body": "Change `size` to **64**. 64³ voxels keeps the tutorial runtime in seconds (native is 128³). For real analyses use 128 or higher.",
+      "target": { "tutorId": "param:size", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "size", "value": 64 }
+    },
+    {
+      "id": "drop-sim-proj",
+      "title": "Drop Sim · Random Projections",
+      "body": "From Data, drag **Sim · Random Projections** (`data.sim.projections`). This handy node projects an input volume at **n random Euler angles** and emits the stack plus a per-frame `eulers_csv`. With the ground-truth angles known, we can verify that BP recovers the structure as expected.",
+      "target": { "tutorId": "palette:data.sim.projections", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.sim.projections" }
+    },
+    {
+      "id": "_run_after_add_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.sim.projections` produces an initial baseline output before we wire the volume in.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.sim.projections" }
+    },
+    {
+      "id": "wire-vol-proj",
+      "title": "Wire β-gal.volume → Sim · Projections.volume",
+      "body": "Drag from β-gal's `volume` output to Sim · Projections' `volume` input so the β-gal map is the source volume to project.",
+      "target": { "tutorId": "node:data.sim.projections", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.betagal", "srcPort": "volume", "dstNodeType": "data.sim.projections", "dstPort": "volume" }
+    },
+    {
+      "id": "select-sim-proj",
+      "title": "Click Sim · Projections",
+      "body": "Click Sim · Projections. The Inspector shows `n` (number of projections), `seed` (RNG seed for angle generation), `uniform_sphere` (whether to spread uniformly on S²), `shift_sigma` / `noise_sigma` (optional artifact injection).",
+      "target": { "tutorId": "node:data.sim.projections", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "data.sim.projections" }
+    },
+    {
+      "id": "set-n",
+      "title": "Set n to 50",
+      "body": "Change `n` to **50** — 50 uniformly distributed Euler-angle projections. More → finer reconstruction; fewer → striation artifacts from angular undersampling.",
+      "target": { "tutorId": "param:n", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "n", "value": 50 }
+    },
+    {
+      "id": "drop-bp",
+      "title": "Drop recon.bp (3D back-project)",
+      "body": "From Reconstruction, drag **3D back-project / Fourier insert** (`recon.bp`) — the 3D reconstruction node. The `method` dropdown in the Inspector switches between four algorithms (bp3f / bp3d / bp3g / bp3n).",
+      "target": { "tutorId": "palette:recon.bp", "cardSide": "right", "expandPaletteCategory": "Reconstruction" },
+      "action": { "kind": "add_node", "nodeType": "recon.bp" }
+    },
+    {
+      "id": "wire-stack",
+      "title": "Wire Sim · Projections.stack → recon.bp.stack",
+      "body": "Drag from Sim · Projections' `stack` output to recon.bp's `stack` input — the 50 2D projections flow into BP.",
+      "target": { "tutorId": "node:recon.bp", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.sim.projections", "srcPort": "stack", "dstNodeType": "recon.bp", "dstPort": "stack" }
+    },
+    {
+      "id": "wire-eulers",
+      "title": "Wire Sim · Projections.eulers_csv → recon.bp.eulers_csv",
+      "body": "Drag from Sim · Projections' `eulers_csv` output (string port) to the ◇ marker on recon.bp's **`eulers_csv`** parameter (the wireable mark on the left). The ground-truth Euler angle for each frame is passed to BP.\n\nThis is the key: BP cannot put a projection back into the volume unless it knows which viewing direction the projection came from. With real data, angles come from an alignment step; here we hand the ground truth directly, so reconstruction should be clean.",
+      "target": { "tutorId": "node:recon.bp", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.sim.projections", "srcPort": "eulers_csv", "dstNodeType": "recon.bp", "dstPort": "eulers_csv" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. β-gal map → 50 projections → BP → recovered volume. The recon.bp node shows a 3D volume.\n\nFlip through central slices and compare with the original β-gal map. With 50 uniform Euler angles + exact angles + no noise, BP returns a volume close to the original. Success looks like: the central-slice barrel structure and the C2 (really D2) symmetry of β-gal survive back-projection.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "recon.bp" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "**Play with it:**\n  - Swap `recon.bp`'s `method` between bp3f (default, ramp-filtered) and bp3d (no ramp correction) — the low-frequency bias BP picks up without ramp filtering becomes obvious (= the ramp filter visualised). bp3g / bp3n (Fourier insertion) show a different striation pattern from real-space BP.\n  - Drop Sim · Projections' `n` to 20 — undersampling-induced striation becomes visible.\n  - Raise `n` to 200 — details come back.\n  - Set `noise_sigma = 0.5` — see how BP degrades under realistic noise.\n  - Set `symmetry` to c2 — a cyclic-symmetry constraint effectively doubles the projection count (β-gal is actually D2; c2 already helps).\n\nReal-world flow goes the other way: noisy particles → alignment estimates angles → BP. Here we exercised the clean 'angles known → project → recover with BP' pipeline to internalise the principle. For angle estimation, try the `angle_assignment` challenge.",
+      "target": { "tutorId": "node:recon.bp", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

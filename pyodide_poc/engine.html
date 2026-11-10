@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>pyspider engine · Pyodide PoC (Phase 2)</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    background: #0f1115; color: #d9e1ec; margin: 0; padding: 24px;
+  }
+  h1 { margin-top: 0; font-size: 20px; }
+  .row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px; }
+  .card {
+    background: #1a1d24; border: 1px solid #2c313c;
+    border-radius: 10px; padding: 16px;
+  }
+  .card h3 { margin: 0 0 8px 0; font-size: 13px; color: #8fa0b4; font-weight: 500; }
+  canvas { image-rendering: pixelated; background: #000; display: block; border-radius: 6px; }
+  .controls { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+  button {
+    background: #2c6cf6; color: white; border: 0;
+    padding: 8px 14px; border-radius: 6px; font-size: 13px; cursor: pointer;
+  }
+  button:disabled { background: #4b5564; cursor: wait; }
+  input[type="number"] {
+    width: 70px; background: #0f1115; color: #d9e1ec;
+    border: 1px solid #2c313c; padding: 4px 6px; border-radius: 4px;
+  }
+  select { background: #0f1115; color: #d9e1ec; border: 1px solid #2c313c; padding: 4px 6px; border-radius: 4px; }
+  pre {
+    background: #0b0c10; color: #7fdbff; padding: 12px; border-radius: 6px;
+    font-size: 11px; max-height: 320px; overflow: auto; margin: 0;
+  }
+  .status { color: #ffd166; font-size: 12px; }
+  .ok { color: #7fdbff; }
+  .err { color: #ff6b6b; }
+</style>
+</head>
+<body>
+<h1>pyspider engine · Pyodide PoC — Phase 2</h1>
+<p>Runs the <strong>real backend/engine.py</strong> (nodes.py + plugins) inside the browser. No FastAPI, no server-side Python.</p>
+<p class="status" id="status">Booting…</p>
+
+<div class="row">
+  <div class="card">
+    <h3>Graph: <code>data.siemens → geom.rotate</code></h3>
+    <canvas id="c-out" width="256" height="256"></canvas>
+    <div class="controls">
+      <label>size <input id="size" type="number" value="256" min="64" max="512" step="32"></label>
+      <label>spokes <input id="spokes" type="number" value="32" min="4" max="64"></label>
+      <label>angle_deg <input id="angle" type="number" value="30" step="5"></label>
+      <label>interp
+        <select id="interp">
+          <option value="cubic" selected>cubic</option>
+          <option value="linear">linear</option>
+          <option value="nearest">nearest</option>
+          <option value="quintic">quintic</option>
+        </select>
+      </label>
+      <button id="btn-run" disabled>Run graph</button>
+    </div>
+  </div>
+
+  <div class="card" style="flex: 1; min-width: 360px;">
+    <h3>Catalog summary</h3>
+    <pre id="catalog"></pre>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card" style="flex: 1; min-width: 600px;">
+    <h3>Log</h3>
+    <pre id="log"></pre>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<script>
+const logEl = document.getElementById("log");
+const statusEl = document.getElementById("status");
+const catalogEl = document.getElementById("catalog");
+const log = (msg) => { logEl.textContent += msg + "\n"; logEl.scrollTop = logEl.scrollHeight; };
+
+let pyodide = null;
+
+async function boot() {
+  const t0 = performance.now();
+  log("Loading Pyodide runtime…");
+  pyodide = await loadPyodide();
+  log(`Pyodide ready (${((performance.now() - t0) / 1000).toFixed(1)}s)`);
+
+  const t1 = performance.now();
+  log("Loading numpy + scipy + Pillow + scikit-image…");
+  await pyodide.loadPackage(["numpy", "scipy", "pillow", "scikit-image"]);
+  log(`packages loaded (${((performance.now() - t1) / 1000).toFixed(1)}s)`);
+
+  // Fetch & unpack the bundle.
+  const t2 = performance.now();
+  log("Fetching bundle.zip…");
+  const resp = await fetch("bundle.zip");
+  if (!resp.ok) throw new Error(`bundle.zip HTTP ${resp.status}`);
+  const buf = new Uint8Array(await resp.arrayBuffer());
+  log(`bundle.zip ${(buf.length / 1024).toFixed(0)} KB, unpacking…`);
+  pyodide.unpackArchive(buf, "zip");
+  log(`bundle unpacked (${((performance.now() - t2) / 1000).toFixed(1)}s)`);
+
+  // Import backend + run plugin discovery.
+  const t3 = performance.now();
+  log("Importing backend + loading plugins…");
+  await pyodide.runPythonAsync(`
+import sys
+sys.path.insert(0, "/")
+import backend
+from backend import plugin_loader, engine, nodes
+load_log = plugin_loader.load_plugins()
+ok = sum(1 for e in load_log if e["ok"])
+bad = [e for e in load_log if not e["ok"]]
+print(f"Plugin load: {ok}/{len(load_log)} OK, {len(bad)} failed")
+for e in bad[:5]:
+    print("  failed:", e["path"], "->", e["error"])
+print("CATALOG size:", len(nodes.CATALOG))
+`);
+  log(`backend + plugins ready (${((performance.now() - t3) / 1000).toFixed(1)}s)`);
+
+  // Catalog summary into the right-hand panel.
+  const cat = await pyodide.runPythonAsync(`
+import json
+by_cat = {}
+for s in nodes.CATALOG.values():
+    by_cat.setdefault(s.category, []).append(s.id)
+summary = {k: len(v) for k, v in sorted(by_cat.items())}
+json.dumps(summary, indent=2)
+`);
+  catalogEl.textContent = cat;
+
+  // Expose a helper to run a graph and return the image as RGBA bytes.
+  await pyodide.runPythonAsync(`
+import numpy as np, io
+
+def to_rgba_bytes(img):
+    a = np.clip(np.asarray(img, dtype=np.float32), 0.0, 1.0)
+    g = (a * 255).astype(np.uint8)
+    H, W = g.shape[-2:]
+    if g.ndim == 3:
+        g = g[g.shape[0] // 2]
+    out = np.empty((H, W, 4), dtype=np.uint8)
+    out[..., 0] = g; out[..., 1] = g; out[..., 2] = g; out[..., 3] = 255
+    return out.tobytes(), H, W
+
+def run_minimal_graph(size, spokes, angle_deg, interp):
+    graph = {
+        "nodes": [
+            {"id": "n1", "type": "data.siemens",
+             "params": {"size": int(size), "spokes": int(spokes)}, "parent": None},
+            {"id": "n2", "type": "geom.rotate",
+             "params": {"angle_deg": float(angle_deg), "cval": 0.0, "interpolation": interp},
+             "parent": None},
+        ],
+        "edges": [
+            {"src": "n1", "srcPort": "image", "dst": "n2", "dstPort": "image"},
+        ],
+    }
+    results = engine.run(graph)
+    r = results.get("n2")
+    if r is None or not r.ok:
+        raise RuntimeError(r and r.error or "no result")
+    img = r.outputs.get("image")
+    return to_rgba_bytes(img)
+`);
+  log("Ready.");
+  statusEl.textContent = "Ready.";
+  statusEl.classList.add("ok");
+  document.getElementById("btn-run").disabled = false;
+}
+
+function paint(bytes, w, h) {
+  const canvas = document.getElementById("c-out");
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  const u8 = new Uint8ClampedArray(bytes);
+  ctx.putImageData(new ImageData(u8, w, h), 0, 0);
+}
+
+async function runGraph() {
+  const size = parseInt(document.getElementById("size").value);
+  const spokes = parseInt(document.getElementById("spokes").value);
+  const angle = parseFloat(document.getElementById("angle").value);
+  const interp = document.getElementById("interp").value;
+  const btn = document.getElementById("btn-run");
+  btn.disabled = true;
+  const t0 = performance.now();
+  try {
+    const tuple = await pyodide.runPythonAsync(
+      `run_minimal_graph(${size}, ${spokes}, ${angle}, "${interp}")`
+    );
+    // Tuple in JS: [bytes, H, W]
+    const [bytes, H, W] = tuple.toJs();
+    paint(bytes, W, H);
+    log(`run_graph(${size}, ${spokes}, ${angle}deg, ${interp}): ${(performance.now() - t0).toFixed(1)} ms`);
+  } catch (e) {
+    log("ERROR: " + e.message);
+    statusEl.textContent = "Run failed — see log.";
+    statusEl.classList.remove("ok");
+    statusEl.classList.add("err");
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+document.getElementById("btn-run").addEventListener("click", runGraph);
+
+boot().catch(e => {
+  log("BOOT ERROR: " + e.message);
+  statusEl.textContent = "Boot failed — see log.";
+  statusEl.classList.remove("ok");
+  statusEl.classList.add("err");
+});
+</script>
+</body>
+</html>

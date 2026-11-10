@@ -1,0 +1,211 @@
+<HTML><HEAD>
+<TITLE>SPIDER: VO (Vector Operation)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>VO - Vector Operation</H2>
+<EM>(09/03/96)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Performs vector operations on coordinates contained in a
+pair of registers (rotations,stretching,offsets).
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: VO X10,X11,X12,X13<BR>
+[X10,X11 contain the input (x,y) coordinates; X12,X13 the
+coordinates after transformation.]
+<P>
+<DD>.X,Y OFFSET IN FIRST PICTURE: 9,9<BR>
+[This offset is added to the input coordinates (OFF1).]
+<P>
+.X,Y ORIGIN OF FIRST PICTURE: 33,33<BR>
+[Give the origin of the coordinate system you want to do
+your rotations in (subtracted from the input coordinates)
+(OO).]
+<P>
+.X,Y OFFSET IN SECOND PICTURE: 17,17<BR>
+[Will be subtracted from the results after rotation and
+squeezing (OFF2) ]
+<P>
+.X,Y ORIGIN OF SECOND PICTURE: 65,65<BR>
+[Will be added to the result (ON).]
+<P>
+.X,Y MULTIPLIER (SQUEEZE): 0.5,1<BR>
+[Squeezes or stretches the vector in x and y direction
+independently (used in (SQE)).]
+<P>
+.ANGLE PHI OF SQUEEZE COORD.SYST: 10.4<BR>
+[Give angle between the original coordinate syst. and the
+one in which the vector is to be squeezed (used in (D)).]
+<P>
+.BACK ROTATION (DEFAULT=PHI): 0<BR>
+[Turns the vector back by the given angle (used in
+<DT>(D(-1))).]
+<P>
+<DD>.RESULT VECTOR MULTIPLIER: 10.5<BR>
+[The final vector is multiplied with this factor (STR).]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>Formula used:
+          <PRE> 
+          ROUT=ON-OFF2+STR*(D(-1))*(SQE)*(D)*(RIN+OFF1-OO) 
+               .       .   .       .     .   ^   STEP1   ^ 
+               .       .   .       .     ^     STEP2     ^ 
+               .       .   .       ^        STEP3        ^ 
+               .       .   ^          STEP4              ^ 
+               .       ^          STEP5                  ^ 
+               &lt;              STEP6                      > 
+      	  VECTORS: 
+	      RIN    INPUT VECTOR (REGISTER 1 AND 2) 
+	      OFF1   OFFSET OF INPUT VECTOR 
+	      OO     ORIGIN OF INPUT COORDINATE SYSTEM 
+	      ON     ORIGIN OF OUTPUT COORDINATE SYSTEM 
+	      OFF2   OFFSET OF OUTPUT VECTOR 
+	  MATRICES: 
+	      (D)    FIRST ROTATION (BY PHI) 
+	      (D(-1))SECOND ROTATION (BY -PHI2) 
+	      (SQE)  MATRIX TO SQUEEZE (OR STRETCH) 
+	  SCALARS: 
+	      STR    STRETCH (OR SQUEEZE) -FACTOR 
+          <PRE> 
+          2. <STRONG>Not Distributed!<STRONG> 
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD>VECTOP</DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/driv1.f">DRIV1</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

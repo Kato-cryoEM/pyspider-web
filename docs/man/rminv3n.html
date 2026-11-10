@@ -1,0 +1,122 @@
+<html> 
+<head>
+<title>SPIDER: RM INV3N (Radon Transform - Computes inverse 3D (Fourier-)Radon transform)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM INV3N - Radon Transform - Computes inverse 3D (Fourier-)Radon transform</h2>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Computes the inverse 3D (Fourier-)Radon transform.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rminv2n.html"><strong>RM INV2N</strong></a></td><td> [Radon Transform - Computes inverse (Fourier-)Radon transform]</td></tr>
+<tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmcompln.html"><strong>RM COMPLN</strong></a></td><td> [Radon Transform - 2D, Complete]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM INV3N<br />
+<p>
+<dd>.INPUT FILE: 3DFRAD001<br />
+[Enter name of real of Fourier space 3D Radon transform.]
+<p>
+.OUTPUT FILE: RECON001<br />
+[Enter name of output file.]
+<p>
+.IS THIS A FOURIER TRANSFORM (Y/N)?: Y<br />
+[If the input file is a Fourier transformed Radon transform
+answer Y. Currently there is no information in the file
+header of Radon transforms that identify if it is in real
+or Fourier space.]
+<p>
+.INTERMEDIATE OUTPUT FILE: F_INTER001<br />
+[Enter name of file to store intermediate volume. This file
+is only being used if the memory requirements of the
+program are larger than the memory provided. If the file
+name, however, has an "_" (underline) in the second
+position, the intermediate output file is used regardless
+of memory size. This option can be quite helpful if intermediate results are of interrest. The content of this volume
+are the projections in a single axix tilt series around y.]
+<p>
+.X,Y DIMENSIONS: 64,64<br />
+[Enter the x and y dimensions of the backtransformed volume.]
+<p>
+.Z DIMENSION: 64<br />
+<p>
+.OBJECT DIAMETER: 60<br />
+[Enter diameter of reconstructed object.]
+<p>
+CHOICE OF WEIGHTING FUNCTIONS: (1)CONST,(2)SQRT(R*),(3)R* (=DEF)
+<br />.WEIGHTING FCT. FOR STEP1,STEP2: 1,1<br />
+<p>
+.INCLUDE LOW-PASS FILTER(Y/N): N<br />
+[The underlying algorithm is a filtered backprojection. If "Y"
+is answered here, then the weighting funtion is multiplied with
+a Fermi filter (s. FF) with a radius corresponding to Crowther's
+formula.]
+<p>
+ANSWER * IF YOU DO NOT WANT A DOCUMENT FILE
+<br />.WEIGHTING FUNCTION DOC-FILE: WDOC001<br />
+[Enter the name for a document file that will contain the
+weighting function. This can be used e.g. to produce a plot
+of this function. It will be well behaved up to the resolution
+limit defined by Bracewell's/Crowther's formula: N=pi*D/r.]
+<p>
+.INCLUDE LOW-PASS FILTER (Y/N)?: Y<br />
+[If Y is answered a fermi low-pass filter will be applied to the
+weighting function. The radius of this filter is calculated from
+Crowther's formula.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Developed by: M.Radermacher
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/call3drminvn.f">CALL3DRMINVN</a>, <a href="../../src/rminvn.f">RMINVN</a>, <a href="../../src/fouradinvn.f">FOURADINVN</a>, <a href="../../src/fouradn.f">FOURADN</a>, <a href="../../src/mrfour1.f">MRFOUR1</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

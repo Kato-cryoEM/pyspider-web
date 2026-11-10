@@ -1,0 +1,112 @@
+{
+  "id": "detail_filter_edge",
+  "title": "Comparison 2 · Compare filter edges (TopHat vs Gaussian)",
+  "summary": "Two filters with the same cutoff but different edge shapes. Visualise the frequency response and the real-space ringing side-by-side.",
+  "category": "Comparison",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Compare low-pass edges (how the frequency cut is shaped)",
+      "body": "Same cutoff, different frequency-edge shape → very different real-space results:\n\n  • `tophat` — rectangular window; 1.0 below fc, 0.0 above. Sharpest cut, but real-space suffers from **ringing** (Gibbs bands around edges).\n  • `gauss`  — smooth `exp(-(f/fc)²/2)` decay. Zero ringing, but a touch of low-frequency softening.\n\nIn this tutorial we drop **two `filter.lp` nodes** side by side, set one to `kind=tophat` and the other to `kind=gauss`, and run the same input through both. One node supports all 5 filter shapes via its `kind` dropdown — no need to swap node types.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Siemens Star**. The radial wedges go higher-frequency toward the centre, so you can see 'where it was cut' at a glance. Sharp wedge boundaries (light→dark edges) also make **ringing visible as fringes**.",
+      "target": { "tutorId": "palette:data.siemens", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.siemens" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.siemens` shows its image before filtering.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.siemens" }
+    },
+    {
+      "id": "drop-lp1",
+      "title": "Drop the first Low-pass node",
+      "body": "The Filter category contains just **`Filter · Low-pass`** and **`Filter · High-pass`** (the old separate TopHat / Gaussian / Fermi / … nodes are all folded into the `kind` dropdown inside Low-pass).\n\nDrag **Filter · Low-pass** onto the canvas. We'll point this one at TopHat later (filter-shape switching happens in the Inspector's `kind` dropdown, not the palette).",
+      "target": { "tutorId": "palette:filter.lp", "cardSide": "right", "expandPaletteCategory": "Filter" },
+      "action": { "kind": "add_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "wire-lp1",
+      "title": "Wire Siemens → Low-pass #1",
+      "body": "Drag Siemens Star's `image` output to Low-pass #1's `image` input.",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.siemens", "srcPort": "image", "dstNodeType": "filter.lp", "dstPort": "image" }
+    },
+    {
+      "id": "select-lp1",
+      "title": "Click Low-pass #1",
+      "body": "Click Low-pass #1. Core params: `kind` (filter shape), `fc` (cutoff in cycles/pixel; 0.5 = Nyquist), and `padding`. Extra params (`temp` or `fp`/`fs`) appear conditionally based on `kind`.",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "set-kind-tophat",
+      "title": "Set kind to tophat (this one is the TopHat side)",
+      "body": "Change the `kind` dropdown to **`tophat`**. Low-pass #1 becomes a rectangular-window TopHat; the response plot should show a rectangle (1 below fc, 0 above).",
+      "target": { "tutorId": "param:kind", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "kind", "value": "tophat" }
+    },
+    {
+      "id": "set-fc-tophat",
+      "title": "Lower fc to 0.08",
+      "body": "Enter **0.08** in `fc`. A fairly strong low-pass that makes both the cut and the ringing easy to see.",
+      "target": { "tutorId": "param:fc", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "fc", "value": 0.08 }
+    },
+    {
+      "id": "drop-lp2",
+      "title": "Drop the second Low-pass node",
+      "body": "Drag another **Filter · Low-pass** next to Low-pass #1 — this will be the Gaussian side. We leave its `kind` at the default `gauss`, so no param tweak needed on the dropdown.",
+      "target": { "tutorId": "palette:filter.lp", "cardSide": "right", "expandPaletteCategory": "Filter" },
+      "action": { "kind": "add_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "wire-lp2",
+      "title": "Wire Siemens → Low-pass #2",
+      "body": "From the **same** Siemens Star's `image` output, drag to the new Low-pass #2's `image` input. The same input flows through both filters in parallel.",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.siemens", "srcPort": "image", "dstNodeType": "filter.lp", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `filter.lp`'s default behaviour becomes a baseline — the Gaussian side has already run — before we match its fc to TopHat.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "select-lp2",
+      "title": "Click Low-pass #2",
+      "body": "Click the new Low-pass #2. Leave `kind` at the default `gauss` — the response plot should now be a smooth bell curve (compare with TopHat's rectangle).",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "set-fc-gauss",
+      "title": "Set fc to 0.08 (same cutoff)",
+      "body": "Enter **0.08** — same fc as TopHat, so only the shape differs.",
+      "target": { "tutorId": "param:fc", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "fc", "value": 0.08 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Both Low-passes execute and show their result previews. Lay them side-by-side — the centres look similarly blurred, but look closely at the wedge edges:\n\n  • TopHat — **ring-shaped fringes** (ringing) hug each edge.\n  • Gaussian — edges transition smoothly, zero rings.\n\nClick to zoom for extra clarity.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "filter.lp" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "A sharp cutoff costs you ringing in real space (= rectangular-window-in-frequency ↔ sinc-convolution in real space). Gaussian is Gaussian in both domains → least artifact, so it's the default low-pass choice in cryo-EM.\n\n**Next steps:** Change `kind` to `fermi` to reveal the `temp` parameter. Sweep `temp` from 0.001 (≈ TopHat) → 0.05 → 0.2 (≈ Gaussian) for a continuous sharpness knob. `butter` / `raised_cos` take two-band specs via `fp` / `fs`.",
+      "target": { "tutorId": "node:filter.lp", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

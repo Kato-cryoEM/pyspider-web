@@ -1,0 +1,89 @@
+<html> 
+<head>
+<title>SPIDER: LI RD (LIst Registers - in Document file)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>LI RD - LIst Registers - in Document file</h2>
+<em>(10/7/99)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>To list the contents of the SPIDER registers in a document
+file.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="lirt.html"><strong>LI RT</strong></a></td><td> [List Registers - on Terminal]</td></tr>
+<tr><td><a href="lir.html"><strong>LI R</strong></a></td><td> [LIst Registers - in results file]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: LI RD<br>
+<p>
+<dd>.OUTPUT DOC FILE: DOC000<BR>
+[Enter name for output document file.]
+<p>
+[Registers are listed from X0 to X102. The system
+registers X0 ... X9 are separately listed. Their meaning
+is:
+<p>
+          <PRE> 
+          X0    DO-Loop index of the current loop                    
+          X1    NSAM = number of samples of the last image accessed                                          
+          X2    NROW = number of rows of that image                   
+          X3    FMAX = its maximum pixel value                        
+          X4    FMIN = its minimum pixel value                        
+          X5    AV   = its average value                              
+          X6    SIG  = its standard deviation                         
+          X9    ERRFL = error flag                                    
+</PRE>
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>This operation is useful for debugging SPIDER procedures
+as it allows the transfer of registers to be monitored.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/listregs.f">LISTREGS</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util1.f">UTIL1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

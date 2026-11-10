@@ -1,0 +1,296 @@
+<HTML><HEAD>
+<TITLE>SPIDER: CS DI PO (Contour display - convert to Postscript)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>CS DI PO - Contour display - convert to Postscript</H2>
+<EM>(1/30/96)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Converts contour storage plot metafile to Postscript and
+outputs the file to a printer.
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="csdigd.html"><STRONG>CS DI GD</STRONG></A> [Contour display - on Gould plotter]<BR>
+<A HREF="csdipl.html"><STRONG>CS DI PL</STRONG></A> [Contour display - convert to HPGL]<BR>
+<A HREF="csditx.html"><STRONG>CS DI TX</STRONG></A> [Contour display - on Tektronix 4662 plotter]<BR>
+<A HREF="csdivt.html"><STRONG>CS DI VT</STRONG></A> [Contour display - on VT125/240 terminal]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: CS DI PO<BR>
+<P>
+<DD>.CONTOUR INPUT FILE: CNT001<BR>
+[Enter name of an existing plot metafile. This plot file
+will be opened but the converted Postscript output is not
+not sent to the Postscript file until the &quot;PRI&quot; or &quot;SEN&quot;
+command is issued. If a &lt;CR&gt; is entered then no contour
+file is opened. If no
+contour file is opened then the only active commands which
+apply are &quot;LOC&quot;, &quot;COM&quot; and &quot;PRI&quot;.]
+<P>
+.POSTSCRIPT FILE: POS001<BR>
+[Enter name of Postscript output file where Postscript commands
+will be placed. If the Postscript output file already exists,
+new Postscript commands will be appended at end of existing
+file. (Note: appending to existing file does not work on VMS)]
+<P>
+<DT>Further commands are selected from a menu. The following lines
+will repeatedly occur:
+<P>
+<DD>Plot Menu (enter MEN to see the choices).
+<BR>.Enter Plot Menu Choice: PRI<BR>
+[If you just desire a simple default print from your contour
+file, enter PRI at the first menu prompt. PRI will convert
+the contours to Postscript commands, store the Postscript
+commands in the Postscript output file, send the output
+file to the local printer, and return the user to the main
+SPIDER input prompt.
+<P>
+.Enter Plot Menu Choice: MEN<BR>
+[When MEN option is chosen the following menu appears:]
+          <PRE> 
+          PRI    PRInt Postscript file &amp; return    MEN    display MENu 
+          RET    RETurn to caller                   
+<P>
+          SCA    set plot scale                    CNT    new contour file 
+          COM    add comment                       SEN    send data to  
+          LOC    set location                                post file 
+<P>
+          FLI    FLIP top &amp; bottem                 FRA    display frame 
+          INZ    invert Z order                    LAB    show LABels 
+          CEN    CENter plot                       HID    HIDden lines 
+          FIL    FILled contours                   TEX    print TEXt 
+</PRE>
+<P>
+<P>
+<DT>If Plot Menu Choice is CNT, Spider asks:
+<P>
+<DD>.PLOT FILE: CNT002<BR>
+[Enter name of an existing plot metafile. This plot file
+will be opened but the contents are not sent to the
+Postscript file until the PRI or SEN command is given.
+This command is used for combining further contour plots
+into a single current Postscript plot.]
+<P>
+<DT>If Plot Menu Choice is SEN:
+<DD>[Converts current contour plot to Postscript commands and
+places commands in Postscript output file according to current
+values of any modifier toggles (see below).]
+<P>
+<DT>If Plot Menu Choice is LOC, Spider asks:
+<P>
+<DD>.X &amp; Y COOR. (0..1000 WITH ORIGIN AT UPPER LEFT): 100 200<BR>
+[Sets the current location in Postscript output file. This
+command is useful for positioning added text in Postscript
+file.]
+<P>
+<DT>If Plot Menu Choice is COM, Spider asks:
+<P>
+<DD>.COMMENT (OR &lt;CR&gt; FOR NONE): This is a comment<BR>
+[Places a comment in the current Postscript output file at
+the current location.]
+<P>
+<DT>If Plot Menu Choice is SCA, Spider responds
+CURRENT SCALING FACTOR (% OF FULL PAGE): 95, and asks:
+<P>
+<DD>.Enter new scaling factor or &lt;CR&gt;: 80<BR>
+[Current scaling or magnifaction of the contour plot is
+listed then the user is asked to input new scaling factor.
+The default value is 95%. The scaling alters the size of
+contours drawn in the Postscript output file by following
+SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is CEN:
+<DD>[Toggles centering of contour plot from default (on)
+to off. This alters the way contours are drawn in the
+Postscript output file by following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is HID:
+<DD>[Toggles hidden line removal for contours from default (off)
+to on. This alters the way contours are drawn in the
+Postscript output file by following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is LAB:
+<DD>[Toggles labeling of contour numbers from default (off)
+to on. This alters the way contours are labeled when
+contours are drawn in the Postscript output file by
+following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is FIL:
+<DD>[Toggles filling inside of contours from default (off)
+to on. This alters the way contours are filled when
+contours are drawn in the Postscript output file by
+following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is FRA:
+<DD>[Toggles drawing of frame outlining plots from default (off)
+to on. This frame is drawn when contours are drawn in the
+Postscript output file by following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is INZ:
+<DD>[Toggles inversion of contour order from default (off)
+to on. This alters the order in which contours are drawn in
+the Postscript output file by following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is FLI:
+<DD>[Toggles mirroring of contours around X axis from default (off)
+to on. This alters the appearance of contours when they
+are sent from the contour file to the Postscript output file
+by following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is TEX:
+<DD>[Toggles text labels appearance from default (on)
+to off. This alters the existence of any text when text is
+sent from the contour file to the Postscript output file
+by following SEN or PRI commands.]
+<P>
+<DT>If Plot Menu Choice is RET:
+<DD>[Return the user to the main SPIDER input prompt. Does not
+convert the current CNT file (if any) to Postscript before
+returning.]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>The Fortran code for directing the output to the local printer
+will have to be altered for your local system.
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD><A HREF="../../src/cndisp.f">CNDISP</A>, <A HREF="../../src/cnpost.f">CNPOST</A>, <A HREF="../../src/cnhelp.f">CNHELP</A></DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/plot1.f">PLOT1</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

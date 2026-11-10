@@ -1,0 +1,84 @@
+<html> 
+<head>
+<title>SPIDER: PR P (overPRint Power spectrum - to results file)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PR P - overPRint Power spectrum - to results file</h2>
+<em>(8/26/96)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Displays a picture, using overprinting on the line printer.
+The F(0,0) term of the power spectrum is suppressed in the
+display.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="prt.html"><strong>PR T</strong></a></td><td> [overPRint image - to Terminal]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PR P<br>
+<p>
+<dd>.INPUT FILE: PIC001<BR>
+[Enter the name of the file of interest.]
+<p>
+.CONTOURING?(Y/N): Y<BR>
+[Enter whether or not contouring is desired.]
+<p>
+<dt>If 'Y' is answered, the following question appears:
+<p>
+<dd>.NUMBER OF LEVELS: 5<BR>
+[Enter number of contour levels.]
+<p>
+[The file will then be printed (with overprinting) to the
+results file, with 5 levels of contouring. If contouring
+is not desired, then an 'N' should be entered. Note that
+as in all SPIDER contouring programs (e.g. 'FC'), the
+levels of maximum and minimum OD are counted as contour
+levels. In the above example, only three contours would
+be visible, plus the two points where the maximum and
+minimum of the image are assumed.]
+<p>
+</dl>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd>OPRINT</dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util1.f">UTIL1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

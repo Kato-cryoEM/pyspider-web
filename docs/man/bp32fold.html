@@ -1,0 +1,121 @@
+<html> 
+<head>
+<title>SPIDER: BP 32F OLD (Older Back Projection - 3D, Sampled, interpolated in Fourier space ||)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>BP 32F OLD - Older Back Projection - 3D, Sampled, interpolated in Fourier space ||</h2>
+<em>(6/08/08)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Calculates two randomly selected half- and a total-3D reconstructions using
+interpolation in Fourier space. This operation is exactly same as
+'BP 3F' with the addition of the two randomly selected half reconstructions.
+This operation is an older version of current 'BP 32F'
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="bp32f.html"><strong>BP 32F</strong></a></td><td> [Back Projection - 3D, Sampled, Interpolated in Fourier space ||*]</td></tr>
+<tr><td><a href="bp3f.html"><strong>BP 3F</strong></a></td><td> [Back Projection - 3D, Interpolated in Fourier space ||*]</td></tr>
+<tr><td><a href="bp3fold.html"><strong>BP 3F OLD</strong></a></td><td> [Older Back Projection - 3D, Interpolated in Fourier space ||]</td></tr>
+<tr><td><a href="bpcg.html"><strong>BP CG</strong></a></td><td> [Back Projection - 3D, Iterative, Conjugate Gradients ||*]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: BP 32F OLD<br />
+<p>
+<dd>.ENTER TEMPLATE FOR 2-D IMAGE FILE: PROJ001<br />
+[Enter the name of any projection from the set.]
+<p>
+.ENTER FILE NUMBERS OR SELECTION DOC. FILE NAME: 1-700 OR IMAGES127<br />
+[Enter projection file numbers or the name of the document file
+containing projection file numbers in the first column.]
+<p>
+.ANGLES DOC FILE: ANGLES27<br />
+[Enter the name of the document file containing Eulerian
+angles for the projections used (psi, theta, phi).]
+<p>
+.SYMMETRIES DOC FILE: symmetries<br />
+[Enter the name of the document file containing <a href="../euler.html">Eulerian angles</a>
+defining symmetries (psi, theta, phi). The angles should be
+such that when used in operation 'RT 3D' transform the volume
+into itself. The identity operation (angles 0,0,0) MUST be included.<br />
+The symmetries are enforced in two steps: projections related by the
+symmetry operations are added in Fourier space to the volume; in order
+to reduce the residual artifacts, additional real-space symmetrization
+is applied. <br>
+If there are no symmetries, enter symbol "*".]
+<p>
+.RECONSTRUCTED 3-D FILE: VOLUME001<br />
+[Name of the output volume calculated using all input projections specified in
+the selection document file.]
+<p>
+.RECONSTRUCTED FIRST HALF 3-D FILE: VOLUME1001<br />
+[Name of the output volume calculated using first half of randomly
+selected set of input projections.]
+<p>
+.RECONSTRUCTED SECOND HALF 3-D FILE: VOLUME2001<br />
+[Name of the output volume calculated using second hald of randomly
+selected set of input projections.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>5x5x5 Kaiser-Bessel interpolation is used.
+<p>
+<li>Half volumes can be used to evaluate the resolution. The division of
+projection data set is performed in a random manner. Therefore, the two
+half volumes will be different if the command is repeated on the same
+data set.
+<p>
+<li>If you do not have enough memory in your computer to use
+this operation substitute 'BP 3F' instead and invoke it
+three times to create the various output volumes.
+<p>
+<li>Implemented by Paul Penczek.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/bp32f.f">BP32F</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/vtil2.f">VTIL2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

@@ -1,0 +1,115 @@
+<html> 
+<head>
+<title>SPIDER: CP FROM PE (Copy Perkin Elmer disk file to SPIDER format)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>CP FROM PE - Copy Perkin Elmer disk file to SPIDER format</h2>
+<em>(3/09/99)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Converts Perkin Elmer densitometer disk files to SPIDER
+image files. Operation was previously named &quot;TR DISK&quot;.
+</dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: CP FROM PE<br>
+<p>
+<dd>.SCAN INPUT FILE: IMAGE0001<BR>
+<dt>[Enter file name. Each image scanned by the densitometer is
+contained in two files. Both have the name of the
+identification specified in SCANSALOT with 4 digits added to
+it. Example: If the identification was &quot;IMAGE&quot;, then you
+need to have two files: IMAGE0001.IMG and IMAGE0001.HDR in
+the same directory. This program looks up in IMAGE0001.HDR
+to find the file dimensions and the scanning direction. This
+information is then used to convert IMAGE0001.IMG into a
+SPIDER image file.]
+<p>
+<dd>.OUTPUT FILE: SPI001<BR>
+[Enter output file name (use SPIDER conventions).]
+<p>
+.(D)ENSITY, (T)RANSMISSION: D<BR>
+[If image was digitzed in density mode, enter &quot;D" , otherwise
+enter &quot;T" and the program will convert the transmission values
+into densities.]
+<p>
+<dt>If &quot;T" was answered, the system asks:
+<p>
+<dd>.ENTER GAIN FACTOR: 5<BR>
+[Default value is 1. If the micrdensitometer was calibrated
+according to the description in the manual (1988), the gain
+value is 5.]
+<p>
+.REDUCTION FACTOR (0 IF NO RED.): 4<BR>
+[Enter integer reduction factor. The program averages over
+aXa pixels (a=reduction factor). If you do not want to have
+any reduction, enter 1.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>This operation converts only files that were originally
+written onto disk by the PDS software. If file was originally
+written to tape by the PDS software, use 'COPY FROM TR"
+for conversion.
+<p>
+<li>The output file will occupy twice as much disk space as the
+input file.
+<p>
+<li>After scanning if you somehow corrupt your .HDR file you
+can retreive your image by modifying any other .HDR file
+(it is an ASCII file) and substituting the known X and Y
+dimensions. If you do not know the dimensions divide the
+size of the file by 2 and the answer is the product of the
+X and Y dimension. i.e. a 4451 X and 3502 Y will give you
+a file that has the size of 31174804.
+<p>
+<li>File extensions are uppercase: <EM>.HDR<EM> and
+<EM>.IMG<EM>.
+<p>
+<li>The Perkin Elmer header file (&quot;.HDR&quot;) is a standard ASCII
+text file and thus can be printed, edited, etc..
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/copypds.f">COPYPDS</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/copy1.f">COPY1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

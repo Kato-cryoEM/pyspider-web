@@ -1,0 +1,84 @@
+{
+  "id": "basic_crop",
+  "title": "Basic 5 · Window / crop (WI)",
+  "summary": "Pull a sub-window out of an image with the Window node — centred or at an explicit (y, x). SPIDER's WI command.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Crop an image",
+      "body": "Cutting a small box out of a larger image is called a window (SPIDER's `WI`). cryo-EM uses it for particle boxing (post-picking), pixel-size changes via Fourier cropping, and plain field-of-view restriction.\n\nLeave **`center = ON`** to auto-centre the crop — this is what you want for Fourier cropping (FT → Window → IFT), because the FT output has DC at the centre and a corner-anchored crop would shift DC off-centre.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Camera** (a 128×128 image).",
+      "target": { "tutorId": "palette:data.camera", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.camera" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.camera` shows its image before cropping.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.camera" }
+    },
+    {
+      "id": "drop-crop",
+      "title": "Drop the Window node",
+      "body": "From Geometry, drag **Window (crop)** (`geom.crop`).",
+      "target": { "tutorId": "palette:geom.crop", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.crop" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Camera → Window",
+      "body": "Drag from Camera's `image` output to Window's `image` input.",
+      "target": { "tutorId": "node:geom.crop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.camera", "srcPort": "image", "dstNodeType": "geom.crop", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With default sizes you'll see the default crop — a baseline before setting a sensible size.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.crop" }
+    },
+    {
+      "id": "select",
+      "title": "Click Window",
+      "body": "Click Window. The Inspector reveals `center` (ON = auto-centre), `ny` / `nx` (crop size), and — only when `center = OFF` — `y` / `x` (top-left anchor).",
+      "target": { "tutorId": "node:geom.crop", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.crop" }
+    },
+    {
+      "id": "set-ny",
+      "title": "Set ny to 64",
+      "body": "Enter **64** — the vertical crop size.",
+      "target": { "tutorId": "param:ny", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "ny", "value": 64 }
+    },
+    {
+      "id": "set-nx",
+      "title": "Set nx to 64",
+      "body": "Enter **64** — the horizontal crop size. The 128² camera image yields a 64² centred crop.",
+      "target": { "tutorId": "param:nx", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "nx", "value": 64 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. A 64×64 central crop of the camera image appears on the Window node preview.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.crop" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "**Play with it:**\n  - Turn `center` OFF and you can crop from any (y, x) anchor — classic SPIDER WI corner-anchored behaviour, useful when boxing particles from a coordinate file.\n  - Real-space crop (big box → small box) restricts the field of view.\n  - FT → Window (center=ON) → IFT is the Fourier-crop recipe for coarser pixels / lighter compute.",
+      "target": { "tutorId": "node:geom.crop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

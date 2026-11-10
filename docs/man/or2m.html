@@ -1,0 +1,109 @@
+<html> 
+<head>
+<title>SPIDER: OR 2M (ORientation search - 2D, rotation, uses polar coords multiple peaks ||)</title>
+<link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>OR 2M - ORientation search - 2D, rotation, uses polar coords multiple peaks ||</h2>
+<em>(6/04/08)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Determines rotational orientation between two images using
+resampling into polar coordinates. This is the same as:
+'AP REF' or 'AP SH' without the translational search and
+it only acts on a single pair of images.
+Mutliple peaks are found and stored in a document file,
+(See <a href="../align_overview.html">align_overview.html</a>
+for comparison of 'AP' and 'OR' operations.)
+<br> <b> OBSOLETE! USE 'OR R' INSTEAD!</b>
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="orr.html"><strong>OR R</strong></a></td><td> [ORientation search - 2D, rotation, uses polar coords. ||]</td></tr>
+<tr><td><a href="or3a.html"><strong>OR 3A</strong></a></td><td> [ORientation search - 3D, Eulerian angles, arbitrary center ||]</td></tr>
+<tr><td><a href="or3q.html"><strong>OR 3Q</strong></a></td><td> [ORientation search - 3D, Eulerian angles ||]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: OR 2M [peaks]<br />
+<p>
+</dd> <dd>[The optional output parameter [peaks] specify register
+variable to receive the actual number of peaks found.]
+<p>
+.INPUT FILE: UUU001<br />
+[Enter name of the image file.]
+<p>
+.REFERENCE FILE: GGG002<br />
+[Enter the name of the file containing the reference
+image; dimensions must correspond to those of the input
+image.]
+<p>
+.FIRST, LAST RING, &amp; RING STEP: 5,15,1<br />
+[Only rings with the radii in the range 5-15 (in pixel units)
+will be used. If skip=0 or 1 then each ring between 5 and 15 will
+be taken; for skip=2 every second, and so on.]
+<p>
+.(F)ULL OR (H)ALF CIRCLE: F<br />
+[F - full ring (360 degrees) will be used; H - half ring
+(180 degrees) will be used. Option 'H' is appropriate
+for rotational search using autocorrelation functions.]
+<p>
+.NUMBER OF PEAKS: 10<br />
+[Maximum number of peaks to be found. The actual number
+of peaks found is returned in the optional register.]
+<p>
+.DOCUMENT FILE: peaks001<br />
+[Enter the name of the document file. First register column
+contains rotation angles found, second column contains
+corresponding peak values. The entries are sorted according
+to the peak value in a descending order.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Implemented by: Paul Penczek
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/ormd.f">ORMD</a>, <a href="../../src/ormd_p.f">ORMD_P</a>, <a href="../../src/alprbs_q.f">ALPRBS_Q</a>, <a href="../../src/ringwe.f">RINGWE</a>, <a href="../../src/aprings.f">APRINGS</a>, <a href="../../src/normas.f">NORMAS</a>, ALRQ_MS, <a href="../../src/frngs.f">FRNGS</a>, <a href="../../src/applyws.f">APPLYWS</a>, <a href="../../src/crosrng.f">CROSRNG</a>, <a href="../../src/prb1d.f">PRB1D</a>, <a href="../../src/angmor.f">ANGMOR</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util3.f">UTIL3</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

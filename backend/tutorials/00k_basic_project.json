@@ -1,0 +1,105 @@
+{
+  "id": "basic_project",
+  "title": "Basic 11 · Project a 3D structure",
+  "summary": "Generate even Euler angles with VO EA, then project a β-gal volume at each angle with PJ 3Q to produce a projection stack.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try projection",
+      "body": "To anchor the principle of cryo-EM analysis, practise the forward problem: **3D structure → 2D projection at a known viewing direction**.\n\nPipeline:\n  1. Pull the **β-gal** map3d as a 3D structure.\n  2. Generate an even Euler-angle set on the sphere with **VO EA**.\n  3. Feed the volume + the angle set into **PJ 3Q (Project volume)** to get a stack of projections.\n\nThis is the \"ground-truth\" side of real data analysis (whose inverse is particles → angle estimation → 3D reconstruction) — a clean place to observe the principle.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-betagal",
+      "title": "Drop the β-gal node",
+      "body": "From Palette (Data), drag **Test · β-gal**. A β-galactosidase map from the RELION tutorial.",
+      "target": { "tutorId": "palette:data.betagal", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.betagal" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.betagal` emits its default image (an average class).",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.betagal" }
+    },
+    {
+      "id": "select-betagal",
+      "title": "Click β-gal",
+      "body": "Click the β-gal node. The Inspector reveals `variant` / `class_index` / `size`.",
+      "target": { "tutorId": "node:data.betagal", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "data.betagal" }
+    },
+    {
+      "id": "set-variant",
+      "title": "Set variant to map3d",
+      "body": "Change `variant` to **`map3d`** so β-gal emits its 3D density map; the right-hand output port switches to `volume`.",
+      "target": { "tutorId": "param:variant", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "variant", "value": "map3d" }
+    },
+    {
+      "id": "set-size",
+      "title": "Set size to 64",
+      "body": "Change `size` to **64**. A 64³ voxel grid keeps the compute fast (native is 128³); good for a lesson that finishes in seconds.",
+      "target": { "tutorId": "param:size", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "size", "value": 64 }
+    },
+    {
+      "id": "drop-voea",
+      "title": "Drop VO EA (Even Euler angles)",
+      "body": "From Reconstruction, drag **Even Euler angles** (`recon.voea`) — SPIDER's VO EA. It produces a (quasi-) uniform Euler-angle set on the sphere plus `eulers_csv` (phi,theta,psi text) and `num_angles`.",
+      "target": { "tutorId": "palette:recon.voea", "cardSide": "right", "expandPaletteCategory": "Reconstruction" },
+      "action": { "kind": "add_node", "nodeType": "recon.voea" }
+    },
+    {
+      "id": "select-voea",
+      "title": "Click VO EA",
+      "body": "Click VO EA. The Inspector reveals `delta_theta` (angular pitch), `theta_min/max`, `phi_min/max`, and `symmetry`.",
+      "target": { "tutorId": "node:recon.voea", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "recon.voea" }
+    },
+    {
+      "id": "set-delta-theta",
+      "title": "Set delta_theta to 30",
+      "body": "Enter **30** in `delta_theta` — theta pitch is 30°, phi is thinned proportionally to sin(theta). Result: roughly **~30 viewing directions** uniformly spread on the hemisphere (confirm in the `num_angles` output). Smaller values densify the grid (default 15° gives ~80).",
+      "target": { "tutorId": "param:delta_theta", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "delta_theta", "value": 30 }
+    },
+    {
+      "id": "drop-pj3q",
+      "title": "Drop PJ 3Q (Project volume)",
+      "body": "From Reconstruction, drag **Project volume** (`recon.pj3q`) — SPIDER's PJ 3Q. It projects a volume at the given Euler angles and returns the 2D projections as a stack.",
+      "target": { "tutorId": "palette:recon.pj3q", "cardSide": "right", "expandPaletteCategory": "Reconstruction" },
+      "action": { "kind": "add_node", "nodeType": "recon.pj3q" }
+    },
+    {
+      "id": "wire-volume",
+      "title": "Wire β-gal.volume → PJ 3Q.volume",
+      "body": "Drag from β-gal's `volume` output to PJ 3Q's `volume` input — the 3D structure to project.",
+      "target": { "tutorId": "node:recon.pj3q", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.betagal", "srcPort": "volume", "dstNodeType": "recon.pj3q", "dstPort": "volume" }
+    },
+    {
+      "id": "wire-eulers",
+      "title": "Wire VO EA.eulers_csv → PJ 3Q.eulers_csv",
+      "body": "Drag from VO EA's `eulers_csv` output (string port) to the ◇ (wireable marker) on PJ 3Q's `eulers_csv` parameter. Each row's viewing direction drives one projection.\n\nWith PJ 3Q's `batch` = ON (default), the output stack has one projection per row — `num_angles` frames in total.",
+      "target": { "tutorId": "node:recon.pj3q", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "recon.voea", "srcPort": "eulers_csv", "dstNodeType": "recon.pj3q", "dstPort": "eulers_csv" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. β-gal map3d → VO EA builds the angle list; PJ 3Q projects the volume along each direction.\n\nThe PJ 3Q node shows a stack of projections. Sweep through them to see β-gal's shell + central hole from different viewing directions.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "recon.pj3q" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "**Play with it:**\n  - Sweep VO EA's `delta_theta` 15 → 45 — the projection count rises/falls.\n  - Set `symmetry` to `c2` / `d2` — restrict to the asymmetric unit, halving / quartering the angle count (β-gal is actually D2).\n  - Toggle PJ 3Q's `method` between `fourier` and `real` — Fourier is ~20–50× faster at large box.\n  - Turn `batch` OFF and set `phi/theta/psi` manually to get a single projection at a specific direction.\n\nReverse the flow (projection stack + angles → 3D) and you get the back-projection in **Comparison 3 · 3D reconstruction of β-gal**. Once projection is intuitive, that lesson becomes easy to follow.",
+      "target": { "tutorId": "node:recon.pj3q", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

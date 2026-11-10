@@ -1,0 +1,47 @@
+{
+  "id": "particle_picking",
+  "title": "Auto-pick particles from a micrograph",
+  "summary": "A 1024×1024 micrograph with 30 β-galactosidase (RCSB 1JZ8) projections dropped at random orientations and non-overlapping positions on a zero background. Detect them with template-matching: build a template → pad → cross-correlate → threshold.",
+  "prompt": "On the canvas: `micrograph` (1024×1024 synthetic cryo-EM image, 2 Å/px, β-gal projections, noise-free) and `truth_mask` (ground-truth positions). Build a pick-mask that matches `truth_mask`. There are 30 particles in random 3D orientations, laid out without overlap.\n\n**Goal:** mark a node whose output matches `truth_mask` with NCC ≥ 0.5 and submit.",
+  "fixtures": [
+    {
+      "name": "micrograph",
+      "kind": "image",
+      "recipe": {
+        "betagal_micrograph": true,
+        "size": 1024,
+        "n_particles": 30,
+        "apix_A": 2.0,
+        "noise": 0.0,
+        "seed": 42
+      }
+    },
+    {
+      "name": "truth_mask",
+      "kind": "image",
+      "recipe": {
+        "betagal_truth_mask": true,
+        "size": 1024,
+        "n_particles": 30,
+        "apix_A": 2.0,
+        "spot_sigma": 25,
+        "seed": 42
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "data.pt",
+    "data.mo",
+    "data.betagal",
+    "geom.pad",
+    "align.cc",
+    "arith.ar_if",
+    "mask.binarize"
+  ],
+  "answer_port": "image",
+  "compare_to": "truth_mask",
+  "metric": "ncc",
+  "pass_score": 0.5,
+  "hint": "Suggested pipeline (SPIDER style):\n  1. Build a template — pick ONE:\n     a. `data.pt` (pattern=filled_circle, nx=ny=80, x1=y1=40, radius=16–20) for a disk\n     b. `data.mo` (kind=gaussian, radius=16–20) for a soft blob\n     c. `data.betagal` (variant=average, size=64) uses a real β-gal 2D class average — the most accurate choice\n  2. `geom.pad` the template up to 1024×1024 (**pad_type=set, background=0** so you don't inject a DC bias)\n  3. `align.cc` between `micrograph` (a) and the padded template (b), with **log_display=False** for the raw CC\n  4. Threshold with `arith.ar_if` or `mask.binarize` → a mask with 1 at each particle centre\n\nTips:\n  - β-gal is a complex tetramer — no single template will match every orientation perfectly. Peaks still rise at every particle centre; a sensible threshold does the rest.\n  - Particles are synthesised from PDB atomic coordinates onto a zero background, so CC peaks reach the thousands (threshold ~1000–5000 works).\n  - Watch the CC map's max value before choosing a threshold; 2000–3000 is a safe default.\n  - A light `filter.lp` (kind=gauss, fc ≈ 0.1) on the CC map can reduce false positives.",
+  "order": 3
+}

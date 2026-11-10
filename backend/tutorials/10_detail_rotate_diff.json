@@ -1,0 +1,175 @@
+{
+  "id": "detail_rotate_diff",
+  "title": "Comparison 1 · Quantify rotation-interpolation differences",
+  "summary": "Run two Rotates differing only in interpolation (nearest vs linear), subtract the results, and read the min / max / sigma from stats.moments to put numbers on the mismatch.",
+  "category": "Comparison",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Quantify an image difference",
+      "body": "Running two Rotates that differ only in interpolation and eyeballing the previews is intuitive — but you can't say *how much* they differ.\n\nIn this tutorial:\n\n  1. **arith.binop (op=sub)** builds a difference image → one glance shows where the two disagree.\n  2. **stats.moments** reports min / max / mean / sigma on the diff → you can state the discrepancy numerically.\n\nThe diff + stats pattern is the single most common 'behavioural difference' visualisation in image processing — worth adding to your toolkit.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Checkerboard**. Sharp edges maximise interpolation differences, making it the ideal input for this comparison.",
+      "target": { "tutorId": "palette:data.checker", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.checker` shows its image before we start wiring filters.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.checker" }
+    },
+    {
+      "id": "drop-rotate1",
+      "title": "Drop Rotate #1 (for nearest)",
+      "body": "From Geometry, drag **Rotate** — this one will be the nearest side.",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-1",
+      "title": "Wire Checker → Rotate #1",
+      "body": "Drag from Checkerboard's `image` output to Rotate #1's `image` input.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "select-1",
+      "title": "Click Rotate #1",
+      "body": "Click Rotate #1. We'll set `angle_deg` and `interpolation`.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-angle-1",
+      "title": "Set angle_deg to 15",
+      "body": "Enter **15** in `angle_deg`. An off-grid angle forces interpolation on every pixel.",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 15 }
+    },
+    {
+      "id": "set-interp-1",
+      "title": "Set interpolation to nearest",
+      "body": "Change `interpolation` to `nearest`.",
+      "target": { "tutorId": "param:interpolation", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "interpolation", "value": "nearest" }
+    },
+    {
+      "id": "drop-rotate2",
+      "title": "Drop Rotate #2 (for linear)",
+      "body": "Drag another **Rotate**. Place it next to Rotate #1.",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-2",
+      "title": "Wire Checker → Rotate #2",
+      "body": "Drag from the *same* Checkerboard `image` output to the new Rotate #2's `image` input.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.checker", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. `geom.rotate`'s default behaviour becomes a baseline before we tune angle and interpolation.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "select-2",
+      "title": "Click Rotate #2",
+      "body": "Click Rotate #2.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "set-angle-2",
+      "title": "Set angle_deg to 15 (same)",
+      "body": "Enter **15** — same angle as Rotate #1 so the only difference is the interpolation method.",
+      "target": { "tutorId": "param:angle_deg", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "angle_deg", "value": 15 }
+    },
+    {
+      "id": "set-interp-2",
+      "title": "Set interpolation to linear",
+      "body": "Change `interpolation` to `linear`.",
+      "target": { "tutorId": "param:interpolation", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "interpolation", "value": "linear" }
+    },
+    {
+      "id": "drop-binop",
+      "title": "Drop the Arithmetic node",
+      "body": "From Arithmetic, drag **Arithmetic · a ∘ b** (`arith.binop`). It has two inputs (`a`, `b`) and emits the result of the op chosen by the `op` dropdown (add / sub / mul / div).",
+      "target": { "tutorId": "palette:arith.binop", "cardSide": "right", "expandPaletteCategory": "Arithmetic" },
+      "action": { "kind": "add_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "wire-binop-a",
+      "title": "Wire Rotate #1 (nearest) → arith.binop.a",
+      "body": "Drag from Rotate #1's `image` output to `arith.binop.a`.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "a" }
+    },
+    {
+      "id": "wire-binop-b",
+      "title": "Wire Rotate #2 (linear) → arith.binop.b",
+      "body": "Drag from Rotate #2's `image` output to `arith.binop.b`.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "arith.binop", "dstPort": "b" }
+    },
+    {
+      "id": "_run_after_wire_3",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With default `op=add` the result is nearest + linear — a baseline before we flip the op to sub.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "select-binop",
+      "title": "Click arith.binop",
+      "body": "Click arith.binop. Default `op` is `add` — we want the difference, so switch to `sub`.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "arith.binop" }
+    },
+    {
+      "id": "set-op-sub",
+      "title": "Set op to sub",
+      "body": "Change `op` to **`sub`**. Output becomes `a − b = nearest − linear`.",
+      "target": { "tutorId": "param:op", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "op", "value": "sub" }
+    },
+    {
+      "id": "drop-stats",
+      "title": "Drop the Statistics node",
+      "body": "From Statistics, drag **Statistics (FS)**. It summarises the diff image into numbers.",
+      "target": { "tutorId": "palette:stats.moments", "cardSide": "right", "expandPaletteCategory": "Statistics" },
+      "action": { "kind": "add_node", "nodeType": "stats.moments" }
+    },
+    {
+      "id": "wire-stats",
+      "title": "Wire arith.binop.out → Statistics.image",
+      "body": "Drag from arith.binop's `out` output to Statistics' `image` input.",
+      "target": { "tutorId": "node:stats.moments", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "arith.binop", "srcPort": "out", "dstNodeType": "stats.moments", "dstPort": "image" }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. Four nodes execute (Rotate ×2 → arith.binop → Statistics). What to look at:\n\n  • **arith.binop's preview image** — bright/dark bands sit along the checker edges. That's where nearest and linear disagree. Flat regions (pure white / black) have diff ≈ 0 → uniform grey.\n  • **Statistics' numbers** — `min` / `max` give the amplitude of the diff; `sigma` gives the typical mismatch size. Identical interpolation → everything 0; a 15° rotation should produce non-zero values.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "stats.moments" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "The diff-image + stats pattern is a daily tool in real cryo-EM for asking \"how much did my change affect the result?\".\n\n**Play with it:**\n  • Set `angle_deg` to 0 / 45 / 90 — integer-friendly angles shrink the diff (nearest ≈ linear), half-pixel angles maximise it.\n  • Swap input to Siemens Star / Noise — edge-rich images blow up the sigma (= interpolation effects live at high frequency).\n  • Switch one Rotate's `interpolation` to `cubic` / `quintic` to compare cubic vs linear.\n  • Flip arith.binop's `op` to `div` for a ratio image, `mul` for masked diff — four ops from the same node.",
+      "target": { "tutorId": "node:arith.binop", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

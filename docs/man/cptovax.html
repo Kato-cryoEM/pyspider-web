@@ -1,0 +1,208 @@
+<HTML><HEAD>
+<TITLE>SPIDER: CP TO VAX (CoPy SPIDER Unix file to Vax SPIDER format)</TITLE>
+<!-- Begin Scripts -->
+<SCRIPT LANGUAGE = "JavaScript">
+<!--  Hide script from old browsers
+   browserName = navigator.appName;   // detect browser 
+   browserVer  = parseInt(navigator.appVersion);
+   if (browserName == "Netscape" && browserVer >= 3)
+      version = "n3";
+   else
+      version = "n2";
+             
+   if (version == "n3")
+      {         // if Netscape 3, then preload images 
+      smallspideron     = new Image();         
+      smallspideron.src = "../buttons/smallspideron.gif";  
+      tipson            = new Image();
+      tipson.src        = "../buttons/tipson.gif";
+      newon             = new Image();
+      newon.src         = "../buttons/newon.gif";
+      helpon            = new Image();
+      helpon.src        = "../buttons/helpon.gif";
+      workon            = new Image();
+      workon.src        = "../buttons/workon.gif";	
+      menuon            = new Image();         
+      menuon.src        = "../buttons/menuon.gif";  
+      warningon         = new Image();
+      warningon.src     = "../buttons/warningon.gif";
+      installon         = new Image();
+      installon.src     = "../buttons/installon.gif";
+      wwwon             = new Image();
+      wwwon.src         = "../buttons/wwwon.gif";
+      indexon           = new Image();
+      indexon.src       = "../buttons/indexon.gif";
+      webon             = new Image();
+      webon.src         = "../buttons/webon.gif";
+	    
+      smallspideroff    = new Image();         // preload eleven images activated 
+      smallspideroff.src = "../buttons/smallspider.gif";  // when mouse moves off menu 
+      newoff            = new Image();
+      newoff.src        = "../buttons/new.gif";
+      tipsoff           = new Image();
+      tipsoff.src       = "../buttons/tips.gif";
+      helpoff           = new Image();
+      helpoff.src       = "../buttons/help.gif";
+      workoff           = new Image();
+      workoff.src       = "../buttons/work.gif";
+      menuoff           = new Image();         
+      menuoff.src       = "../buttons/menu.gif"; 
+      warningoff        = new Image();
+      warningoff.src    = "../buttons/warning.gif";
+      installoff        = new Image();
+      installoff.src    = "../buttons/install.gif";
+      wwwoff            = new Image();
+      wwwoff.src        = "../buttons/www.gif";
+      indexoff          = new Image();
+      indexoff.src      = "../buttons/index.gif";
+      weboff            = new Image();
+      weboff.src        = "../buttons/web.gif";           
+      }
+
+   function img_act(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOn = eval(imgName + "on.src");
+         document [imgName].src = imgOn;
+         }
+      }
+
+   function img_inact(imgName)
+      {
+      if (version == "n3")
+         {
+         imgOff = eval(imgName + "off.src");
+         document [imgName].src = imgOff;
+         }
+      }
+
+// end hiding from old browser -->
+</SCRIPT>
+
+<!-- End Scripts -->
+<BODY>
+<!-- Begin Buttons -->
+<A HREF="../master.html"   
+ onMouseover = "img_act('smallspider')"  onMouseout = "img_inact('smallspider')">            
+<IMG NAME="smallspider"  WIDTH="40" HEIGHT="40" ALT="HOME"  SRC="./buttons/smallspider.gif"></A>
+<A HREF="../user_doc.html" 
+ onMouseover = "img_act('work')" onMouseout = "img_inact('work')">          
+<IMG NAME="work" WIDTH="40" HEIGHT="40" ALT="GUIDE"          SRC="./buttons/work.gif" ></A>
+<A HREF="../operations_doc.html" 
+ onMouseover = "img_act('index')" onMouseout = "img_inact('index')">   
+<IMG  WIDTH="40"  NAME="index"  HEIGHT="40" ALT="OPERATIONS"    SRC="./buttons/index.gif"></A>
+<A HREF="../documents.html" 
+ onMouseover = "img_act('help')" onMouseout = "img_inact('help')">        
+<IMG WIDTH="40"   NAME="help"  HEIGHT="40" ALT="DOCS"       SRC="./buttons/help.gif"></A>
+<A HREF="../errors.html" 
+ onMouseover = "img_act('warning')"  onMouseout = "img_inact('warning')">            
+<IMG  NAME="warning"  WIDTH="40" HEIGHT="40" ALT="ERRORS"   SRC="./buttons/warning.gif"></A>
+<A HREF="../formats.html" 
+ onMouseover = "img_act('menu')" onMouseout = "img_inact('menu')">           
+<IMG  NAME="menu" WIDTH="40" HEIGHT="40" ALT="FORMATS"      SRC="./buttons/menu.gif" ></A>
+<A HREF="../installation.html" 
+ onMouseover = "img_act('install')" onMouseout = "img_inact('install')">      
+<IMG  NAME="install"  WIDTH="40" HEIGHT="40" ALT="INSTALL"  SRC="./buttons/install.gif" ></A>
+<A HREF="../release.html" 
+ onMouseover = "img_act('new')"
+ onMouseout = "img_inact('new')">           
+<IMG  NAME="new" WIDTH="40" HEIGHT="40" ALT="NEW"     SRC="./buttons/new.gif" ></A>
+<A HREF="../tips/index.html" 
+ onMouseover = "img_act('tips')" onMouseout = "img_inact('tips')">        
+<IMG  NAME="tips"  WIDTH="40" HEIGHT="40" ALT="TIPS"  SRC="./buttons/tips.gif" ></A>
+<A HREF="../../../web/docs/web.html" 
+ onMouseover = "img_act('web')" onMouseout = "img_inact('web')">
+<IMG  NAME="web" WIDTH="40" HEIGHT="40" ALT="WEB"     SRC="./buttons/web.gif" ></A>
+<A HREF="../sites.html" 
+ onMouseover = "img_act('www')" onMouseout = "img_inact('www')">             
+<IMG  NAME="www" WIDTH="40" HEIGHT="40" ALT="SITES"   SRC="./buttons/www.gif" ></A>
+<BR><HR>
+<!-- End Buttons -->
+<H2>CP TO VAX - CoPy SPIDER Unix file to Vax SPIDER format</H2>
+<EM>(12/28/93)</EM><BR>
+<P>
+<DL><DT><STRONG>PURPOSE</STRONG>
+<P>
+<DD>Copies a Unix Spider file to a VAX SPIDER file.
+The conversion involves the formation of a temporary FDL
+file and a temporary data file which are deleted. This
+routine only works on VAX/VMS
+</DL>
+<P>
+<DL><DT><STRONG>SEE ALSO</STRONG>
+<P>
+<DD><A HREF="cpfromascii.html"><STRONG>CP FROM ASCII</STRONG></A> [CoPy FROM ASCII text file to Spider file]<BR>
+<A HREF="cpfrommrc.html"><STRONG>CP FROM MRC</STRONG></A> [CoPy FROM MRC file to Spider files]<BR>
+<A HREF="cpfromnt.html"><STRONG>CP FROM NT</STRONG></A> [CoPy FROM NT file to Spider files]<BR>
+<A HREF="cpfrompdb.html"><STRONG>CP FROM PDB</STRONG></A> [CoPy FROM PDB file to Spider file]<BR>
+<A HREF="cpfrompe.html"><STRONG>CP FROM PE</STRONG></A> [CoPy FROM Perkin Elmer file to Spider file]<BR>
+<A HREF="cpfromraw.html"><STRONG>CP FROM RAW</STRONG></A> [CoPy FROM RAW image to Spider file]<BR>
+<A HREF="cpfromsf3.html"><STRONG>CP FROM SF3</STRONG></A> [CoPy FROM Simple file to 3D Fourier file]<BR>
+<A HREF="cpfromshort.html"><STRONG>CP FROM SHORT</STRONG></A> [CoPy FROM SHORT-label file to Spider standard file]<BR>
+<A HREF="cpfromterm.html"><STRONG>CP FROM TERM</STRONG></A> [CoPy FROM TERMinal to Spider file]<BR>
+<A HREF="cpfromvax.html"><STRONG>CP FROM VAX</STRONG></A> [CoPy FROM VAX to Unix file]<BR>
+<A HREF="cptoascii.html"><STRONG>CP TO ASCII</STRONG></A> [CoPy TO ASCII text file from Spider file]<BR>
+<A HREF="cptobrix.html"><STRONG>CP TO BRIX</STRONG></A> [CoPy TO BRIX input file from Spider file]<BR>
+<A HREF="cptomrc.html"><STRONG>CP TO MRC</STRONG></A> [CoPy TO MRC file from Spider file]<BR>
+<A HREF="cptont.html"><STRONG>CP TO NT</STRONG></A> [CoPy TO NT file from Spider file]<BR>
+<A HREF="cptopost.html"><STRONG>CP TO POST</STRONG></A> [CoPy TO POSTscript format from Spider file]<BR>
+<A HREF="cptoraw.html"><STRONG>CP TO RAW</STRONG></A> [CoPy TO RAW 8-bit Unix file from Spider file]<BR>
+<A HREF="cptosf3.html"><STRONG>CP TO SF3</STRONG></A> [CoPy TO simple format from 3D Spider Fourier file]<BR>
+<A HREF="cptosgi.html"><STRONG>CP TO SGI</STRONG></A> [CoPy TO SGI format from Spider file]<BR>
+<A HREF="cptotarga.html"><STRONG>CP TO TARGA</STRONG></A> [CoPy TO TARGA format file from Spider file]<BR>
+<A HREF="cptotiff.html"><STRONG>CP TO TIFF</STRONG></A> [CoPy TO TIFF file from Spider file]<BR>
+<A HREF="cptovax.html"><STRONG>CP TO VAX</STRONG></A> [CoPy TO VAX file from Unix file]<BR>
+<A HREF="cptovv.html"><STRONG>CP TO VV</STRONG></A> [CoPy TO Voxel_View files from Spider Unix 3D volume]<BR>
+</DL>
+<P>
+<DL><DT><STRONG>USAGE</STRONG>
+<P>
+<DD>.OPERATION: CP TO VAX<BR>
+<P>
+<DD>.IS THE INPUT FILE A UNIX 8-BIT FILE(Y/N or &lt;CR&gt;)?:Y<BR>
+<P>
+<DT>IF 'Y':
+<DD><BR>.UNIX DUMPED DATA FILE: UNX001<BR>
+[Enter the UNIX 8-bit filename]
+<P>
+.NEW VAX DATA FILE: VAX<BR>
+[Enter the file that will contain the copy.]
+<P>
+.ENTER NSAM AND NROW: 64 64<BR>
+<BR>.ENTER NSLICE: 64<BR>
+[Enter the volume size]
+<P>
+.NORMALIZED THE OUTPUT TO 0-255(Y/N or &lt;CR&gt;)?: Y<BR>
+[If 'Yes', the output file will be normalized over 0..255.]
+<P>
+<DT>Otherwise,
+<DD><BR>.UNIX SPIDER DATA FILE: UNX001<BR>
+[Enter the name of the picture to be converted.]
+<P>
+.NEW VAX DATA FILE: VAX<BR>
+[Enter the file that will contain the copy.]
+<P>
+</DL>
+<P>
+<STRONG>NOTES</STRONG>
+<OL>
+<P>
+<LI>Implemented by: ArDean Leith
+</OL>
+<P>
+<DL><DT><STRONG>SUBROUTINES</STRONG>
+<P>
+<DD>COPYVAX, GETDUMP, GETUNX, UNIX32</DL>
+<P>
+<DL><DT><STRONG>CALLER</STRONG>
+<P>
+<DD><A HREF="../../src/copy1.f">COPY1</A> 
+</DL>
+<!-- Begin Trailer -->
+<HR> <SMALL><ADDRESS>&copy; <A HREF="../copyright.html"> 
+   Copyright Notice</A> /  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <A HREF= "mailto:spider@wadsworth.org">spider@wadsworth.org</A> </ADDRESS></SMALL></A>
+<!-- End Trailer -->
+</BODY>
+</HTML>

@@ -1,0 +1,235 @@
+/* Challenge mode — picker modal + active side panel.
+   Reuses variables declared globally; mirrors the tutorial-picker visual
+   language (dark card, accent border) but with an amber accent to tell the
+   two modes apart at a glance. */
+
+:root {
+  --challenge-accent: #e4a94b;
+  --challenge-accent-dim: rgba(228, 169, 75, 0.25);
+}
+
+/* ---- picker ------------------------------------------------------------ */
+
+.challenge-picker-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9500;
+  display: flex; align-items: center; justify-content: center;
+}
+.challenge-picker {
+  background: #16161c; color: var(--text);
+  border: 1px solid var(--challenge-accent);
+  border-radius: 10px;
+  padding: 20px 20px 16px 20px;
+  min-width: 420px; max-width: 560px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  font-size: 13px; line-height: 1.5;
+}
+.challenge-picker-title {
+  font-weight: 700; font-size: 15px;
+  color: var(--challenge-accent);
+  margin-bottom: 8px;
+}
+.challenge-picker-item {
+  display: block; width: 100%;
+  text-align: left;
+  background: #1b1b22;
+  color: var(--text);
+  border: 1px solid #2a2a35;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 6px 0;
+  cursor: pointer;
+  font: inherit;
+}
+.challenge-picker-item:hover {
+  background: #22222c;
+  border-color: var(--challenge-accent);
+}
+.challenge-picker-item-title {
+  font-weight: 600; margin-bottom: 2px;
+}
+.challenge-picker-item-summary {
+  color: var(--muted); font-size: 12px;
+}
+.challenge-picker-item.is-cleared {
+  border-color: rgba(100, 200, 120, 0.55);
+  background: rgba(60, 120, 70, 0.10);
+}
+.challenge-picker-item.is-cleared:hover {
+  border-color: rgba(100, 220, 130, 0.85);
+}
+.challenge-cleared-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: #74e394;
+  background: rgba(100, 200, 120, 0.15);
+  border: 1px solid rgba(100, 200, 120, 0.45);
+  border-radius: 3px;
+  vertical-align: 1px;
+}
+.challenge-picker-more {
+  margin: 8px 2px;
+  padding: 8px 10px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  border: 1px dashed #333;
+  border-radius: 4px;
+}
+.challenge-picker-close {
+  display: block;
+  margin: 12px auto 0 auto;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid #2a2a35;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.challenge-picker-close:hover { color: var(--text); border-color: var(--muted); }
+
+/* ---- active side panel ------------------------------------------------ */
+
+.challenge-panel {
+  /* Pinned to the top-right of the canvas area, clear of the Inspector
+     (300px) on the right so its dropdowns stay fully clickable, and below
+     the 40px topbar. */
+  position: fixed;
+  top: 56px; right: 316px;
+  width: 300px;
+  max-height: calc(100vh - 72px);
+  overflow-y: auto;
+  z-index: 9400;
+
+  background: #16161c; color: var(--text);
+  border: 1px solid var(--challenge-accent);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px; line-height: 1.5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+.challenge-panel h2 {
+  font-size: 14px;
+  color: var(--challenge-accent);
+  margin: 0 0 6px 0;
+}
+.challenge-prompt {
+  white-space: pre-wrap;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.challenge-fixtures {
+  display: flex; gap: 8px; margin: 8px 0;
+}
+.challenge-fixtures figure {
+  margin: 0; flex: 1;
+  text-align: center;
+}
+.challenge-fixtures img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: contain;
+  background: #000; border: 1px solid #2a2a35; border-radius: 4px;
+}
+.challenge-fixtures figcaption {
+  font-size: 11px; color: var(--muted); margin-top: 3px;
+}
+.challenge-hint {
+  margin-top: 8px; font-size: 12px;
+  color: var(--muted);
+  border-top: 1px dashed #2a2a35;
+  padding-top: 8px;
+  white-space: pre-wrap;
+}
+.challenge-actions {
+  display: flex; gap: 6px; margin-top: 10px;
+}
+.challenge-actions button {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #2a2a35;
+  background: #1b1b22;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+}
+.challenge-actions button.primary {
+  background: var(--challenge-accent);
+  color: #16161c;
+  font-weight: 700;
+  border-color: var(--challenge-accent);
+}
+.challenge-actions button.primary:hover { filter: brightness(1.1); }
+.challenge-actions button:disabled {
+  cursor: not-allowed; opacity: 0.55;
+}
+.challenge-result {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+}
+.challenge-result.pass {
+  background: rgba(80, 180, 110, 0.2);
+  color: #8fe3a7;
+  border: 1px solid rgba(80, 180, 110, 0.5);
+}
+.challenge-result.fail {
+  background: rgba(220, 110, 110, 0.15);
+  color: #f1a0a0;
+  border: 1px solid rgba(220, 110, 110, 0.4);
+}
+.challenge-result-score { font-size: 11px; font-weight: 400; margin-top: 3px; color: var(--muted); }
+.challenge-error {
+  margin-top: 10px;
+  color: #f1a0a0;
+  font-size: 12px;
+}
+.challenge-allowed-nodes {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.challenge-allowed-nodes code {
+  background: #22222c;
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin: 0 2px;
+}
+
+/* ---------- fixture-generation loading overlay ---------- */
+.challenge-loading-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(2px);
+}
+.challenge-loading-card {
+  background: #1e1e26;
+  border: 1px solid var(--challenge-accent, #4a7eff);
+  border-radius: 10px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  min-width: 280px;
+}
+.challenge-loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #2a2a35;
+  border-top-color: var(--challenge-accent, #4a7eff);
+  border-radius: 50%;
+  animation: challenge-spin 0.9s linear infinite;
+}
+@keyframes challenge-spin { to { transform: rotate(360deg); } }
+.challenge-loading-text { font-weight: 600; color: #e8e8ef; font-size: 15px; }
+.challenge-loading-sub  { color: var(--muted, #9a9aa0); font-size: 12px; text-align: center; }

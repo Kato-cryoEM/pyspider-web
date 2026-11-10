@@ -1,0 +1,191 @@
+<html> 
+<head>
+<title>SPIDER: AP CA (Alignment - Classification and Alignment)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>AP CA - Alignment - Classification and Alignment</h2>
+<em>(09/12/06)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Rotationally aligns the image series and at the same time
+classifies the images into K groups.
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="apcm.html"><strong>AP CM</strong></a></td><td> [Alignment - Classification and Alignment]</td></tr>
+<tr><td><a href="apsh.html"><strong>AP SH</strong></a></td><td> [Alignment - multi-reference, exhaustive rotation & shift ||*]</td></tr>
+<tr><td><a href="apref.html"><strong>AP REF</strong></a></td><td> [Alignment - multi-reference, rotation & shift ||*]</td></tr>
+<tr><td><a href="apsa.html"><strong>AP SA</strong></a></td><td> [Alignment - Shift ||]</td></tr>
+<tr><td><a href="apsr.html"><strong>AP SR</strong></a></td><td> [Alignment - reference free, Shift & Rotation ||]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: AP CA<br>
+<p>
+<dd>.ENTER TEMPLATE FOR 2-D IMAGE NAME FILE: UKN***<BR>
+[Give the name of any of the existing files from the series
+to be aligned]
+<p>
+.ENTER FILE NUMBERS OR SELECTION DOC. FILE NAME: 1-700 OR IMAGES127<BR>
+[Enter projection file numbers or the name of the document file
+containing projection file numbers in the first column.]
+<p>
+.FIRST AND LAST RING: 5,15<BR>
+[Only rings 5 to 15 will be analyzed]
+<p>
+.SKIP: 1<BR>
+[If skip=0 or 1, then each ring between 5 and 15 will be taken;
+for skip=2 every second ring, etc.]
+<p>
+.FULL OR HALF: H<BR>
+[Full - full ring treated (real data); Half - half ring
+treated (autocorrelation function).]
+<p>
+.NORMALIZE UNDER THE MASK (Y/N): Y<BR>
+[For Y, input rings are normalized to compensate for the negative
+stain effect.]
+<p>
+.NUMBER OF GROUPS, NUMBER OF ITERATIONS: 5,30<BR>
+[Number of groups the images will be divided into and upper limit of
+iterations permitted (to avoid infinite loop in the case of lack of
+convergence)]
+<p>
+.SELECTION FILE NAME: select***<BR>
+<dt>[Enter the name of the document of files where all the objects belonging
+<dd>to the same cluster will be stored.]
+<p>
+.DOCUMENT FILE NAME: apca001<BR>
+[Documents files with classification results. It contains 4 columns:
+<pre>
+1.File number 2.Rot. angle 3.Distance 4.Group number
+Real number Note that From the Results of
+to handle sign of angle total classification
+gaps in file should NOT be average.
+series. reversed in
+formaation of
+average. ]
+</pre>
+<p>
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Please note that all the parameters produced by this operation,
+namely, rotation and/or shift parameters -- are given with
+the proper signs. This means that to rotate and/or shift the images
+afterwards, these parameters should be applied directly (without
+sign reversal). To combine parameters given by repeated
+alignments, the 'SA P' command must be used. Only the angle signs
+used for 3-D reconstruction from tilted series need to be reversed.
+<p>
+<li>For details see Appendix in: P.A.Penczek, J.Zhu, J.Frank.
+A common-lines based method for determining orientations
+for N&gt;3 particle projections simultaneously.
+Ultramicroscopy, 63 (1996) 205-218.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/hali.f">HALI</a>, <a href="../../src/hali_p.f">HALI_P</a>, <a href="../../src/normas.f">NORMAS</a>, <a href="../../src/alrq.f">ALRQ</a>, <a href="../../src/fouring.f">FOURING</a>, <a href="../../src/crosrng.f">CROSRNG</a>, <a href="../../src/updtc.f">UPDTC</a>, <a href="../../src/ener.f">ENER</a>, <a href="../../src/seeds.f">SEEDS</a>, <a href="../../src/hkmc.f">HKMC</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util4.f">UTIL4</a> 
+</dl>
+<pre><pre>
+Example of the SPIDER procedure using 'AP CA'.
+
+; b22.apc
+; Rotate particles and calculate group averages
+
+; number of particles
+X92=338
+
+; Number of groups
+X91=3
+
+X30 = 1 ; scale factor
+
+AP CA
+rts/pur***
+1-x92
+5,14
+0
+F
+Y
+X91,50
+clas/select***
+clas/apca001
+
+DO LB1 I=1,X92
+   UD IC, X0,X21, X22,X23,X24
+   clas/apca001
+
+   ; Rotate particles
+   ; rts/pur - input image series, rts/apc - rotated images
+   RT SQ
+   rts/pur{***X0}
+   rts/apc{***X0}
+   X22,x30
+   (0,0)
+LB1
+
+; Calculate the average for each goup (only if there are more than 2 particles)
+
+DO LB4 X71=1,X91
+   ; Check whether the file exists
+   IQ FI,X72
+   clas/select{***X71}
+   IF(X72.EQ.0.0) GOTO LB4
+
+   ; Get number of images in this group
+   UD N,X72
+   clas/select{***X71}
+   IF(X72.LE.2) GOTO LB4
+
+   AS DC
+   rts/apc***
+   clas/select{***X71}
+   A
+   clas/avg{***X71}
+   clas/var{***X71}
+LB4
+
+EN
+</pre>
+</pre>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

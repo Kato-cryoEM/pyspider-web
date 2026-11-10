@@ -1,0 +1,115 @@
+<html> 
+<head>
+<title>SPIDER: RM 2DN (Radon Transform - 2D)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM 2DN - Radon Transform - 2D</h2>
+<em>(12/99)</em><br />
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Computes the Radon transform of a two-dimensional image.
+(New format)
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmcompln.html"><strong>RM COMPLN</strong></a></td><td> [Radon Transform - 2D, Complete]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+<tr><td><a href="rmftinvn.html"><strong>RM FTINVN</strong></a></td><td> [Radon Transform - Inverse Fourier transform]</td></tr>
+<tr><td><a href="rmsum3n.html"><strong>RM SUM3N</strong></a></td><td> [Radon Transform - Sum/average 2D Into 3D Fourier Radon transform]</td></tr>
+<tr><td><a href="rmmake3.html"><strong>RM MAKE3</strong></a></td><td> [Radon Transform - Create blank 3D Radon (or Polar Fourier) Transf.]</td></tr>
+<tr><td><a href="rminv2n.html"><strong>RM INV2N</strong></a></td><td> [Radon Transform - Computes inverse (Fourier-)Radon transform]</td></tr>
+<tr><td><a href="rminv3n.html"><strong>RM INV3N</strong></a></td><td> [Radon Transform - Computes inverse 3D (Fourier-)Radon transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM 2DN<br />
+<p>
+<dd>.INPUT FILE: IMAGE001<br />
+[Enter name of two-dimensional image]
+<p>
+.IN INCREMENTS OF: 5<br />
+[Enter angular sampling of Radon transform. The range and
+increment is stored in the file header of the output file
+in positions 54,55 and 56]
+<p>
+.OUTPUT FILE: RAD001<br />
+[Enter name of output file]
+<p>
+.X-DIMENSION OF OUTPUT: 40<br />
+[Enter the line dimension of the Radon transform]
+<p>
+.RADIUS OF CIRCULAR MASK:20<br />
+[Enter mask radius. Only image values within this mask
+are used in the calculation of the Radon transform]
+<p>
+.CENTER OFFSET: 0,0<br />
+[The rotation center for the calculation of the Radon
+transform is NX/2+1, NY/2+1, but can be shifted
+by entering an offset]
+<p>
+.(A)VERAGE THRESHOLD,(T)HRESHOLD/(L)IFT/(N)ONE:<br />
+[Enter option: A: subtracts average and then sets
+all negative values to 0. T: applies thresholds,
+L: subtracts minmum from image, N: no changes of
+input image ]
+<p>
+If "T" is answered:
+<br />.UPPER, LOWER THRESHOLD: -0.1,0.4<br />
+[The image is thresholded below -0.5 and above 0.4 before
+calculation of the 1D projections.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>For more details see: M.Radermacher, Ultramicroscopy 53, 1994,
+121-136
+<p>
+<li>DEVELOPED BY: M.Radermacher
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/rad2calln.f">RAD2CALLN</a>, <a href="../../src/radon2en.f">RADON2EN</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

@@ -1,0 +1,76 @@
+<html> 
+<head>
+<title>SPIDER: PDB CG3 (PDB - Calculate center of gravity)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PDB CG3 - PDB - Calculate center of gravity</h2>
+<em>(9/16/06)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>To determine coordinates of gravity center of atomic
+coordinates in a PDB file.
+</dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PDB CG3 X11,X12,X13,X14,X15,X16,X17<br>
+<dd>[X11-X13 will receive center of gravity coordinates in PDB
+<dt>cordinate system. X14-X16 will receive center of gravity
+coordinates in SPIDER coordinate system with unit
+<dd>of Angstrom. X17 will receive the total number of counted
+<dt>atoms. Also, the centers of gravity in both coordinate system
+<dd>are printed out. ]
+<p>
+.INPUT FILE: aaa.pdb<BR>
+[Enter the name of the PDB file with extension.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The coordinates should be divided by pixel size
+if the coordinates are expected in the unit of pixel.
+<p>
+<li>Implemented by Zhong Huang, Pawel A. Penzcek.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd>PDBCG3</dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/pdb.f">PDB</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html> 
+<head>
+<title>SPIDER: PDB RT3L (PDB - Rotate PDB file around line)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>PDB RT3L - PDB - Rotate PDB file around line</h2>
+<em>(9/16/06)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Rotate PDB file around a line defined
+by two given points in 3D space.
+</dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: PDB RT3L<br>
+<p>
+<dd>.INPUT FILE: input.pdb<BR>
+[Enter the name of the PDB file to be rotated with extension.]
+<p>
+.OUTPUT FILE: output.pdb<BR>
+[Enter the name of the output PDB file with extension.]
+<p>
+.PHI: 100<BR>
+[Enter rotation angles in degrees.]
+<p>
+.X1, Y1, Z1: 100, 200, 300<BR>
+<dt>[Enter the first given point (Angstrom) in SPIDER coordinate system.]
+<p>
+<dd>.X2, Y2, Z2: 20, 30, 40<BR>
+<dt>[Enter the second given point (Angstrom) in SPIDER coordinate system.]
+<p>
+</dl>
+<P>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>The operation does not change the format of the PDB file.
+<p>
+<li>Implemented by Zhong Huang, Pawel A. Penzcek.
+</ol>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/pdb.f">PDB</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/pdb.f">PDB</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

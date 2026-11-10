@@ -1,0 +1,83 @@
+<html> 
+<head>
+<title>SPIDER: SR (Save/unsave Registers)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>SR - Save/unsave Registers</h2>
+<em>(4/22/97)</em><br>
+<P>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Allows the user to save or unsave the values of the
+registers during a session. (For saving register values
+permanently to a document file, use 'SD').
+</dl>
+<P>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="sd.html"><strong>SD</strong></a></td><td> [Save Document]</td></tr>
+</table></dl>
+<P>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: SR<br>
+<p>
+<dd>.(S)AVE OR (U)NSAVE: S<BR>
+[Registers X0-X99 will then be saved.]
+<p>
+[This operation is useful if it is desired to change the
+values of the registers, during a SPIDER session, without
+losing the old values. For example]:
+<p>
+X12=5 <BR>
+SR <BR>
+<BR>.(S)AVE OR (U)NSAVE: S <BR><BR>
+X12=6 <BR>
+<BR>. <BR><BR>
+<BR>. <BR><BR>
+<BR>. <BR><BR>
+SR <BR>
+<BR>.(S)AVE OR (U)NSAVE: U <BR><BR>
+<p>
+[X12 will now contain the value 5.]
+<p>
+</dl>
+<P>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/driv1.f">DRIV1</a></dl>
+<P>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/driv1.f">DRIV1</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

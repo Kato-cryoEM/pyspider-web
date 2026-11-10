@@ -1,0 +1,48 @@
+{
+  "id": "iterative_class_average",
+  "title": "Recover a clean average from a noisy stack",
+  "summary": "100 particles with random in-plane rotation + small shift + heavy noise. Iteratively align + average in a DO loop to build a class average close to the clean reference.",
+  "prompt": "On the canvas:\n  - `rotated_stack` (100 frames, each a clean particle rotated in [0°, 360°) + small shift + heavy Gaussian noise)\nis provided. Individual frames are barely readable. Produce a clean class average and submit.\n\nThe 🔒 `clean_reference` on the upper right is the judge target (= the expected class average). It's shown as a preview but is NOT available on the graph.\n\n**Goal:** rotation-invariant NCC ≥ 0.85 with `clean_reference`.\n\nIterations are up to you (10–15 typically stabilise). 1–2 iterations will not pass — watch the result improve with each pass. Orientation is free (the judge is rotation-invariant).",
+  "fixtures": [
+    {
+      "name": "clean_reference",
+      "kind": "image",
+      "judge_only": true,
+      "recipe": {
+        "ica_clean": true,
+        "size": 128,
+        "seed": 42,
+        "n_frames": 100,
+        "shift_sigma": 4.0,
+        "noise_sigma": 0.9,
+        "target_iters": 15,
+        "target_last_ring": 40
+      }
+    },
+    {
+      "name": "rotated_stack",
+      "kind": "image",
+      "recipe": {
+        "ica_stack": true,
+        "size": 128,
+        "seed": 42,
+        "n_frames": 100,
+        "shift_sigma": 4.0,
+        "noise_sigma": 0.9
+      }
+    }
+  ],
+  "allowed_nodes": [
+    "flow.do",
+    "flow.state",
+    "align.ap",
+    "stack.apply_align",
+    "stack.mean"
+  ],
+  "answer_port": "image",
+  "compare_to": "clean_reference",
+  "metric": "rot_ncc",
+  "pass_score": 0.85,
+  "hint": "Suggested pipeline (SPIDER 3-stage + DO-loop iteration):\n\n  rotated_stack → stack.mean → initial reference → flow.state.initial\n\n  ┌──[ flow.do(start=0, end=10, step=1) ]────────────────────────────┐\n  │  rotated_stack ─┐                                                │\n  │                 ├── align.ap(stack, references) → eulers_csv    │ (angles only; untouched stack)\n  │  state.value_out┘                                                │\n  │                                                                  │\n  │  rotated_stack ──┐                                               │\n  │                  ├── stack.apply_align → aligned_stack          │\n  │  eulers_csv ─────┘                                               │\n  │                     ↓                                            │\n  │             stack.mean → new reference ──→ state.value_in       │\n  └──────────────────────────────────────────────────────────────────┘\n\n  state.value_out → Submit\n\nThree stages:\n  (1) `align.ap` (with a single-ref) computes per-frame (angle, dy, dx, mirror) and outputs them as `eulers_csv`. Classic SPIDER 'AP SH computes angles only' behaviour.\n  (2) `stack.apply_align` applies `eulers_csv` to `rotated_stack` → aligned stack (= SPIDER RT SQ).\n  (3) `stack.mean` averages the aligned stack → new reference (= SPIDER AS R).\n\n`flow.state` loopback:\n  - `flow.state.initial` = initial reference (raw `stack.mean`)\n  - `flow.state.value_out` = current reference (fed into `align.ap`)\n  - `flow.state.value_in` = next-iteration reference (= the averaged image)\n\nTips:\n  - `last_ring` 40–50 (near the particle radius) so the outline participates.\n  - Judging is rotation-invariant, so any converged orientation is fine.\n  - ~10 iterations are enough for convergence.",
+  "order": 7
+}

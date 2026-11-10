@@ -1,0 +1,104 @@
+<html> 
+<head>
+<title>SPIDER: WT TV (Lattice Indexing - create filter file)</title>
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"            id="spider">    </a></td>
+<td><a href="../user_doc.html"          id="work">      </a></td>
+<td><a href="../operations_doc.html"    id="index">     </a></td>
+<td><a href="../documents.html"         id="help">      </a></td>
+<td><a href="../faq.html"               id="faq">       </a></td>
+<td><a href="../documents.html#2D"      id="techs">     </a></td>
+<td><a href="../techs/recon/mr.html"    id="recon">     </a></td>
+<td><a href="../formats.html"           id="menu">      </a></td>
+<td><a href="../installation.html"      id="install">   </a></td>
+<td><a href="../release.html"           id="new">       </a></td>
+<td><a href="../tips/index.html"        id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"  id="web">       </a></td>
+<td><a href="http://www.wadsworth.org" id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>WT TV - Lattice Indexing - create filter file</h2>
+<em>(8/10/95)</em><br>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>1. Automatic indexing of reciprocal lattice from 2 or
+more reflections. <br />
+2. Creation of a filter file for quasi-optical
+crystal-line Fourier filtration.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="wt.html"><strong>WT</strong></a></td><td> [Lattice indexing]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong>
+<p>
+<dd>.OPERATION: WT TV<br>
+<p>
+<dd>.POWER SPECTRUM FILE: POW001<BR>
+[Enter the name of the power spectrum file.]
+<p>
+.FOURIER FILE: FOU001<BR>
+[Enter the name of the Fourier file.]
+<p>
+.REFLECTIONS DOC. FILE: DOC001<BR>
+[Enter the name of the Document file containing the
+reflection indicies and locations. This file can
+be created using the REFLECTIONS menu in WEB.]
+<p>
+.WINDOW SIZES (SEARCH,FILT): 7,5<BR>
+[Enter the dimensions of square windows to be used in the
+search for maxima and filtration (2nd not presently
+used).]
+<p>
+.MAXIMUM RESOLUTION DISTANCE: 120<BR>
+[Enter the radius of a circle in Fourier space within
+which reflections on the indexed lattice are being
+determined.]
+<p>
+[The initial and the refined lattice parameters will be
+listed along with x and y components of each. A list of
+the reflections found, and their energies, is recorded in
+the RESULTS file.]
+<p>
+.FILTER FILE: FIL001<BR>
+[Enter the name of the file that will contain the
+coordinates of the refined lattice for use in filtration.
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>A detailed description of quasi-optical filtration using
+SPIDER is found in the document FILTER.DOC. See the
+manual chapter for 'WT' for an explanation of lattice
+indices.
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/tvwn3.f">TVWN3</a>, <a href="../../src/latcen.f">LATCEN</a>, <a href="../../src/maxf.f">MAXF</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/driv2.f">DRIV2</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

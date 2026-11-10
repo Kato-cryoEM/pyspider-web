@@ -1,0 +1,77 @@
+{
+  "id": "basic_shift",
+  "title": "Basic 2 · Shift an image",
+  "summary": "Same one-node cycle as rotate, applied to a translation (dx, dy) with the Shift node.",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try translation",
+      "body": "Shifting an image right/left, up/down is called translation. It's the workhorse of particle centring in cryo-EM.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Clock face** onto the canvas.",
+      "target": { "tutorId": "palette:data.clock", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. The `data.clock` node now shows its image so you can see the starting input.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.clock" }
+    },
+    {
+      "id": "drop-shift",
+      "title": "Drop the Shift node",
+      "body": "From Geometry, drag **Shift** onto the canvas.",
+      "target": { "tutorId": "palette:geom.shift", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "wire",
+      "title": "Wire Clock → Shift",
+      "body": "Drag from Clock's `image` output to Shift's `image` input.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.clock", "srcPort": "image", "dstNodeType": "geom.shift", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With defaults (dx = dy = 0), Shift is a pass-through, so the output matches Clock exactly — a baseline before you set a shift.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "select",
+      "title": "Click Shift",
+      "body": "Click Shift. The Inspector reveals `dx` (horizontal, + = right), `dy` (vertical, + = down), `cval` (the fill value for freshly-exposed border pixels), and `interpolation`.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "set-dx",
+      "title": "Set dx to 30",
+      "body": "Enter **30** in `dx`. The image slides 30 pixels to the right.",
+      "target": { "tutorId": "param:dx", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "dx", "value": 30 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. The clock shifts 30 pixels right; the 30 freshly-exposed pixels on the left are filled with `cval` (0 = black).",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.shift" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "Set `dy` too for a diagonal shift. Non-integer values (e.g. 1.5) force interpolation, so changing `interpolation` changes the result (see Comparison 1). Next, **Basic 3 · Pad an image** introduces the Pad node for resizing.",
+      "target": { "tutorId": "node:geom.shift", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}

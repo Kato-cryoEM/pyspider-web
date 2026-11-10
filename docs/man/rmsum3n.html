@@ -1,0 +1,149 @@
+<html> 
+<head>
+<title>SPIDER: RM SUM3N (Radon Transform - Sum/average 2D Into 3D Fourier Radon transform)</title>
+   <link rel='stylesheet' href='niceman.css' type='text/css' />
+   <link rel='stylesheet' type='text/css' href='../buttons.css' />
+
+</head>
+
+<body>
+<!-- Begin Buttons -->
+<table>
+<tr>
+<td><a href="../spider.html"                 id="spider">    </a></td>
+<td><a href="../user_doc.html"               id="work">      </a></td>
+<td><a href="../operations_doc.html"         id="index">     </a></td>
+<td><a href="../documents.html"              id="help">      </a></td>
+<td><a href="../faq.html"                    id="faq">       </a></td>
+<td><a href="../documents.html#2D"           id="techs">     </a></td>
+<td><a href="../techs/recon1/Docs/mr1.html"  id="recon">     </a></td>
+<td><a href="../formats.html"                id="menu">      </a></td>
+<td><a href="../installation.html"           id="install">   </a></td>
+<td><a href="../release.html"                id="new">       </a></td>
+<td><a href="../tips/index.html"             id="tips">      </a></td>
+<td><a href="../../web/docs/web.html"               id="web">       </a></td>
+<td><a href="http://www.wadsworth.org"              id="wadsworth"> </a></td>
+</tr>
+</table>
+<br><hr>
+<!-- End Buttons -->
+
+<h2>RM SUM3N - Radon Transform - Sum/average 2D Into 3D Fourier Radon transform</h2>
+<p>
+<dl><dt><strong>PURPOSE</strong>
+<p>
+<dd>Adds or subtracts a 2D Fourier Radon transform into or from a
+3D Fourier Radon transform. The number of images added is
+recorded in the 3D transform in each line, so that multiple
+images from different direction, which represent different
+common lines can be averaged or subtracted with the correct
+weight.
+</dl>
+<p>
+<dl><dt><strong>SEE ALSO</strong>
+<p>
+<dd><table><tr><td><a href="rm3dn.html"><strong>RM 3DN</strong></a></td><td> [Radon Transform - 3D]</td></tr>
+<tr><td><a href="rmcompln.html"><strong>RM COMPLN</strong></a></td><td> [Radon Transform - 2D, Complete]</td></tr>
+<tr><td><a href="rmftn.html"><strong>RM FTN</strong></a></td><td> [Radon Transform - Fourier transform]</td></tr>
+<tr><td><a href="rmftinvn.html"><strong>RM FTINVN</strong></a></td><td> [Radon Transform - Inverse Fourier transform]</td></tr>
+</table></dl>
+<p>
+<dl><dt><strong>USAGE</strong></dt>
+<p>
+<dd>.OPERATION: RM SUM3N<br />
+<p>
+<dd>.+ OR - : +<br />
+[Enter + for addition of file 2 to file 1, - for subtraction
+of file 2 from file 1]
+<p>
+.(E)QUALIZED OF (P)OLAR SAMPLING: P<br />
+[Enter if the projections should be put into the 3D transform
+with equalized angular sampling (which will leave some lines
+empty, but may be needed for use in projection alignment) or
+polar sampling, which is the best for 3d Radon inversion.]
+<p>
+.(R)EAL OR (F)OURIER: R<br />
+[Enter if the imput is real or fourier. (cannot be seen from
+the file header.)]
+<p>
+.SET RESULT TO 0 WHEN SUM. INDEX IS 0 (Y/N): N<br />
+[If the line counter is 0 should the whole line be set to
+0?]
+<p>
+.3D RADON FOURIER FILE: RADF001<br />
+[Enter name of first input Fourier-Radon or Radon transform.
+This file is overwritten.]
+<p>
+.SELECTION/ALIGNMENT INPUT DOCUMENT FILE OR *: CLASSALIDOC001<br />
+[Enter a document file with the key equal to the file number
+(gaps allowed) and the first column containing a value, either
+0 and 1 for straight selection of e.g. a cross-corelation coefficient.]
+<p>
+If a file name was given the next questions and program output are:
+<p>
+minimum: xxxxx maximum: xxxxx average: xxxxx sigma: xxxxx
+<br />.REGISTER 1 THRESHOLD OR: 0,&lt;SIGMA MULTIPLIER: 0.2 OR 0,-1.<br />
+[If a fixed value is given (in this example 0.2) then only those
+images with a value larger than 0.2 will be processed. If 0 and a
+sigma multiplier are given, then the program calculates:
+threshold=average*&lt;sigma multiplier&gt;*sigma and only processes
+images with a value larger than threshold.]
+<p>
+.NAME OF FIRST 2D FILE: RADON2D0001<br />
+[Enter the name of the first 2D Radon or Fourier Radon transform.]
+<p>
+If a * was answered to the document file question, then the following two
+questions will appear:
+<p>
+.FILE NAME TEMPLATE: RADF***<br />
+[Enter name emplate of 2D input Fouier-Radon transform. Projection
+angles need to be in the file header in position 1 (see ST)]
+<p>
+.FILE NUMBERS: 1-3000<br />
+[Enter file numbers of input files.]
+<p>
+.POSITION FOR READING ANGLES: 1<br />
+[Enter one of the 3 possible locations where the projection angles
+in the header of the 2D Radon Fourier transforms are kept. (s. ST)]
+<p>
+.SYMMETRY FACTOR IN PHI: 4<br />
+[Currently allows for symmetries only around the z-axis. If a
+symmetry factor of n is entered, the Fourier-Radon transforms
+are added in n symmetry related positions.]
+<p>
+.FILE NUMBERS RADOMIZATION WITH REPLACEMENT?(Y/N): N<br />
+[For statistical purposes it is possible to randomly pick
+a subset of images (can also be several identical)).
+<p>
+if Yes was answered:
+<br />.NUMBER OF DRAWS: 1500<br />
+[draw 1500 images from the set.]
+<p>
+Answer * if you do not want a document file:
+<br />.STATISTCS DOCFILE: STATDOC001<br />
+[This document file will contain the list of file numbers
+drawn.]
+<p>
+</dl>
+<p>
+<strong>NOTES</strong>
+<ol>
+<p>
+<li>Developed by M. Radermacher
+</ol>
+<p>
+<dl><dt><strong>SUBROUTINES</strong>
+<p>
+<dd><a href="../../src/cputrmn.f">CPUTRMN</a>, <a href="../../src/putrmrealn.f">PUTRMREALN</a>, <a href="../../src/putrmn.f">PUTRMN</a></dl>
+<p>
+<dl><dt><strong>CALLER</strong>
+<p>
+<dd><a href="../../src/util5.f">UTIL5</a> 
+</dl>
+<!-- Begin Trailer -->
+<hr> <small>&copy; <a href="../copyright.html"> 
+   Copyright Notice</a> /           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+   Enquiries: <a href="mailto:spider@wadsworth.org">spider@wadsworth.org</a> </small></a>
+<!-- End Trailer -->
+</body>
+</html>

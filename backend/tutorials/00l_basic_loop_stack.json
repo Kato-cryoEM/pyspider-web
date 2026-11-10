@@ -1,0 +1,119 @@
+{
+  "id": "basic_loop_stack",
+  "title": "Basic 12 · Loops and stacks",
+  "summary": "DO loop with a stack.collect child — build a stack from N variations of one operation (e.g. rotations at increasing angles).",
+  "category": "Basic",
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Try loops and stacks",
+      "body": "A DO loop (`flow.do`) emits an iteration counter `i`. Wire `i` into Rotate's angle and feed each iteration's output into `stack.collect`, and you get a stack (multi-frame image) built automatically. In cryo-EM nearly everything operates on stacks, so this is a foundational pattern.",
+      "action": { "kind": "info" }
+    },
+    {
+      "id": "drop-image",
+      "title": "Drop the data node",
+      "body": "From Palette (Data), drag **Test · Siemens Star**. We'll reuse this one image and build a rotated-variant stack with the loop.",
+      "target": { "tutorId": "palette:data.siemens", "cardSide": "right", "expandPaletteCategory": "Data" },
+      "action": { "kind": "add_node", "nodeType": "data.siemens" }
+    },
+    {
+      "id": "_run_after_add_1",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph so `data.siemens` shows its image before we build the loop.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "data.siemens" }
+    },
+    {
+      "id": "drop-do",
+      "title": "Drop the DO loop",
+      "body": "From Control, drag **DO loop** onto the canvas. It's a container-shaped node — whatever you place inside it gets executed start..end times per iteration.",
+      "target": { "tutorId": "palette:flow.do", "cardSide": "right", "expandPaletteCategory": "Control" },
+      "action": { "kind": "add_node", "nodeType": "flow.do" }
+    },
+    {
+      "id": "drop-rotate",
+      "title": "Drop Rotate inside DO",
+      "body": "From Geometry, drag **Rotate** and drop it **inside the DO container frame**. Nodes inside a DO run once per loop iteration.",
+      "target": { "tutorId": "palette:geom.rotate", "cardSide": "right", "expandPaletteCategory": "Geometry" },
+      "action": { "kind": "add_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "drop-collect",
+      "title": "Drop Stack collect inside DO",
+      "body": "From Stack, drag **Stack collect** and drop it **inside the DO container** too. This is the \"box that collects every iteration's image\" into a stack.",
+      "target": { "tutorId": "palette:stack.collect", "cardSide": "right", "expandPaletteCategory": "Stack" },
+      "action": { "kind": "add_node", "nodeType": "stack.collect" }
+    },
+    {
+      "id": "wire-image",
+      "title": "Wire Siemens → Rotate.image",
+      "body": "Drag from the Siemens Star outside the DO to Rotate's `image` input inside. Wires that cross the container boundary are re-read every iteration (the same input image here, every pass).",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "data.siemens", "srcPort": "image", "dstNodeType": "geom.rotate", "dstPort": "image" }
+    },
+    {
+      "id": "wire-i",
+      "title": "Wire flow.do.i → Rotate.angle_deg",
+      "body": "Drag from the DO's `i` output (the iteration counter) onto Rotate's **`angle_deg`** param handle (the ◇ to the left of the param). Each iteration will update `angle_deg` with the current `i`, so the rotation angle changes each pass.",
+      "target": { "tutorId": "node:geom.rotate", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "flow.do", "srcPort": "i", "dstNodeType": "geom.rotate", "dstPort": "angle_deg" }
+    },
+    {
+      "id": "_run_after_wire_2",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. Rotate now runs per iteration with the current `i` as the angle — a baseline before we attach Stack collect.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "geom.rotate" }
+    },
+    {
+      "id": "wire-collect",
+      "title": "Wire Rotate → Stack collect",
+      "body": "Drag from Rotate's `image` output to Stack collect's `image` input. Each iteration's rotated image accumulates into the stack.",
+      "target": { "tutorId": "node:stack.collect", "cardSide": "auto" },
+      "action": { "kind": "wire_check", "srcNodeType": "geom.rotate", "srcPort": "image", "dstNodeType": "stack.collect", "dstPort": "image" }
+    },
+    {
+      "id": "_run_after_wire_3",
+      "title": "Run the graph to check",
+      "body": "Press ▶ Run graph. With the default iteration count, Stack collect already has a few frames — a baseline before we choose a full angular sweep.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "stack.collect" }
+    },
+    {
+      "id": "select-do",
+      "title": "Click the DO loop",
+      "body": "Click the DO container header (top bar) to select it. The Inspector reveals `start` / `end` / `step`.",
+      "target": { "tutorId": "node:flow.do", "cardSide": "auto" },
+      "action": { "kind": "select_node", "nodeType": "flow.do" }
+    },
+    {
+      "id": "set-end",
+      "title": "Set end to 360",
+      "body": "Change `end` to **360** — the iteration will stop at 360°.",
+      "target": { "tutorId": "param:end", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "end", "value": 360 }
+    },
+    {
+      "id": "set-step",
+      "title": "Set step to 90",
+      "body": "Change `step` to **90**. With start=1 this gives i = 1, 91, 181, 271 — four iterations at roughly 0°, 90°, 180°, 270°.",
+      "target": { "tutorId": "param:step", "cardSide": "left" },
+      "action": { "kind": "set_param", "nodeName": "step", "value": 90 }
+    },
+    {
+      "id": "run",
+      "title": "Run the graph",
+      "body": "Press ▶ Run graph. The DO loop iterates four times; Stack collect accumulates four rotated Siemens Stars. The node preview shows the middle slice (= middle stack frame); the Inspector shows every frame.",
+      "target": { "tutorId": "run-button", "cardSide": "bottom" },
+      "action": { "kind": "run_node", "nodeType": "stack.collect" }
+    },
+    {
+      "id": "done",
+      "title": "🎉 Done",
+      "body": "Vary the iteration count by changing `end` / `step`, wire `i` into a different param, swap Rotate for Shift or Filter — endlessly extensible. In production cryo-EM you'll often \"loop ap_sh / ap_mr over a stack\", so the loop + stack.collect pattern is a daily tool.",
+      "target": { "tutorId": "node:stack.collect", "cardSide": "auto" },
+      "action": { "kind": "info" }
+    }
+  ]
+}
